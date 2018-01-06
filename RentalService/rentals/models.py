@@ -16,6 +16,7 @@ class Rental(models.Model):
     rent = models.BigIntegerField()
     negotiable = models.BooleanField()
 
+    # str method returns title
     def __str__(self):
         return self.title
 
@@ -31,5 +32,6 @@ class Comment(models.Model):
     stars = models.IntegerField()
     created_date = models.DateTimeField(default=timezone.now())
 
+    # str method returns the text of the comment
     def __str__(self):
         return self.text
