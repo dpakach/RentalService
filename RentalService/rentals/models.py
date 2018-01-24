@@ -25,7 +25,7 @@ class Comment(models.Model):
 
     # Commnts for Rentals with star reviews
 
-    rental = Post.ForeignKey('rental.Rental', related_name='comments')
+    rental = models.ForeignKey('rental.Rental', related_name='comments')
     author = models.ForeignKey('User')
     text = models.CharField(max_length=256)
     stars = models.IntegerField()
