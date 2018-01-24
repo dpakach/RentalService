@@ -1,0 +1,25 @@
+<h1>{{ rental.title }}</h1>
+created_date : {{ rental.created_date  }}
+
+<p> {{ rental.disription }}</p>
+<p> {{ rental.rent }} </p>
+{% if rental.negotiable %}
+        the rent is negotiable
+{% endif %}
+
+{% if rental.comments.all %}
+        <h4>Reviews</h4>
+        <ul>
+                {% for comment in rental.comments.all %}
+
+                        <li>
+                                <p>{{ comment.text }}</p>
+                                {{comment.created_date}}
+                        
+                        </li>
+                {% endfor %}
+        
+        </ul>
+{% else %}
+<p>no comments</p>
+{% endif %}
