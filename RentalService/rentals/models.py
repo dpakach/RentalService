@@ -37,8 +37,13 @@ class Comment(models.Model):
     """
 
 
+<<<<<<< HEAD
     rental = models.ForeignKey('Rental', related_name='comments')
     # author = models.ForeignKey('User')
+=======
+    rental = models.ForeignKey('rental.Rental', related_name='comments')
+    author = models.ForeignKey('User')
+>>>>>>> master
     text = models.CharField(max_length=256)
     stars = models.IntegerField()
     created_date = models.DateTimeField(default=timezone.now)
