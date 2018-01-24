@@ -1,0 +1,11 @@
+
+<h1>Index View</h1>
+{% for obj in new_rentals_list %}
+<ul>
+        <li>
+                <h3><a href={% url 'rentals:detail' pk=obj.pk %}>{{ obj.title }}</a></h3>
+                <p>{{ obj.created_date }}</p>
+        </li>
+</ul>
+
+{% endfor %}

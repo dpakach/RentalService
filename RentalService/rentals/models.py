@@ -6,30 +6,51 @@ from django.core.urlresolvers import reverse
 
 
 class Rental(models.Model):
-    
-    # Rental class  
+    """
+    Rental model
+    contains author, title, discription, created_date, rent
+    negotiable whis is a boolean value
 
-    author = models.ForeignKey('User')
+    """
+
+    # author = models.ForeignKey('User')
     title = models.CharField(max_length=128)
-    discription = models.CharField(max_length=1024)
-    created_date = models.DateTimeField(default=timezone.now())
+    description = models.CharField(max_length=1024)
+    created_date = models.DateTimeField(default=timezone.now)
     rent = models.BigIntegerField()
     negotiable = models.BooleanField()
 
     def __str__(self):
+        """
+        str function for rental model 
+        returns title of the rental
+        """
         return self.title
 
 
 
 class Comment(models.Model):
+    """
+    Comment model for the rentals 
+    contains text, author,created_date and stars as in star review
+    connected to a rental through a ForeignKey
+    """
 
-    # Commnts for Rentals with star reviews
 
+<<<<<<< HEAD
+    rental = models.ForeignKey('Rental', related_name='comments')
+    # author = models.ForeignKey('User')
+=======
     rental = models.ForeignKey('rental.Rental', related_name='comments')
     author = models.ForeignKey('User')
+>>>>>>> master
     text = models.CharField(max_length=256)
     stars = models.IntegerField()
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
+        """
+        str function for comment
+        returns comment text
+        """
         return self.text
