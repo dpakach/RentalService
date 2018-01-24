@@ -26,3 +26,12 @@ class RentalCreateView(generic.CreateView):
     form_class = RentalCreateForm
     template_name = 'rentals/rental_form.html'
     success_url = '/rentals/'
+
+class RentalUpdateView(generic.UpdateView):
+    form_class = RentalCreateForm
+    template_name = 'rentals/rental_form.html'
+    success_url = '/rentals/'
+
+
+    def get_queryset(self):
+        return Rental.objects.filter(pk = self.kwargs.get('pk', None))
