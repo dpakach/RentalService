@@ -15,7 +15,7 @@ class Rental(models.Model):
 
     # author = models.ForeignKey('User')
     title = models.CharField(max_length=128)
-    discription = models.CharField(max_length=1024)
+    description = models.CharField(max_length=1024)
     created_date = models.DateTimeField(default=timezone.now)
     rent = models.BigIntegerField()
     negotiable = models.BooleanField()
