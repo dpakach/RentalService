@@ -23,3 +23,9 @@ created_date : {{ rental.created_date  }}
 {% else %}
 <p>no comments</p>
 {% endif %}
+<h3>Add comments</h3>
+<form action={% url "rentals:comment" pk=rental.pk %} method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" value="comment">Comment</button>
+</form>

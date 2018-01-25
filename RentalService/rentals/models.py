@@ -27,6 +27,14 @@ class Rental(models.Model):
         """
         return self.title
 
+    def get_absolute_url(self):
+        """
+        returns absolute url for each rental object
+        for eg /rentals/pk/
+        where pk is primary key
+        """
+        return reverse('rentals:detail', kwargs={'pk':self.pk})
+
 
 
 class Comment(models.Model):
