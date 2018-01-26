@@ -19,6 +19,7 @@ class Rental(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     rent = models.BigIntegerField()
     negotiable = models.BooleanField()
+    photo = models.FileField(upload_to='photos/')
 
     def __str__(self):
         """

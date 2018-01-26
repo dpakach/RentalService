@@ -1,12 +1,18 @@
-<h1>Rental Form</h1>
-<h1>Add Rental</h1>
-{% if form.errors %}
-        {{ form.errors }}
-{% endif %}
+{% extends 'base.html' %}
 
-<form class="rental_form" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create</button>
+{% block head_title %}Add Rental | {{ block.super }}{% endblock %}
 
-</form>
+{% block content %}
+        <h1>Rental Form</h1>
+        <h1>Add Rental</h1>
+        {% if form.errors %}
+                {{ form.errors }}
+        {% endif %}
+
+        <form class="rental_form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Create</button>
+
+        </form>
+{% endblock %}

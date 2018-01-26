@@ -33,6 +33,11 @@ class RentalCreateView(generic.CreateView):
     form_class = RentalCreateForm
     template_name = 'rentals/rental_form.html'
 
+    def form_valid(self, form):
+        photo = Rental(photo=self.get_form_kwargs().get('files')['photo'])
+        photo.save()
+        self.id
+
 
 class RentalUpdateView(generic.UpdateView):
     form_class = RentalCreateForm
