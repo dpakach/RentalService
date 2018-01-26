@@ -33,7 +33,6 @@ class RentalCreateView(generic.CreateView):
     form_class = RentalCreateForm
     template_name = 'rentals/rental_form.html'
 
-
 class RentalUpdateView(generic.UpdateView):
     form_class = RentalCreateForm
     template_name = 'rentals/rental_form.html'
