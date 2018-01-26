@@ -1,0 +1,7 @@
+.rental-photo {
+        display: block;
+        width: 400px;
+        height: auto;
+        margin: 4rem;
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
+}
