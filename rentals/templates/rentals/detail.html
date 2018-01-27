@@ -4,16 +4,25 @@
 
 {% block content %}
 
-        <h1>{{ rental.title }}</h1>
-        created_date : {{ rental.created_date  }}
+        <h1 class="heading-primary">{{ rental.title }}</h1>
+        <div class="rental-info">
+        
+                <p>created_date : {{ rental.created_date  }}</p>
+                <br />
+                <p> {{ rental.description }}</p>
+                <p> Rent - $ {{ rental.rent }} </p>
+                
+        </div>
 
-        <p> {{ rental.desription }}</p>
-        <p> {{ rental.rent }} </p>
         {% if rental.photo %}
-                <img src={{rental.photo.url}} alt="photo of the rental" class="rental-photo">
+                <div class="photo-div">
+                        <img src={{rental.photo.url}} alt="photo of the rental" class="rental-photo">
+                </div>
         {% endif %}
         {% if rental.negotiable %}
+                <p>
                 the rent is negotiable
+                </p>
         {% endif %}
 
         {% if rental.comments.all %}
@@ -32,6 +41,7 @@
         {% else %}
         <p>no comments</p>
         {% endif %}
+        <br />
         <h3>Add comments</h3>
         <form action={% url "rentals:comment" pk=rental.pk %} method="POST">
                 {% csrf_token %}

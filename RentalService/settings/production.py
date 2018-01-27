@@ -36,7 +36,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY','jgfv=@1@!3^k3u74@4#=j3%lbqpc=ut)&4c+_d(a0%k)mw)@__')
+SECRET_KEY = os.environ.get('SECRET_KEY', default='jgfv=@1@!3^k3u74@4#=j3%lbqpc=ut)&4c+_d(a0%k)mw)@__')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -99,12 +99,6 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 import dj_database_url
 db_from_env = dj_database_url.config()

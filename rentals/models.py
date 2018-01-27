@@ -15,11 +15,15 @@ class Rental(models.Model):
 
     # author = models.ForeignKey('User')
     title = models.CharField(max_length=128)
-    description = models.CharField(max_length=1024)
+    description = models.CharField(max_length=1024, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     rent = models.BigIntegerField()
     negotiable = models.BooleanField()
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
+    location = models.CharField(max_length=256, blank=True, null=True)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    lng = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+
 
     def __str__(self):
         """
