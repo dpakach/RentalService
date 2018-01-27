@@ -99,7 +99,16 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+DEBUG = False
+ALLOWED_HOSTS =  ['project-name.herokuapp.com', '.yourdomain.com']
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
+# add this
 import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
