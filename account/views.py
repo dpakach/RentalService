@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect
 
 
 @login_required
-def notice(request):
-    return render(request, 'account/notice.html')
+def home(request):
+    return render(request, 'home.html')
 
 
 def signup(request):
@@ -18,7 +18,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('notice')
+            return redirect('home')
     else:
         form = UserCreationForm()
-    return render(request, 'account/signup_form.html', {'form': form})
+    return render(request, 'account/signup.html', {'form': form})
