@@ -17,7 +17,10 @@ html {
 body{
         box-sizing: border-box;
         padding: 3rem;
+        background-color: #f6f6f6;
+
 }
+
 .rental-photo {
         display: block;
         width: 400px;
@@ -37,7 +40,7 @@ h1 {
         padding: 0
 }
 p {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
 }
 
 a {
@@ -92,3 +95,11 @@ input {
         margin: 1.5rem;
 }
 
+label {
+        display: block;
+        margin-top: 2rem;
+}
+
+input {
+        margin: 2rem 0 0 0;
+}
