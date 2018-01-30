@@ -15,7 +15,7 @@ class Rental(models.Model):
 
     # author = models.ForeignKey('User')
     title = models.CharField(max_length=128)
-    description = models.CharField(max_length=1024, blank=True, null=True)
+    description = models.TextField(max_length=4096, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     rent = models.BigIntegerField(default=0)
     negotiable = models.BooleanField(default=False)
@@ -33,7 +33,7 @@ class Rental(models.Model):
         if len(self.title) <= 25:
             return self.title
         else:
-            return self.title
+            return strip(self.title[:24]) + "..."
 
     def get_absolute_url(self):
         """
@@ -55,7 +55,7 @@ class Comment(models.Model):
 
     rental = models.ForeignKey('Rental', related_name='comments')
     # author = models.ForeignKey('User')
-    text = models.CharField(max_length=256)
+    text = models.TextField(max_length=1024)
     stars = models.IntegerField()
     created_date = models.DateTimeField(default=timezone.now)
 
