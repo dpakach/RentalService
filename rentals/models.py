@@ -21,8 +21,6 @@ class Rental(models.Model):
     negotiable = models.BooleanField(default=False)
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
     location = models.CharField(max_length=256, blank=True, null=True)
-    lat = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
-    lng = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
 
 
     def __str__(self):
