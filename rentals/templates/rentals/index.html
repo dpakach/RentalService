@@ -6,14 +6,18 @@
 
         <h1 class="heading-primary">Rentals</h1>
         <p><a href="{% url "rentals:create" %}">Add new</a></p>
-        {% for obj in new_rentals_list %}
-        <ul>
-                <li>
-                        <h3 class="heading-secondary"><a href={% url 'rentals:detail' pk=obj.pk %}>{{ obj.title }}</a></h3>
-                        <p>{{ obj.created_date }}</p>
-                </li>
-        </ul>
+        {% if new_rentals_list %}
+                <ul>
+                {% for obj in rentals_list %}
+                        <li>
+                                <h3 class="heading-secondary"><a href={% url 'rentals:detail' pk=obj.pk %}>{{ obj.title }}</a></h3>
+                                <p>{{ obj.created_date }}</p>
+                        </li>
 
-        {% endfor %}
+                {% endfor %}
+                </ul>
+        {% else %}
+                <p>No rentals Avilable</p>
+        {% endif %}
 
 {% endblock %}

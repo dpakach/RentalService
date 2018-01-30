@@ -15,10 +15,10 @@ class Rental(models.Model):
 
     # author = models.ForeignKey('User')
     title = models.CharField(max_length=128)
-    description = models.TextField(max_length=1024, blank=True, null=True)
+    description = models.TextField(max_length=4096, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
-    rent = models.BigIntegerField()
-    negotiable = models.BooleanField()
+    rent = models.BigIntegerField(default=0)
+    negotiable = models.BooleanField(default=False)
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
     location = models.CharField(max_length=256, blank=True, null=True)
 
@@ -28,7 +28,10 @@ class Rental(models.Model):
         str function for rental model 
         returns title of the rental
         """
-        return self.title
+        if len(self.title) <= 25:
+            return self.title
+        else:
+            return strip(self.title[:24]) + "..."
 
     def get_absolute_url(self):
         """
@@ -50,7 +53,7 @@ class Comment(models.Model):
 
     rental = models.ForeignKey('Rental', related_name='comments')
     # author = models.ForeignKey('User')
-    text = models.TextField(max_length=256)
+    text = models.TextField(max_length=1024)
     stars = models.IntegerField()
     created_date = models.DateTimeField(default=timezone.now)
 
