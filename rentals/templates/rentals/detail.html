@@ -1,31 +1,52 @@
-<h1>{{ rental.title }}</h1>
-created_date : {{ rental.created_date  }}
+{% extends 'base.html' %}
 
-<p> {{ rental.desription }}</p>
-<p> {{ rental.rent }} </p>
-{% if rental.negotiable %}
-        the rent is negotiable
-{% endif %}
+{% block head_title %}{{ rental.title }} | {{ block.super }}{% endblock %}
 
-{% if rental.comments.all %}
-        <h4>Reviews</h4>
-        <ul>
-                {% for comment in rental.comments.all %}
+{% block content %}
 
-                        <li>
-                                <p>{{ comment.text }}</p>
-                                {{comment.created_date}}
-                        
-                        </li>
-                {% endfor %}
+        <h1 class="heading-primary">{{ rental.title }}</h1>
+        <div class="rental-info">
         
-        </ul>
-{% else %}
-<p>no comments</p>
-{% endif %}
-<h3>Add comments</h3>
-<form action={% url "rentals:comment" pk=rental.pk %} method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" value="comment">Comment</button>
-</form>
+                <p>created_date : {{ rental.created_date  }}</p>
+                <br />
+                <p> {{ rental.description }}</p>
+                <p> Rent - $ {{ rental.rent }} </p>
+                
+        </div>
+
+        {% if rental.photo %}
+                <div class="photo-div">
+                        <img src={{rental.photo.url}} alt="photo of the rental" class="rental-photo">
+                </div>
+        {% endif %}
+        {% if rental.negotiable %}
+                <p>
+                the rent is negotiable
+                </p>
+        {% endif %}
+
+        {% if rental.comments.all %}
+                <h4>Reviews</h4>
+                <ul>
+                        {% for comment in rental.comments.all %}
+
+                                <li>
+                                        <p>{{ comment.text }}</p>
+                                        {{comment.created_date}}
+                                
+                                </li>
+                        {% endfor %}
+                
+                </ul>
+        {% else %}
+        <p>no comments</p>
+        {% endif %}
+        <br />
+        <h3>Add comments</h3>
+        <form action={% url "rentals:comment" pk=rental.pk %} method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" value="comment">Comment</button>
+        </form>
+
+{% endblock %}

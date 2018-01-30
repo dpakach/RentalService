@@ -25,6 +25,8 @@ def login(request, **kwargs):
         return user_login(request, **kwargs)
 
 def signup(request):
+    if request.user.is_authenticated():
+        return redirect(settings.LOGIN_REDIRECT_URL)
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():

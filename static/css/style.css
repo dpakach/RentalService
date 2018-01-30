@@ -1,0 +1,105 @@
+*,
+*::after,
+*::before{
+        margin:0;
+        padding:0;
+        box-sizing: inherit;
+}
+
+html {
+        font-size: 62.5%;
+        font-family: 'Lato', sans-serif;
+        font-weight: 400;
+        color: #444;
+        text-align: center;
+}
+
+body{
+        box-sizing: border-box;
+        padding: 3rem;
+        background-color: #f6f6f6;
+
+}
+
+.rental-photo {
+        display: block;
+        width: 400px;
+        height: auto;
+        display: inline-block;
+        margin: 5rem, auto;
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
+}
+
+.photo-div{
+        margin-bottom: 3rem;
+}
+
+h1 {
+        font-weight: 400;
+        font-size: 50px;
+        padding: 0
+}
+p {
+        font-size: 1.8rem;
+}
+
+a {
+        text-decoration: none;
+}
+
+ul {
+        list-style: none;
+        padding: 0;
+        padding-top: 5rem;
+}
+
+.heading-primary {
+
+        text-transform: uppercase;
+        font-size: 4rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        margin-top: 5rem;
+        background-image: linear-gradient(to right, #23f451, #4512f6);
+        -webkit-background-clip: text;
+        color: transparent;
+        letter-spacing: .2rem;
+}
+
+.heading-secondary {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+        text-transform: uppercase;
+        background-image: linear-gradient(to right, #23e727, #2542c6);
+        -webkit-background-clip: text;
+        color: transparent;
+        letter-spacing: .1rem;
+        transition: all .3s ease;
+}
+
+.heading-secondary:hover {
+        transform: scale(1.2);
+}
+.heading-secondary:active{
+        color: #23e727;
+}
+
+
+.rental-info {
+        margin-bottom: 5rem;
+}
+
+input {
+        margin: 1.5rem;
+}
+
+label {
+        display: block;
+        margin-top: 2rem;
+}
+
+input {
+        margin: 2rem 0 0 0;
+}

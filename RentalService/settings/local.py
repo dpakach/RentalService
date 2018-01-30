@@ -21,8 +21,8 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jgfv=@1@!3^k3u74@4#=j3%lbqpc=ut)&4c+_d(a0%k)mw)@__'
 
+SECRET_KEY = os.environ.get('SECRET_KEY', default='jgfv=@1@!3^k3u74@4#=j3%lbqpc=ut)&4c+_d(a0%k)mw)@__')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -68,7 +68,7 @@ ROOT_URLCONF = 'RentalService.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'TEMPLATES_DIR': ['templates'],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,12 +89,14 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -143,7 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -155,6 +157,8 @@ EMAIL_HOST_USER = 'ajaykarki619'
 EMAIL_HOST_PASSWORD = 'gmail_12371'
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # settings for local
 

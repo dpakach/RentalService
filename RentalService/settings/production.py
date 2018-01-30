@@ -15,20 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'youremail@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Your Name <you@email.com>'
-
-ADMINS = (
-    ('you', 'you@email.com'),
-)
-
-MANAGERS = ADMINS
-
-
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 
@@ -36,7 +22,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY','jgfv=@1@!3^k3u74@4#=j3%lbqpc=ut)&4c+_d(a0%k)mw)@__')
+SECRET_KEY = os.environ.get('SECRET_KEY', default='jgfv=@1@!3^k3u74@4#=j3%lbqpc=ut)&4c+_d(a0%k)mw)@__')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -80,7 +66,7 @@ ROOT_URLCONF = 'RentalService.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'TEMPLATES_DIR': ['templates'],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,6 +85,8 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+DEBUG = False
+ALLOWED_HOSTS =  ['project-name.herokuapp.com', '.yourdomain.com']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -106,6 +94,7 @@ DATABASES = {
     }
 }
 
+# add this
 import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
@@ -160,10 +149,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 LOGIN_REDIRECT_URL = '/'
 
+
+#For email verification
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ajaykarki619'
+EMAIL_HOST_PASSWORD = 'gmail_12371'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # for porduction specific settings
