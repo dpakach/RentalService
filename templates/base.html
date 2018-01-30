@@ -14,6 +14,7 @@
                         <a href="{% url 'accounts:login' %}">login</a> / <a href="{% url 'accounts:signup' %}">signup</a>
                 {% endif %}
                 <hr>
+
                 {% include 'snippets/nav.html' %}
                 <div class='container'>
                         {% block content %}
