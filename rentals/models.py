@@ -17,8 +17,8 @@ class Rental(models.Model):
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=1024, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
-    rent = models.BigIntegerField()
-    negotiable = models.BooleanField()
+    rent = models.BigIntegerField(default=0)
+    negotiable = models.BooleanField(default=False)
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
     location = models.CharField(max_length=256, blank=True, null=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
@@ -30,7 +30,10 @@ class Rental(models.Model):
         str function for rental model 
         returns title of the rental
         """
-        return self.title
+        if len(self.title) <= 25:
+            return self.title
+        else:
+            return self.title
 
     def get_absolute_url(self):
         """
