@@ -5,15 +5,24 @@ from django.utils.encoding import force_bytes
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth import login
 
 from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth.views import login as user_login
 
 @login_required
 def home(request):
     return render(request, 'home.html')
+
+def login(request, **kwargs):
+    if request.user.is_authenticated():
+        return redirect(settings.LOGIN_REDIRECT_URL)
+    else:
+        return user_login(request, **kwargs)
 
 def signup(request):
     if request.method == 'POST':
