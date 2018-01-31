@@ -6,7 +6,7 @@
 
         <h1 class="heading-primary">Rentals</h1>
         <p><a href="{% url "rentals:create" %}">Add new</a></p>
-        {% if new_rentals_list %}
+        {% if rentals_list %}
                 <ul>
                 {% for obj in rentals_list %}
                         <li>
