@@ -11,14 +11,19 @@ html {
         font-family: 'Lato', sans-serif;
         font-weight: 400;
         color: #444;
-        text-align: center;
+        min-height: 100%;
+
 }
 
 body{
         box-sizing: border-box;
-        padding: 3rem;
         background-color: #f6f6f6;
 
+}
+
+.container{
+        padding: 3rem 3rem 10rem 3rem;
+        margin: 3rem auto;
 }
 
 .rental-photo {
@@ -28,6 +33,7 @@ body{
         display: inline-block;
         margin: 5rem, auto;
         box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
+        border-radius: 5px;
 }
 
 .photo-div{
@@ -36,11 +42,14 @@ body{
 
 h1 {
         font-weight: 400;
-        font-size: 50px;
         padding: 0
 }
-p {
-        font-size: 1.8rem;
+h3 {
+        font-size: 2rem;
+}
+
+a, p{
+        font-size: 1.5rem;
 }
 
 a {
@@ -49,17 +58,27 @@ a {
 
 ul {
         list-style: none;
-        padding: 0;
-        padding-top: 5rem;
+        padding: 2rem;
+}
+
+nav{
+        text-align: center;
+}
+
+nav li {
+        display: inline-block;
+        padding: 0 2rem;
+        text-align: center;
 }
 
 .heading-primary {
 
         text-transform: uppercase;
-        font-size: 4rem;
-        font-weight: 500;
+        text-align: center;
+        font-size: 5rem;
+        font-weight: 400;
         margin-bottom: 2rem;
-        margin-top: 5rem;
+        margin-top: 3rem;
         background-image: linear-gradient(to right, #23f451, #4512f6);
         -webkit-background-clip: text;
         color: transparent;
@@ -68,7 +87,7 @@ ul {
 
 .heading-secondary {
         font-size: 2rem;
-        font-weight: 700;
+        font-weight: 500;
         margin-bottom: 1rem;
         margin-top: 2rem;
         text-transform: uppercase;
@@ -76,6 +95,7 @@ ul {
         -webkit-background-clip: text;
         color: transparent;
         letter-spacing: .1rem;
+        transform: scale(1);
         transition: all .3s ease;
 }
 
@@ -91,8 +111,22 @@ ul {
         margin-bottom: 5rem;
 }
 
-input {
-        margin: 1.5rem;
+input , textarea {
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+        font-family: inherit;
+        color: inherit;
+        border-radius: 5px;
+        background-color: rgba(256, 256, 256, .5);
+        border: 3px solid #ccc;
+        width: 90%;
+        display: block;
+        transition: all .3s ease;
+}
+input:focus{
+        outline: none;
+        border-bottom: 3px solid #e45333;
+        box-shadow: 0 .5rem 2rem rgba(0, 0, 0, .3);
 }
 
 label {
@@ -101,7 +135,8 @@ label {
 }
 
 input {
-        margin: 2rem 0 0 0;
+        display: block;
+        margin: .5rem 0 0 0;
 }
 
 .form-div{
@@ -109,15 +144,18 @@ input {
         right: 0;
         left: 0;
         margin: auto;
-        width: 30%;
+        width: 40%;
         padding: 3rem;
         box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
+        border-radius: 5px;
 }
 
 
 footer {
-        position: absolute;
+        position: fixed;
         bottom: 0;
+
+        display: block;
         text-align: center;
         background-color: #333;
         width: 100%;

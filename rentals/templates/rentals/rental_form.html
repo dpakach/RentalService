@@ -4,16 +4,18 @@
 {% block head_title %}Add Rental | {{ block.super }}{% endblock %}
 
 {% block content %}
-        <h1 class="heading-primary">Rental Form</h1>
-        <h2>Add Rental</h2>
+        <h1 class="heading-primary">Add Rental</h1>
         {% if form.errors %}
                 {{ form.errors }}
         {% endif %}
 
-        <form class="rental_form" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Create</button>
+        <div class="form-div">
+                <h2 class="heading-secondary">Add Rental</h2>
+                <form class="rental_form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Create</button>
 
-        </form>
+                </form>
+        </div>
 {% endblock %}
