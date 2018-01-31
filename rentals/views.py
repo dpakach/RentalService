@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import CommentForm
 from .forms import RentalCreateForm
@@ -45,7 +46,7 @@ class DetailView(generic.DetailView):
         return context
 
 
-class RentalCreateView(generic.CreateView):
+class RentalCreateView(LoginRequiredMixin, generic.CreateView):
     """
     CreateView to create new rentals
     This is a class based view for cereating new rental objects
@@ -60,7 +61,7 @@ class RentalCreateView(generic.CreateView):
         return super(RentalCreateView, self).form_valid(form)
 
 
-class RentalUpdateView(generic.UpdateView):
+class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
     """
     UpdateView to update rentals
     This is a class based view for updating rental objects
@@ -77,7 +78,7 @@ class RentalUpdateView(generic.UpdateView):
         return Rental.objects.filter(pk = self.kwargs.get('pk', None))
     
 
-class CommentCreateView(generic.CreateView):
+class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     """
     CreateView to create a new comment for a rental 
     this view gives a form to create new comment and rating for a rental
