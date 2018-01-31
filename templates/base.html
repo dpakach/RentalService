@@ -9,19 +9,15 @@
         </head>
         <body>
 
-                {% if user.is_authenticated %}
-                        <a href="{% url 'accounts:logout' %}">logout</a>
-                {% else %}
-                        <a href="{% url 'accounts:login' %}">login</a> / <a href="{% url 'accounts:signup' %}">signup</a>
-                {% endif %}
+                {% include 'snippets/nav.html' %}
                 <hr>
 
-                {% include 'snippets/nav.html' %}
                 <div class='container'>
                         {% block content %}
 
                         {% endblock content %}
                 </div>
+                {% include 'snippets/footer.html' %}
                 {% include 'snippets/js.html' %}
 
         </body>

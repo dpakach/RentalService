@@ -1,0 +1,17 @@
+
+<div class="main-nav">
+        <nav>
+        <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'rentals:index' %}">Rental</a></li>
+                {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'accounts:logout' %}">logout</a>
+                        </li>
+                {% else %}
+                        <li><a href="{% url 'accounts:login' %}">login</a> </li>
+                        <li><a href="{% url 'accounts:signup' %}">signup</a></li>
+                {% endif %}
+        </ul>
+        </nav>
+</div>
