@@ -24,13 +24,11 @@
                 the rent is negotiable
                 </p>
         {% endif %}
-        <p> Added by  {{ rental.author }}</p>
 
         {% if rental.comments.all %}
                 <h4>Reviews</h4>
                 <ul>
                         {% for comment in rental.comments.all %}
-                                <h5>{{comment.author}}</h5>
 
                                 <li>
                                         <p>{{ comment.text }}</p>

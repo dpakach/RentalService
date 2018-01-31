@@ -2,10 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 
-from django.conf import settings
-
-User = settings.AUTH_USER_MODEL
-
 # Create your models here.
 
 
@@ -17,7 +13,7 @@ class Rental(models.Model):
 
     """
 
-    author = models.ForeignKey(User)
+    # author = models.ForeignKey('User')
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=4096, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
@@ -56,7 +52,7 @@ class Comment(models.Model):
 
 
     rental = models.ForeignKey('Rental', related_name='comments')
-    author = models.ForeignKey(User)
+    # author = models.ForeignKey('User')
     text = models.TextField(max_length=1024)
     stars = models.IntegerField()
     created_date = models.DateTimeField(default=timezone.now)
