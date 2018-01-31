@@ -11,16 +11,14 @@ html {
         font-family: 'Lato', sans-serif;
         font-weight: 400;
         color: #444;
+        text-align: center;
 }
 
 body{
         box-sizing: border-box;
+        padding: 3rem;
         background-color: #f6f6f6;
 
-}
- 
-.container {
-        padding: 3rem;
 }
 
 .rental-photo {
@@ -38,13 +36,11 @@ body{
 
 h1 {
         font-weight: 400;
+        font-size: 50px;
         padding: 0
 }
-h3 {
-        font-size: 2rem;
-}
-a, p {
-        font-size: 1.5rem;
+p {
+        font-size: 1.8rem;
 }
 
 a {
@@ -53,24 +49,15 @@ a {
 
 ul {
         list-style: none;
-        padding: 2rem;
-}
-nav{
-        text-align: center;
-}
-
-nav li {
-        display: inline-block;
-        padding: 0 2rem;
-        text-align: center;
+        padding: 0;
+        padding-top: 5rem;
 }
 
 .heading-primary {
 
         text-transform: uppercase;
-        font-size: 5rem;
-        text-align: center;
-        font-weight: 400;
+        font-size: 4rem;
+        font-weight: 500;
         margin-bottom: 2rem;
         margin-top: 5rem;
         background-image: linear-gradient(to right, #23f451, #4512f6);
@@ -80,7 +67,8 @@ nav li {
 }
 
 .heading-secondary {
-        font-weight: 500;
+        font-size: 2rem;
+        font-weight: 700;
         margin-bottom: 1rem;
         margin-top: 2rem;
         text-transform: uppercase;
@@ -88,14 +76,11 @@ nav li {
         -webkit-background-clip: text;
         color: transparent;
         letter-spacing: .1rem;
-        transform: scale(1);
-        transition: hover, .3s;
-        text-align: center;
+        transition: all .3s ease;
 }
 
 .heading-secondary:hover {
         transform: scale(1.2);
-        display: inline-block;
 }
 .heading-secondary:active{
         color: #23e727;
@@ -106,33 +91,15 @@ nav li {
         margin-bottom: 5rem;
 }
 
+input {
+        margin: 1.5rem;
+}
 
 label {
         display: block;
-        margin-top: .5rem;
+        margin-top: 2rem;
 }
 
 input {
+        margin: 2rem 0 0 0;
 }
-
-.form-div{
-        position: absolute;
-        right: 0;
-        left: 0;
-        margin: auto;
-        width: 30%;
-        padding: 3rem;
-        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
-}
-
-
-footer {
-        position: absolute;
-        bottom: 0;
-        text-align: center;
-        background-color: #333;
-        width: 100%;
-        color: #ccc;
-        padding: 2rem;
-}
-
