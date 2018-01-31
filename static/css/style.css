@@ -15,9 +15,12 @@ html {
 
 body{
         box-sizing: border-box;
-        padding: 3rem;
         background-color: #f6f6f6;
 
+}
+ 
+.container {
+        padding: 3rem;
 }
 
 .rental-photo {
@@ -50,7 +53,7 @@ a {
 
 ul {
         list-style: none;
-        padding: 0;
+        padding: 2rem;
 }
 nav{
         text-align: center;
@@ -87,6 +90,7 @@ nav li {
         letter-spacing: .1rem;
         transform: scale(1);
         transition: hover, .3s;
+        text-align: center;
 }
 
 .heading-secondary:hover {
@@ -112,6 +116,23 @@ input {
 }
 
 .form-div{
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: auto;
+        width: 30%;
+        padding: 3rem;
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
 }
 
+
+footer {
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        background-color: #333;
+        width: 100%;
+        color: #ccc;
+        padding: 2rem;
+}
 

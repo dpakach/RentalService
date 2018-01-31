@@ -10,7 +10,7 @@
                 <ul>
                 {% for obj in rentals_list %}
                         <li>
-                                <h3 class="heading-secondary"><a href={% url 'rentals:detail' pk=obj.pk %}>{{ obj.title }}</a></h3>
+                                <h3><a href={% url 'rentals:detail' pk=obj.pk %}>{{ obj.title }}</a></h3>
                                 <p>{{ obj.created_date }}</p>
                         </li>
 
