@@ -103,3 +103,25 @@ label {
 input {
         margin: 2rem 0 0 0;
 }
+
+.form-div{
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: auto;
+        width: 30%;
+        padding: 3rem;
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
+}
+
+
+footer {
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        background-color: #333;
+        width: 100%;
+        color: #ccc;
+        padding: 2rem;
+        margin: auto
+}
