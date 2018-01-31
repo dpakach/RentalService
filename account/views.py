@@ -5,7 +5,7 @@ from django.utils.encoding import force_bytes
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
-from django.contrib.auth import login
+from django.contrib.auth import login as auth_login
 
 from django.template.loader import render_to_string
 from .forms import SignUpForm
@@ -51,6 +51,7 @@ def signup(request):
 def account_activation_sent(request):
     return render(request, 'account/account_activation_sent.html')
 
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -62,7 +63,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        login(request, user)
+        auth_login(request, user)
         return redirect('home')
     else:
         return render(request, 'account/account_activation_invalid.html')

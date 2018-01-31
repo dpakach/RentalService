@@ -54,6 +54,11 @@ class RentalCreateView(generic.CreateView):
     form_class = RentalCreateForm
     template_name = 'rentals/rental_form.html'
 
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.author = self.request.user
+        return super(RentalCreateView, self).form_valid(form)
+
 
 class RentalUpdateView(generic.UpdateView):
     """
@@ -87,6 +92,7 @@ class CommentCreateView(generic.CreateView):
 
         obj = form.save(commit=False)
         obj.rental = Rental.objects.get(pk = self.kwargs.get('pk'))
+        obj.author = self.request.user
         return super(CommentCreateView, self).form_valid(form)
 
     def get_success_url(self):
