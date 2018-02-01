@@ -86,6 +86,7 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     """
     model = Comment
     form_class = CommentForm
+    template_name = 'rentals/detail.html'
 
     def form_valid(self, form):
         """

@@ -48,27 +48,32 @@ h3 {
         font-size: 2rem;
 }
 
-a, p{
+p{
         font-size: 1.5rem;
 }
 
 a {
         text-decoration: none;
+        color: #555;
 }
 
 ul {
         list-style: none;
-        padding: 2rem;
 }
 
 nav{
+        padding: 2rem;
         text-align: center;
+        background-image: linear-gradient(to right bottom, #7ed56faf, #28b48593);
 }
 
 nav li {
         display: inline-block;
         padding: 0 2rem;
         text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+       
 }
 
 .heading-primary {
@@ -119,7 +124,7 @@ input , textarea {
         border-radius: 5px;
         background-color: rgba(256, 256, 256, .5);
         border: 3px solid #ccc;
-        width: 90%;
+        width: 100%;
         display: block;
         transition: all .3s ease;
 }
@@ -144,8 +149,8 @@ input {
         right: 0;
         left: 0;
         margin: auto;
-        width: 40%;
-        padding: 3rem;
+        width: 60%;
+        padding: 6rem;
         box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
         border-radius: 5px;
 }
@@ -162,4 +167,27 @@ footer {
         color: #ccc;
         padding: 2rem;
         margin: auto
+}
+
+button {
+        padding: 1rem;
+        margin: 1rem auto;
+        display: block;
+        border-radius: 5px;
+        width: 85%;
+        font-size: 2rem;
+        color: #fff;
+        background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
+        transform: scale(1);
+        transition: all .2s;
+}
+button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .55);
+
+}
+
+button:active {
+        transform: translateY(2px);
+        box-shadow: none;
 }
