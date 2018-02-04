@@ -6,8 +6,10 @@ from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
 
-# Create your models here.
 
+from taggit.managers import TaggableManager
+
+# Create your models here.
 
 class Rental(models.Model):
     """
@@ -25,6 +27,7 @@ class Rental(models.Model):
     negotiable = models.BooleanField(default=False)
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
     location = models.CharField(max_length=256, blank=True, null=True)
+    tags = TaggableManager()
 
 
     def __str__(self):
