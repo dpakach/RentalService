@@ -26,6 +26,14 @@
         {% endif %}
         <p>Added by {{ rental.author }}</p>
 
+        <h2 class="heading-secondary">Tags</h2>
+        {% for tag in rental.tags.all %}
+                <p>{{tag}}</p>
+        {% endfor %}
+
+        <hr/>
+
+
         {% if rental.comments.all %}
                 <h4>Reviews</h4>
                 <ul>

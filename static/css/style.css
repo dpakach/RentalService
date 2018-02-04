@@ -17,7 +17,7 @@ html {
 
 body{
         box-sizing: border-box;
-        background-color: #f6f6f6;
+        background-color: #eceff1;
 
 }
 
@@ -100,15 +100,6 @@ nav li {
         -webkit-background-clip: text;
         color: transparent;
         letter-spacing: .1rem;
-        transform: scale(1);
-        transition: all .3s ease;
-}
-
-.heading-secondary:hover {
-        transform: scale(1.2);
-}
-.heading-secondary:active{
-        color: #23e727;
 }
 
 
@@ -118,6 +109,7 @@ nav li {
 
 input , textarea {
         font-size: 1.5rem;
+        outline: none;
         padding: 1rem 2rem;
         font-family: inherit;
         color: inherit;
@@ -128,7 +120,9 @@ input , textarea {
         display: block;
         transition: all .3s ease;
 }
-input:focus{
+
+input:focus,
+textarea:focus{
         outline: none;
         border-bottom: 3px solid #e45333;
         box-shadow: 0 .5rem 2rem rgba(0, 0, 0, .3);
@@ -149,7 +143,7 @@ input {
         right: 0;
         left: 0;
         margin: auto;
-        width: 60%;
+        width: 50%;
         padding: 6rem;
         box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .55);
         border-radius: 5px;
@@ -174,7 +168,7 @@ button {
         margin: 1rem auto;
         display: block;
         border-radius: 5px;
-        width: 85%;
+        width: 50%;
         font-size: 2rem;
         color: #fff;
         background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
@@ -188,6 +182,5 @@ button:hover {
 }
 
 button:active {
-        transform: translateY(2px);
         box-shadow: none;
 }
