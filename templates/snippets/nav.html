@@ -12,6 +12,14 @@
                         <li><a href="{% url 'accounts:login' %}">login</a> </li>
                         <li><a href="{% url 'accounts:signup' %}">signup</a></li>
                 {% endif %}
+                <div class="search-form-group">
+                        <li>
+                                <form method="GET" action="{% url 'rentals:index' %}" class="search-form">
+                                        <input type="text" placeholder="Search" name="q" value="{{request.GET.q}}">
+                                </form>
+                        </li>
+                        
+                </div>
         </ul>
         </nav>
 </div>
