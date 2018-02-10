@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import Textarea
 
 from .models import Rental, Comment
 
@@ -24,3 +25,7 @@ class CommentForm(forms.ModelForm):
     class Meta():
         model = Comment
         fields = ['text', 'stars',]
+        widgets = {
+            'text': Textarea(attrs={'class': 'reviews__form__textarea' }),
+            'stars': forms.NumberInput(attrs={'class': 'reviews__form__star' })
+        }

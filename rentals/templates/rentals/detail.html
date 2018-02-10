@@ -3,60 +3,140 @@
 {% block head_title %}{{ rental.title }} | {{ block.super }}{% endblock %}
 
 {% block content %}
-
-        <h1 class="heading-primary">{{ rental.title }}</h1>
-        <div class="rental-info">
-        
-                <p>created_date : {{ rental.created_date  }}</p>
-                <br />
-                <p> {{ rental.description }}</p>
-                <p> Rent - $ {{ rental.rent }} </p>
-                
-        </div>
-
+        <style>
+.hero{
         {% if rental.photo %}
-                <div class="photo-div">
-                        <img src={{rental.photo.url}} alt="photo of the rental" class="rental-photo">
+                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .7), transparent), url({{rental.photo.url}});
+                        {% else %}
+                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .7), transparent), url("/static/images/signup.jpeg");
+
+                        {% endif %}
+}
+        
+        
+        </style>
+
+        <section class="section section--detail section--detail--rental">
+                <div class="top">
+
+
+                                <div class="hero" >
+
+                                <h1 class="hero__text hero__text--main">
+                                        <span class="span card__heading-span">{{rental.title}}</span>
+                                </h1>
+                        </div>
+                        <div class="cta cta1">
+                                <span class="cta__icon"><i class="feature-box__icon icon-basic-info"></i></span><p class="cta__value">$ {{rental.rent}}</p>
+                        </div>
+                        <div class="cta cta2">
+                                <span class="cta__icon"><i class="feature-box__icon icon-basic-star"></i></span><p class="cta__value">{{rental.rating}}</p>
+                        </div>
+                        <div class="cta cta3">
+                                <span class="cta__icon"><i class="feature-box__icon icon-basic-message"></i></span><p class="cta__value">{{rental.intrested}} intrested</p>
+                        </div>
                 </div>
-        {% endif %}
-        {% if rental.negotiable %}
-                <p>
-                the rent is negotiable
-                </p>
-        {% endif %}
-        <p>Added by {{ rental.author }}</p>
-
-        <h2 class="heading-secondary">Tags</h2>
-        {% for tag in rental.tags.all %}
-                <p>{{tag}}</p>
-        {% endfor %}
-
-        <hr/>
+                <div class="description">
+                        <p>{{rental.description}}</p>
+                </div>
 
 
-        {% if rental.comments.all %}
-                <h4>Reviews</h4>
-                <ul>
+
+
+
+                {% if rental.tags.names %}
+                        <div class="tags">
+
+                                {% for tag in rental.tags.names %}
+                                <div class="tag">
+                                        <p>{{tag}}</p>
+                                </div>
+                                {% endfor %}
+                        
+                        </div>
+                {% endif %}
+
+
+                <div class="options">
+                        <div class="options__map">
+                                <h1>Map</h1>  
+                        </div>
+
+                        <div class="options__cta">
+                            <div class="options__user-info">
+                                <h3 class="heading-tertiary u-center-text">Added by</h3>
+                                <div class="options__photo"><img src="images/test.jpg" alt=""></div>
+                                <h4 class="options__username">Daniel Fakeman</h4>
+                            </div>
+                            <div class="options__buttons">
+                                    <button class="btn btn--white options__button"> Contact </button>
+                                    <button class="btn btn--white options__button"> Interested </button>
+                            </div>
+                        </div>
+                </div>
+
+
+
+
+                <div class="user">
+                        <div class="user__photo">
+                        
+                        </div>
+                        <div class="user__info">
+                        </div>
+                </div>
+
+
+                <h2 class="heading-secondary">reviews</h2>
+                <div class="reviews">
+                                <form class="form reviews__form" action={% url "rentals:comment" pk=rental.pk %} method="POST">
+                                    <div class="review__form__inputs">
+                                        {% csrf_token %}
+                                        {% for field in form %}
+                                                    {{field}}
+                                        {% endfor %}
+                                    </div>
+                                        <button class="btn btn--primary reviews__form__button" type="submit">Submit</button>
+                                </form>
+
+
+                    <div class="reviews__content">
+                    
+
+                        {% if rental.comments.all %}
                         {% for comment in rental.comments.all %}
-                        <h3>Added by {{ comment.author }}</h3>
+                        <div class="story">
+                                <div>
+                                        <figure class="story__shape">
+                                                <img src="/static/images/signup.jpeg" alt="peron on  a tour" class="story__img">
+                                                <figcaption class="story__caption">
+                                                        {{comment.author}}
+                                                </figcaption>
 
-                                <li>
-                                        <p>{{ comment.text }}</p>
-                                        {{comment.created_date}}
-                                
-                                </li>
+                                        </figure>
+                                </div>
+                                        <div class="story__text">
+                                                <div class="story__text--heading">
+                                                        <h3 class="heading-tertiary">{{comment.created_date}}</h3>
+                                                    <div class="story__text--star">
+                                                           {{comment.stars}} <i class="feature-box__icon icon-basic-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p>
+                                                {{comment.text}}
+                                                </p>
+                                        </div>
+                        </div>
                         {% endfor %}
-                
-                </ul>
-        {% else %}
-        <p>no comments</p>
-        {% endif %}
-        <br />
-        <h3>Add comments</h3>
-        <form action={% url "rentals:comment" pk=rental.pk %} method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" value="comment">Comment</button>
-        </form>
+                        {% else %}
+                            <p>no comments</p>
+                        {% endif %}
+
+                    </div>
+
+                    
+                </div>
+
+        </section>
 
 {% endblock %}
