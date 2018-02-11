@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, UpdateView, TemplateView
@@ -36,21 +37,17 @@ class ProfileDetailview(DetailView):
             context['rentals'] = qs
         return context
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     template_name = "profiles/update.html"
 
     def get_object(self):
-        username = self.kwargs.get("username")
-        if username is None:
-            raise Http404
-        user = get_object_or_404(User, username__iexact=username, is_active=True)
+        user = self.request.user
         return user.user_profile
 
     def get_queryset(self):
         """
         this method return the profile object to update in the UpdateView
         """
-
-        username = self.kwargs.get("username")
-        return get_object_or_404(User, username__iexact=username, is_active=True)
+        user = self.request.user
+        return user

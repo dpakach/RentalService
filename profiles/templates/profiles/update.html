@@ -3,7 +3,7 @@
 {% block content %}
 
         <h1>Head</h1>
-        <form method="POST" action="{% url 'profiles:update' username=request.user %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'profiles:update' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form.as_p}}
                 <button type="submit">Update</button>
