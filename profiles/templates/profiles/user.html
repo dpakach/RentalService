@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% block head_title %} User | {{object}}  | {{ block.super }}{% endblock %}
+
+{% block content %}
+        <h1 class="heading-primary heading-primary--main u-margin-bottom-medium">User Details</h1>
+        <p class="heading-tertiary u-margin-bottom-small">General Info</p>
+        <P>Full Name: {{object.full_name}}</P>
+
+        <p>Bio: {{object.bio}}</p>
+
+
+        <img src="{{object.pic.url}}" alt="User Profile Photo" style="height:5rem;">
+
+
+        <form class="form" action="{% url 'profiles:detail' username=object.user %}" method="GET">
+                        {% csrf_token %}
+                        <input placeholder="Search..." name='uq' value={{request.GET.uq}}>
+                </form>
+        {% if rentals %}
+        <p class="heading-tertiary u-margin-bottom-small">Rentals From this User</p>
+        <section class="section section--cards">
+
+            {% for obj in rentals %}
+
+        
+                <div class="card">
+                        {% if obj.photo %}
+                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
+                        {% else %}
+                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+
+                        {% endif %}
+                                &nbsp;
+                        </div>
+                        <h4 class="card__heading">
+                                <span class="card__heading-span">
+                                        <a href="{% url 'rentals:detail' pk=obj.pk %}">{{ obj.title }}</a>
+                                </span>
+
+                        </h4>
+                        <div class="card__details">
+                                <ul>
+                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.description}}</span></li>
+                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">4.5</span></li>
+                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">30</span></li>
+                                </ul>
+
+                        </div>
+
+                
+                </div>
+            {% endfor %}
+        </section>
+        {% else %}
+            <p>No rentals Avilable</p>
+        {% endif %}
+
+{% endblock %}

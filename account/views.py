@@ -13,7 +13,6 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.views import login as user_login
 
-@login_required
 def home(request):
     return render(request, 'home.html')
 
