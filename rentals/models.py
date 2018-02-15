@@ -37,6 +37,10 @@ class Rental(models.Model):
         else:
             return strip(self.title[:24]) + "..."
 
+    # def filename(self):
+    #     name = self.photo.name.split("/")[1].replace('_',' ').replace('-',' ')
+    #     return name
+
     def get_absolute_url(self):
         """
         returns absolute url for each rental object
@@ -67,3 +71,14 @@ class Comment(models.Model):
         returns comment text
         """
         return self.text
+
+# class Tag(models.Model):
+#     rental = models.ForeignKey(Rental)
+#     author = models.ForeignKey(User)
+#     name = models.CharField(max_length=50)
+
+#     def __str__(self):
+#         return self.name
+
+# class Upload(models.Model):
+#     photo = models.FileField(upload_to='photos/')

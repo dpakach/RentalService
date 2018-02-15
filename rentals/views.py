@@ -1,13 +1,13 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from django.views import generic
+from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.core.paginator import Paginator
 from .forms import CommentForm
 from .forms import RentalCreateForm
 from .models import Rental, Comment
-
 
 # Create your views here.
 
@@ -18,13 +18,17 @@ class IndexView(generic.ListView):
 
     template_name = 'rentals/index.html'
     context_object_name = 'rentals_list'
+    model = Rental
+    paginate_by = 5
+    queryset = Rental.objects.order_by('-created_date')
 
-    def get_queryset(self):
-        """
-        ths method returns the context data of the rental objects for the index view
-        """
 
-        return Rental.objects.order_by('-created_date')[:10]
+    # def get_queryset(self):
+    #     """
+    #     ths method returns the context data of the rental objects for the index view
+    #     """
+
+    #     return Rental.objects.order_by('-created_date')[:10]
 
 
 class DetailView(generic.DetailView):
@@ -52,14 +56,34 @@ class RentalCreateView(LoginRequiredMixin, generic.CreateView):
     This is a class based view for cereating new rental objects
     """
 
-    form_class = RentalCreateForm
+    form_class = RentalCreateForm 
     template_name = 'rentals/rental_form.html'
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(RentalCreateView, self).get_context_data(*args, **kwargs)
+    #     context['file_form'] = FileForm
+    #     return context
 
 
     def form_valid(self, form):
         instance = form.save(commit=False)
+        #file_form.save()
         instance.author = self.request.user
         return super(RentalCreateView, self).form_valid(form)
+
+
+    
+    # def form_valid(self, form):
+    #     obj = form.save(commit=False)
+    #     files = self.request.FILES.getlist('photo')
+    #     obj.author = self.request.user
+    #     for a_file in files:
+    #         instance = Rental(
+    #             photo = a_file
+    #         )
+    #         instance.save()
+
+    #     return super(RentalCreateView, self).form_valid(form)
 
 
 class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -105,3 +129,16 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 
         pk = self.kwargs['pk']
         return reverse('rentals:detail', kwargs={'pk':pk})
+
+# class FileView(View):
+
+#     def post(self, request):
+#         formf = FileForm(request.POST, request.FILES)
+#         files = request.FILES.getlist('photos')
+#         for a_file in files:
+#             instance = Upload(
+#                photo = a_file
+#             )
+#             instance.save()
+#         return render(request, 'rentals/rental_form.html', {
+#         'formf': formf})
