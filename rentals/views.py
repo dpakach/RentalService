@@ -59,31 +59,12 @@ class RentalCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = RentalCreateForm 
     template_name = 'rentals/rental_form.html'
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(RentalCreateView, self).get_context_data(*args, **kwargs)
-    #     context['file_form'] = FileForm
-    #     return context
-
-
     def form_valid(self, form):
         instance = form.save(commit=False)
         #file_form.save()
         instance.author = self.request.user
         return super(RentalCreateView, self).form_valid(form)
 
-
-    
-    # def form_valid(self, form):
-    #     obj = form.save(commit=False)
-    #     files = self.request.FILES.getlist('photo')
-    #     obj.author = self.request.user
-    #     for a_file in files:
-    #         instance = Rental(
-    #             photo = a_file
-    #         )
-    #         instance.save()
-
-    #     return super(RentalCreateView, self).form_valid(form)
 
 
 class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -129,16 +110,3 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 
         pk = self.kwargs['pk']
         return reverse('rentals:detail', kwargs={'pk':pk})
-
-# class FileView(View):
-
-#     def post(self, request):
-#         formf = FileForm(request.POST, request.FILES)
-#         files = request.FILES.getlist('photos')
-#         for a_file in files:
-#             instance = Upload(
-#                photo = a_file
-#             )
-#             instance.save()
-#         return render(request, 'rentals/rental_form.html', {
-#         'formf': formf})

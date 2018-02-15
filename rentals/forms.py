@@ -19,18 +19,6 @@ class RentalCreateForm(forms.ModelForm):
 
 
 
-# class TagForm(forms.ModelForm):
-
-#     class Meta:
-#         model = Tag
-#         fields = '__all__'
-
-#     def clean_name(self):
-#         n = self.cleaned_data['name']
-#         if n.lower()=='tag' or n.lower()=='add' or n.lower()=='update':
-#             raise ValidationError("Tag name cant be {}".format(n)) 
-#         return n
-
 class CommentForm(forms.ModelForm):
     """
     form to add new comment
@@ -40,8 +28,3 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['text', 'stars',]
 
-# class FileForm(forms.ModelForm):
-#     class Meta():
-#         model = Upload
-#         fields = '__all__'
-#         widgets={"photos":forms.FileInput(attrs={'id':'pic','required':True,'multiple':True})}
