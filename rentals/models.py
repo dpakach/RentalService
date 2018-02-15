@@ -25,7 +25,7 @@ class Rental(models.Model):
     negotiable = models.BooleanField(default=False)
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
     location = models.CharField(max_length=256, blank=True, null=True)
-
+    
 
     def __str__(self):
         """
