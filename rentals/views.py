@@ -1,13 +1,13 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from django.views import generic
+from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.core.paginator import Paginator
 from .forms import CommentForm
 from .forms import RentalCreateForm
 from .models import Rental, Comment
-
 
 # Create your views here.
 
@@ -18,13 +18,17 @@ class IndexView(generic.ListView):
 
     template_name = 'rentals/index.html'
     context_object_name = 'rentals_list'
+    model = Rental
+    paginate_by = 5
+    queryset = Rental.objects.order_by('-created_date')
 
-    def get_queryset(self):
-        """
-        ths method returns the context data of the rental objects for the index view
-        """
 
-        return Rental.objects.order_by('-created_date')[:10]
+    # def get_queryset(self):
+    #     """
+    #     ths method returns the context data of the rental objects for the index view
+    #     """
+
+    #     return Rental.objects.order_by('-created_date')[:10]
 
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
@@ -61,14 +65,15 @@ class RentalCreateView(LoginRequiredMixin, generic.CreateView):
     This is a class based view for cereating new rental objects
     """
 
-    form_class = RentalCreateForm
+    form_class = RentalCreateForm 
     template_name = 'rentals/rental_form.html'
-
 
     def form_valid(self, form):
         instance = form.save(commit=False)
+        #file_form.save()
         instance.author = self.request.user
         return super(RentalCreateView, self).form_valid(form)
+
 
 
 class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
