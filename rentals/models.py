@@ -65,10 +65,11 @@ class Rental(models.Model):
     negotiable = models.BooleanField(default=False)
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
     location = models.CharField(max_length=256, blank=True, null=True)
+
     tags = TaggableManager()
 
-
     objects = RentalManager()
+
 
     def __str__(self):
         """
@@ -79,6 +80,10 @@ class Rental(models.Model):
             return self.title
         else:
             return strip(self.title[:24]) + "..."
+
+    # def filename(self):
+    #     name = self.photo.name.split("/")[1].replace('_',' ').replace('-',' ')
+    #     return name
 
     def get_absolute_url(self):
         """
@@ -110,3 +115,14 @@ class Comment(models.Model):
         returns comment text
         """
         return self.text
+
+# class Tag(models.Model):
+#     rental = models.ForeignKey(Rental)
+#     author = models.ForeignKey(User)
+#     name = models.CharField(max_length=50)
+
+#     def __str__(self):
+#         return self.name
+
+# class Upload(models.Model):
+#     photo = models.FileField(upload_to='photos/')
