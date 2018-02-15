@@ -1,17 +1,38 @@
 {% include 'base.html' %}
 
 {% block content %}
-  <h1 class="heading-primary">Log in</h2>
-  {% if form.errors %}
-    <p style="color: red">Your username and password didn't match. Please try again.</p>
-  {% endif %}
-  <div class="form-div">
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log in</button>
-    <a href="{% url 'accounts:signup' %}">New to My Site? Sign up</a>
-  </form>
-  
-  </div>
+        
+
+{% load staticfiles %}
+
+
+<section class="section section--form section--form--login">
+
+        <div class="card card__form card__form--login">
+
+                <div class="card__picture card__form__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/login.jpeg);">
+                        &nbsp;
+                </div>
+                <h4 class="card__heading card__heading--form">
+                        <span class="card__heading-span card__heading-span--form">
+                                Login
+                        </span>
+                </h4>
+                <form class="form" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                                <div class="form__group">
+                                        {{ field }}
+
+                                        {{ field.label_tag }}
+                                </div>
+                        {% endfor %}
+                        <div class="form__group">
+                                <button class="btn btn--primary">Login</button>
+                        </div>
+                
+                        <p class="u-center-text u-margin-bottom-small">New to This Site?</br><a href="{% url 'accounts:signup' %}">Sign up</a></p>
+                </form>
+        </div>
+</section>
 {% endblock %}

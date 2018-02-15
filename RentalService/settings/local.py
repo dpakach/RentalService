@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     
 
     # third party apps go here
+    'taggit',
     
 
 

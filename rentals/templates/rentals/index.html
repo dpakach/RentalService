@@ -3,23 +3,45 @@
 {% block head_title %} Find Rentals | {{ block.super }}{% endblock %}
 
 {% block content %}
+        <h1 class="heading-primary heading-primary--main u-margin-bottom-medium u-center-text">Rentals <small><a href="{% url "rentals:create" %}" class="btn btn--text"><p class="heading-primary--sub">Add new</p></a></small></h1>
 
-        <h1 class="heading-primary">Rentals</h1>
-        <p><a href="{% url "rentals:create" %}">Add new</a></p>
-        {% if rentals_list %}
-                <ul>
-                {% for obj in rentals_list %}
-                        <li>
-                                <h3><a href={% url 'rentals:detail' pk=obj.pk %}>{{ obj.title }}</a></h3>
-                                <p>{{ obj.created_date }}</p>
-                        </li>
+                <section class="section section--cards">
 
-                {% endfor %}
-                </ul>
-       
-        {% else %}
-                <p>No rentals Avilable</p>
-        {% endif %}
+                        {% if rentals_list %}
+
+                            {% for obj in rentals_list %}
+
+                        
+                                <div class="card">
+                                        {% if obj.photo %}
+                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
+                                        {% else %}
+                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+
+                                        {% endif %}
+                                                &nbsp;
+                                        </div>
+                                        <h4 class="card__heading">
+                                                <span class="card__heading-span">
+                                                        <a href="{% url 'rentals:detail' pk=obj.pk %}">{{ obj.title }}</a>
+                                                </span>
+
+                                        </h4>
+                                        <div class="card__details">
+                                                <ul>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.description}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">4.5</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">30</span></li>
+                                                </ul>
+
+                                        </div>
+
+                                
+                                </div>
+                        {% endfor %}
+                {% else %}
+                        <p>No rentals Avilable</p>
+                {% endif %}
         
 {% if is_paginated %}
 <ul class="pagination">

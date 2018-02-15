@@ -1,12 +1,52 @@
-from django.db import models
-from django.utils import timezone
-from django.core.urlresolvers import reverse
-
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.db.models import Q
+from django.utils import timezone
+
 
 User = settings.AUTH_USER_MODEL
 
+
+from taggit.managers import TaggableManager
+
 # Create your models here.
+
+class RentalQuerySet(models.query.QuerySet):
+    """
+    QuerySet class for Rental model
+    this class is used for costom QuerySet while querying database
+    """
+    def search(self, query):
+        """
+        this function queries the database for search functionality in index view
+        """
+        return self.filter(
+                Q(title__icontains=query)|
+                Q(author__username__icontains=query)|
+                Q(description__icontains=query)|
+                Q(location__icontains=query)|
+                Q(tags__name__icontains=query)
+            ).distinct()
+
+
+class RentalManager(models.Manager):
+    """
+    Rental Manager class
+    this class makes querying the database easy
+    """
+
+    def get_queryset(self):
+        """
+        get queryset for the rental model
+        """
+        return RentalQuerySet(self.model, using=self._db)
+
+    def search(self, query):
+        """
+        manage search functionality of the index view
+        """
+        return self.get_queryset().search(query)
 
 
 class Rental(models.Model):
@@ -25,7 +65,11 @@ class Rental(models.Model):
     negotiable = models.BooleanField(default=False)
     photo = models.FileField(upload_to='photos/', blank=True, null=True)
     location = models.CharField(max_length=256, blank=True, null=True)
-    
+
+    tags = TaggableManager()
+
+    objects = RentalManager()
+
 
     def __str__(self):
         """

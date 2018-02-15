@@ -1,12 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2 class="heading-primary">Sign up</h2>
-  <div class="form-div">
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
-  </div>
+
+<section class="section section--form section--form--signup">
+
+
+        <div class="card card__form card__form--signup">
+
+                <div class="card__picture card__form__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/signup.jpeg);">
+                        &nbsp;
+                </div>
+                <h4 class="card__heading card__heading--form">
+                        <span class="card__heading-span card__heading-span--form">
+                                Signup
+                        </span>
+                </h4>
+                <form class="form" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                                <div class="form__group">
+                                        {{ field.label_tag }}
+
+                                        {{ field }}
+
+                                        {% if field.help_text %}
+                                                <span class="helptext">{{field.help_text}}</span>
+                                        {% endif %}
+                                </div>
+                        {% endfor %}
+                        <div class="form__group">
+                                <button class="btn btn--primary">Login</button>
+                        </div>
+                
+                </form>
+
+
+
+
+
+        </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

@@ -4,18 +4,38 @@
 {% block head_title %}Add Rental | {{ block.super }}{% endblock %}
 
 {% block content %}
-        <h1 class="heading-primary">Add Rental</h1>
-        {% if form.errors %}
-                {{ form.errors }}
-        {% endif %}
+        <section class="section section--form section--form--signup">
 
-        <div class="form-div">
-                <h2 class="heading-secondary">Add Rental</h2>
-                <form class="rental_form" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Create</button>
 
-                </form>
-        </div>
+                <div class="card card__form card__form--signup">
+
+                        <div class="card__picture  card__form__picture">
+                                &nbsp;
+                        </div>
+                        <h4 class="card__heading card__heading--form">
+                                <span class="card__heading-span card__heading-span--form">
+                                        Publish A Rental
+                                </span>
+                        </h4>
+                        <form class="form" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                        <div class="form__group">
+                                                {{ field.label_tag }}
+
+                                                {{ field }}
+
+                                                {% if field.help_text %}
+                                                        <span class="helptext">{{field.help_text}}</span>
+                                                {% endif %}
+                                        </div>
+                                {% endfor %}
+                                <div class="form__group">
+                                        <button class="btn btn--primary">Login</button>
+                                </div>
+                        
+                        </form>
+
+                </div>
+        </section>
 {% endblock %}

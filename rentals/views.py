@@ -30,6 +30,15 @@ class IndexView(generic.ListView):
 
     #     return Rental.objects.order_by('-created_date')[:10]
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(IndexView, self).get_context_data(*args, **kwargs)
+        query = self.request.GET.get('q')
+        qs = Rental.objects.all()
+        if query:
+            qs = Rental.objects.search(query)
+        context['rentals_list'] = qs
+        return context
+
 
 class DetailView(generic.DetailView):
 
