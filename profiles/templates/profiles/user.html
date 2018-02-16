@@ -1,25 +1,120 @@
 {% extends 'base.html' %}
-
-
+{% load staticfiles %}
 {% block head_title %} User | {{object}}  | {{ block.super }}{% endblock %}
 
 {% block content %}
-        <h1 class="heading-primary heading-primary--main u-margin-bottom-medium">User Details</h1>
-        <p class="heading-tertiary u-margin-bottom-small">General Info</p>
-        <P>Full Name: {{object.full_name}}</P>
 
-        <p>Bio: {{object.bio}}</p>
+<h1 class="heading-primary heading-primary--main u-margin-bottom-medium">User Details</h1>
+
+        <section class="section section--profile">
+                <div class="profile">
+                <div class="profile__head">
+                    <div class="profile__photo">
+                        <div>
+                                {% if object.pic %}
+                                        <img src={{object.pic.url}} alt="peron on  a tour" class="story__img">
+                                {% else %}
+                                {% endif %}
+                        </div>
+                    </div>
+                    <div class="profile__title">
+                        <h2 class="heading-secondary heading-user heading-user--main">
+                                {{object.full_name}}
+                        </h2>
+                        <p class="heading-user heading-user--sub">
+                                @{{object.user.username}}
+                        </p>
+                    </div>
+                
+                
+                </div>
+                    <div class="profile__line">
+                    &nbsp;
+                    </div>
+                    <div class="profile__about">
+                        <h3 class="heading-tertiary">About user</h3>
+                        <p>
+                                {{object.bio}}
+                        </p>
+                    </div>
+
+                    <div class="profile__line">
+                    &nbsp;
+                    </div>
+                    <div class="profile__info">
+                        <ul>
+                                <li class="profile__info__item">
+                                        <span class="name">
+                                                Full Name
+                                        </span>
+                                            
+                                        <span class="value">
+                                                {{object.full_name}}
+                                        </span>
+                                </li>
+                                <div class="profile__line profile__line--small">
+                                        &nbsp;
+                                </div>
+                                <li class="profile__info__item">
+                                        <span class="name">
+                                            Email
+                                        </span>
+                                            
+                                        <span class="value">
+                                                {{object.user.email}}
+                                        </span>
+                                </li>
+                                <div class="profile__line profile__line--small">
+                                        &nbsp;
+                                </div>
+                                <li class="profile__info__item">
+                                        <span class="name">
+                                            Phone
+                                        </span>
+                                            
+                                        <span class="value">
+                                                {{object.phone_number}}
+                                        </span>
+                                </li>
+                                <div class="profile__line profile__line--small">
+                                        &nbsp;
+                                </div>
+                                <li class="profile__info__item">
+                                        <span class="name">
+                                            Profession
+                                        </span>
+                                            
+                                        <span class="value">
+                                                {{object.profession}}
+                                        </span>
+                                </li>
+                                <div class="profile__line profile__line--small">
+                                        &nbsp;
+                                </div>
+                                <li class="profile__info__item">
+                                        <span class="name">
+                                            Date of Birth
+                                        </span>
+                                            
+                                        <span class="value">
+                                                {{object.birth_date}}
+                                        </span>
+                                </li>
+                        </ul>
+                    </div>
+                
+
+                </div>
+        
+</section>
 
 
-        <img src="{{object.pic.url}}" alt="User Profile Photo" style="height:5rem;">
-
-
-        <form class="form" action="{% url 'profiles:detail' username=object.user %}" method="GET">
+        <h3 class="heading-tertiary u-center-text u-margin-bottom-small">Rentals From this User</h3>
+        <form class="form u-margin-bottom-small" action="{% url 'profiles:detail' username=object.user %}" method="GET">
                         {% csrf_token %}
                         <input placeholder="Search..." name='uq' value={{request.GET.uq}}>
                 </form>
         {% if rentals %}
-        <p class="heading-tertiary u-margin-bottom-small">Rentals From this User</p>
         <section class="section section--cards">
 
             {% for obj in rentals %}

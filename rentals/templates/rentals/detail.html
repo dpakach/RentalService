@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block head_title %}{{ rental.title }} | {{ block.super }}{% endblock %}
 
@@ -19,21 +20,33 @@
         <section class="section section--detail section--detail--rental">
                 <div class="top">
 
-
-                                <div class="hero" >
-
+                        <div class="hero" >
                                 <h1 class="hero__text hero__text--main">
                                         <span class="span card__heading-span">{{rental.title}}</span>
                                 </h1>
                         </div>
+
                         <div class="cta cta1">
-                                <span class="cta__icon"><i class="feature-box__icon icon-basic-info"></i></span><p class="cta__value">$ {{rental.rent}}</p>
+                                <span class="cta__icon">
+                                        <svg class="cta__icon feature-box__icon">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-price"></use>
+                                        </svg>
+                                </span>
+                                <p class="cta__value">$ {{rental.rent}}</p>
                         </div>
+
                         <div class="cta cta2">
-                                <span class="cta__icon"><i class="feature-box__icon icon-basic-star"></i></span><p class="cta__value">{{rental.rating}}</p>
+                                <span class="cta__icon">
+                                        <i class="feature-box__icon icon-basic-star"></i>
+                                </span>
+                                <p class="cta__value">{{rental.rating}}</p>
                         </div>
+
                         <div class="cta cta3">
-                                <span class="cta__icon"><i class="feature-box__icon icon-basic-message"></i></span><p class="cta__value">{{rental.intrested}} intrested</p>
+                                <span class="cta__icon">
+                                        <i class="feature-box__icon icon-basic-message"></i>
+                                </span>
+                                <p class="cta__value">{{rental.intrested}} intrested</p>
                         </div>
                 </div>
                 <div class="description">
