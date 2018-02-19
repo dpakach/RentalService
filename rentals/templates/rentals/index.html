@@ -11,8 +11,8 @@
 
                             {% for obj in rentals_list %}
 
-                        
-                                <div class="card">
+                                <a href="{% url 'rentals:detail' pk=obj.pk %}">
+                                        <div class="card">
                                         {% if obj.photo %}
                                         <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
                                         {% else %}
@@ -23,7 +23,7 @@
                                         </div>
                                         <h4 class="card__heading">
                                                 <span class="card__heading-span">
-                                                        <a href="{% url 'rentals:detail' pk=obj.pk %}">{{ obj.title }}</a>
+                                                        {{ obj.title }}
                                                 </span>
 
                                         </h4>
@@ -37,7 +37,8 @@
                                         </div>
 
                                 
-                                </div>
+                                        </div>
+                                </a>
                         {% endfor %}
                 {% else %}
                         <p>No rentals Avilable</p>

@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     
     # local apps go here
     'account',
-    'rentals'
+    'rentals',
+    'profiles',
 
 ]
 
@@ -70,7 +71,7 @@ ROOT_URLCONF = 'RentalService.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        'DIRS': [TEMPLATES_DIR, '/profiles/templates/profiles/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

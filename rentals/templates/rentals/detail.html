@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block head_title %}{{ rental.title }} | {{ block.super }}{% endblock %}
 
@@ -19,21 +20,37 @@
         <section class="section section--detail section--detail--rental">
                 <div class="top">
 
-
-                                <div class="hero" >
-
+                        <div class="hero" >
                                 <h1 class="hero__text hero__text--main">
                                         <span class="span card__heading-span">{{rental.title}}</span>
                                 </h1>
                         </div>
+
                         <div class="cta cta1">
-                                <span class="cta__icon"><i class="feature-box__icon icon-basic-info"></i></span><p class="cta__value">$ {{rental.rent}}</p>
+                                <span class="cta__icon">
+                                        <svg class="cta__icon feature-box__icon">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-price-tags"></use>
+                                        </svg>
+                                </span>
+                                <p class="cta__value">$ {{rental.rent}}</p>
                         </div>
+
                         <div class="cta cta2">
-                                <span class="cta__icon"><i class="feature-box__icon icon-basic-star"></i></span><p class="cta__value">{{rental.rating}}</p>
+                                <span class="cta__icon">
+                                        <svg class="cta__icon feature-box__icon">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                        </svg>
+                                </span>
+                                <p class="cta__value">{{rental.rating|floatformat:1}}</p>
                         </div>
+
                         <div class="cta cta3">
-                                <span class="cta__icon"><i class="feature-box__icon icon-basic-message"></i></span><p class="cta__value">{{rental.intrested}} intrested</p>
+                                <span class="cta__icon">
+                                        <svg class="cta__icon feature-box__icon">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-thumbs-up"></use>
+                                        </svg>
+                                </span>
+                                <p class="cta__value">{{rental.intrested}} intrested</p>
                         </div>
                 </div>
                 <div class="description">
@@ -65,12 +82,15 @@
                         <div class="options__cta">
                             <div class="options__user-info">
                                 <h3 class="heading-tertiary u-center-text">Added by</h3>
-                                <div class="options__photo"><img src="images/test.jpg" alt=""></div>
-                                <h4 class="options__username">Daniel Fakeman</h4>
+                                {% if rental.author.user_profile.pic %}
+                                        <div class="options__shape"><img src="{{rental.author.user_profile.pic.url}}" alt=""></div>
+                                {% endif %}
+
+                                <h4 class="options__username">{{rental.author}}</h4>
                             </div>
                             <div class="options__buttons">
-                                    <button class="btn btn--white options__button"> Contact </button>
-                                    <button class="btn btn--white options__button"> Interested </button>
+                                    <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}"> Contact </a>
+                                    <a class="btn btn--white options__button" href="#"> Interested </a>
                             </div>
                         </div>
                 </div>

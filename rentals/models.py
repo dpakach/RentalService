@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 User = settings.AUTH_USER_MODEL
@@ -57,14 +58,15 @@ class Rental(models.Model):
 
     """
 
-    author = models.ForeignKey(User)
-    title = models.CharField(max_length=128)
-    description = models.TextField(max_length=4096, blank=True, null=True)
-    created_date = models.DateTimeField(default=timezone.now)
-    rent = models.BigIntegerField(default=0)
-    negotiable = models.BooleanField(default=False)
-    photo = models.FileField(upload_to='photos/', blank=True, null=True)
-    location = models.CharField(max_length=256, blank=True, null=True)
+    author          = models.ForeignKey(User)
+    title           = models.CharField(max_length=128)
+    description     = models.TextField(max_length=4096, blank=True, null=True)
+    created_date    = models.DateTimeField(default=timezone.now)
+    rent            = models.BigIntegerField(default=0)
+    negotiable      = models.BooleanField(default=False)
+    photo           = models.FileField(upload_to='photos/', blank=True, null=True)
+    location        = models.CharField(max_length=256, blank=True, null=True)
+    rating          = models.FloatField(default=0)
 
     tags = TaggableManager()
 
@@ -77,9 +79,10 @@ class Rental(models.Model):
         returns title of the rental
         """
         if len(self.title) <= 25:
-            return self.title
-        else:
-            return strip(self.title[:24]) + "..."
+            return self.title[:25]
+
+    def get_rating(self):
+        pass;
 
     # def filename(self):
     #     name = self.photo.name.split("/")[1].replace('_',' ').replace('-',' ')
@@ -103,11 +106,17 @@ class Comment(models.Model):
     """
 
 
-    rental = models.ForeignKey('Rental', related_name='comments')
-    author = models.ForeignKey(User)
-    text = models.TextField(max_length=1024)
-    stars = models.IntegerField()
-    created_date = models.DateTimeField(default=timezone.now)
+    rental          = models.ForeignKey('Rental', related_name='comments')
+    author          = models.ForeignKey(User)
+    text            = models.TextField(max_length=1024)
+    stars           = models.IntegerField(
+                            default=1,
+                            validators=[
+                                MaxValueValidator(5),
+                                MinValueValidator(1)
+                            ]
+                    )
+    created_date    = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         """

@@ -20,13 +20,23 @@
                 </h4>
                 <form class="form" method="post">
                         {% csrf_token %}
-                        {% for field in form %}
+                        <p class="form__error">
+                            {{form.non_field_errors}}
+                        </p>
+                        {{form.as_p}}
+                        
+<!--                        {% for field in form %}
                                 <div class="form__group">
-                                        {{ field }}
-
+                                        {% if field.errors %}
+                                                {% for error in field.errors %}
+                                                    <p class="form__error">{{error}}</p>
+                                                {% endfor %}
+                                        {% endif %}
                                         {{ field.label_tag }}
+                                        {{ field }}
                                 </div>
                         {% endfor %}
+-->
                         <div class="form__group">
                                 <button class="btn btn--primary">Login</button>
                         </div>

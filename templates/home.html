@@ -4,6 +4,17 @@
 
 {% block content %}
         <h1>Home Page</h1>
-        <h2>Welcome, {{ user.get_username }} 
+        {% if request.user.is_authenticated %}
+            <h2>Welcome, {{ user.get_username }} 
+                </br>
+                </br>
+                </br>
+                </br>
+                </br>
+                <a href="{% url 'profiles:detail'  username=request.user %}">View your profile</a>
+                </br>
+                <a href="{% url 'profiles:update' %}">Update your profile</a>
+        {% endif %}
+
         
 {% endblock %}

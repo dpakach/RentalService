@@ -20,15 +20,13 @@ class IndexView(generic.ListView):
     context_object_name = 'rentals_list'
     model = Rental
     paginate_by = 5
-    queryset = Rental.objects.order_by('-created_date')
 
+    def get_queryset(self):
+        """
+        ths method returns the context data of the rental objects for the index view
+        """
+        return Rental.objects.order_by('-created_date')
 
-    # def get_queryset(self):
-    #     """
-    #     ths method returns the context data of the rental objects for the index view
-    #     """
-
-    #     return Rental.objects.order_by('-created_date')[:10]
 
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
@@ -109,6 +107,8 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 
         obj = form.save(commit=False)
         obj.rental = Rental.objects.get(pk = self.kwargs.get('pk'))
+        obj.rental.rating = (obj.rental.rating * obj.rental.comments.count() + obj.stars)/(obj.rental.comments.count() + 1)
+        obj.rental.save()
         obj.author = self.request.user
         return super(CommentCreateView, self).form_valid(form)
 
