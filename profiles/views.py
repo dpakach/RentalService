@@ -15,6 +15,10 @@ User = get_user_model()
 # Create your views here.
 
 class ProfileDetailView(DetailView):
+    """
+    Detial view for user Profile
+    this view shows the profile of  a user along with all the rentals related with the user
+    """
     template_name = 'profiles/user.html'
     
 
@@ -38,6 +42,11 @@ class ProfileDetailView(DetailView):
         return context
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Generic UpdateView for updating the profile of a user
+
+    A user can update his/her profile with this view
+    """
     form_class = ProfileForm
     template_name = "profiles/update.html"
 
