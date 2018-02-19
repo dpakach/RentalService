@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1 class="heading-primary heading-primary--main u-margin-bottom-medium">User Details</h1>
+<h1 class="heading-primary heading-primary--main u-margin-bottom-medium u-center-text u-margin-top-big">User Details</h1>
 
         <section class="section section--profile">
                 <div class="profile">
@@ -109,12 +109,12 @@
 </section>
 
 
+        {% if rentals %}
         <h3 class="heading-tertiary u-center-text u-margin-bottom-small">Rentals From this User</h3>
         <form class="form u-margin-bottom-small" action="{% url 'profiles:detail' username=object.user %}" method="GET">
                         {% csrf_token %}
                         <input placeholder="Search..." name='uq' value={{request.GET.uq}}>
                 </form>
-        {% if rentals %}
         <section class="section section--cards">
 
             {% for obj in rentals %}
@@ -149,7 +149,7 @@
             {% endfor %}
         </section>
         {% else %}
-            <p>No rentals Avilable</p>
+            <p class="heading-tertiary u-center-text u-margin-top-big">No rentals Available form this user/p>
         {% endif %}
 
 {% endblock %}

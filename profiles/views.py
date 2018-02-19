@@ -14,19 +14,19 @@ User = get_user_model()
 
 # Create your views here.
 
-class ProfileDetailview(DetailView):
+class ProfileDetailView(DetailView):
     template_name = 'profiles/user.html'
     
 
     def get_object(self):
         username = self.kwargs.get("username")
         if username is None:
-            raise Http404
+            username = self.request.user.username
         user = get_object_or_404(User, username__iexact=username, is_active=True)
         return user.user_profile
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ProfileDetailview, self).get_context_data(*args, **kwargs)
+        context = super(ProfileDetailView, self).get_context_data(*args, **kwargs)
         user = self.get_object().user
         query = self.request.GET.get('uq')
         rentals_exists = Rental.objects.filter(author=user)

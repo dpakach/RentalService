@@ -5,12 +5,12 @@
 {% load staticfiles %}
 <nav class="main-nav">
         <div class="main-nav__logo-box">
-                <img class="main-nav__logo"src="images/logo-white.png" alt="">
+                <img class="main-nav__logo"src="/static/images/logo-small-white.png" alt="">
         </div>
         <div class="main-nav__search">
                 <form action="/rentals/" method="GET">
                         {% csrf_token %}
-                        <input placeholder="Search..." name='q' value={{request.GET.q}}>
+                        <input class="main-nav__search__input" placeholder="Search..." name='q' value={{request.GET.q}}>
                 </form>
         </div>
 
@@ -63,13 +63,14 @@
 </nav>
 <nav class="mobile__nav">
         <ul class="main-nav__na">
-                <li class="mobile-nav__item"><a class="mobile-nav__link" href="#">nbsp;</a></li>
+                <li class="mobile-nav__item"><a class="mobile-nav__link" href="#">&nbsp;</a></li>
+                <li class="mobile-nav__item"><a class="mobile-nav__link" href="#">&nbsp;</a></li>
                 <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal home_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'home' %}">Home</a></li>
                 <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal rental_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'rentals:index' %}">Rental</a></li>
                 {% if user.is_authenticated %}
                         <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal logout_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">logout</a> </li>
-                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal login_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'accounts:login' %}">Login</a></li>
                 {% else %}
+                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal login_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'accounts:login' %}">Login</a></li>
                         <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal signup_url  request.path %} mobile__link--active{%endifequal%}" href="{% url 'accounts:signup' %}">signup</a></li>
                 {% endif %}
         </ul>
