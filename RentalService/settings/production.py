@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DEBUG = False
-ALLOWED_HOSTS =  ['gentle-bayou-59852.herokuapp.com', 'ads-rental.herokuapp.com', '.yourdomain.com']
+ALLOWED_HOSTS = ['gentle-bayou-59852.herokuapp.com']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -159,7 +159,7 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.eniviron.get('EMAIL_USER') # 'ajaykarki619'
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER') # 'ajaykarki619'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD') # 'gmail_12371'
 
 

@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='jgfv=@1@!3^k3u74@4#=j3%lbqpc=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gentle-bayou-59852.herokuapp.com']
 
 
 # Application definition
