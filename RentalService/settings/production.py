@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-ALLOWED_HOSTS = ['gentle-bayou-59852.herokuapp.com']
+ALLOWED_HOSTS = ['zanky.herokuapp.com']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
