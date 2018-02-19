@@ -25,7 +25,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY', default='jgfv=@1@!3^k3u74@4#=j3%lbqpc=ut)&4c+_d(a0%k)mw)@__')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 
@@ -86,7 +86,6 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DEBUG = False
 ALLOWED_HOSTS = ['gentle-bayou-59852.herokuapp.com']
 DATABASES = {
     'default': {

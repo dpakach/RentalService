@@ -27,7 +27,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='jgfv=@1@!3^k3u74@4#=j3%lbqpc=
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['gentle-bayou-59852.herokuapp.com']
 
 # Application definition
 
