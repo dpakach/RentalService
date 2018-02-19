@@ -14,18 +14,16 @@
                                         Update Profile
                                 </span>
                         </h4>
-                        <form class="form" method="post">
+                        <form class="form" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {% for field in form %}
                                         <div class="form__group">
                                                 {{ field.label_tag }}
-
                                                 {{ field }}
-
                                         </div>
                                 {% endfor %}
                                 <div class="form__group">
-                                        <button class="btn btn--primary">Login</button>
+                                        <button class="btn btn--primary">Update</button>
                                 </div>
                         
                                 <p class="u-center-text u-margin-bottom-small">New to This Site?</br><a href="{% url 'accounts:signup' %}">Sign up</a></p>

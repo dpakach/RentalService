@@ -14,6 +14,7 @@
                                 {% if object.pic %}
                                         <img src={{object.pic.url}} alt="peron on  a tour" class="story__img">
                                 {% else %}
+                                        <p>Photo</p>
                                 {% endif %}
                         </div>
                     </div>
@@ -149,7 +150,7 @@
             {% endfor %}
         </section>
         {% else %}
-            <p class="heading-tertiary u-center-text u-margin-top-big">No rentals Available form this user/p>
+            <p class="heading-tertiary u-center-text u-margin-top-big">No rentals Available form this user</p>
         {% endif %}
 
 {% endblock %}

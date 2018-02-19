@@ -17,7 +17,8 @@
                 </h4>
                 <form class="form" method="post">
                         {% csrf_token %}
-                        {% for field in form %}
+                        {{ form.as_p }}
+ <!--                           {% for field in form %}
                                 <div class="form__group">
                                         {{ field.label_tag }}
 
@@ -27,7 +28,7 @@
                                                 <span class="helptext">{{field.help_text}}</span>
                                         {% endif %}
                                 </div>
-                        {% endfor %}
+                        {% endfor %} -->
                         <div class="form__group">
                                 <button class="btn btn--primary">Login</button>
                         </div>

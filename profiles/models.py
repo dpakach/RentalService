@@ -17,6 +17,7 @@ class Profile(models.Model):
     pic             = models.FileField(upload_to='photos/user/', blank=True, null=True)
     phone_regex     = RegexValidator(regex=r'^\+?1?\d{9,15}$', message='Phone number must be in format +9999999999')
     phone_number    = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    email_confirmed = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -33,7 +34,7 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if-created:
+    if created:
         Profile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)

@@ -13,6 +13,48 @@ $breakpoint argument choices :
 -big-desktop
 
  */
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px); }
+  80% {
+    opacity: 0.8;
+    transform: translateX(10px); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px); }
+  80% {
+    opacity: 0.8;
+    transform: translateX(-10px); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(10px); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0); }
+  25% {
+    transform: translateY(-2rem); }
+  50% {
+    transform: translateY(0rem); }
+  75% {
+    transform: translateY(-2rem); }
+  100% {
+    transform: translateY(0rem); } }
+
 *,
 *::after,
 *::before {
@@ -22,10 +64,10 @@ $breakpoint argument choices :
 
 html {
   font-size: 62.5%; }
-  @media (max-width: 75em) {
+  @media only screen and (max-width: 75em) {
     html {
       font-size: 56.25%; } }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     html {
       font-size: 50%; } }
 
@@ -37,15 +79,20 @@ body {
   padding: 2rem;
   margin-top: 7rem;
   position: relative; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .container {
       margin-top: 20rem; } }
-  @media (max-width: 37.5em) {
+  @media only screen and (max-width: 37.5em) {
     .container {
-      margin-top: 5rem; } }
+      margin-top: 25rem; } }
 
 a {
+  color: #406e8e;
   text-decoration: none; }
+
+::selection {
+  background-color: rgba(64, 110, 142, 0.6);
+  color: #fff; }
 
 body {
   font-family: 'Lato', sans-serif;
@@ -98,25 +145,25 @@ body {
 
 .u-margin-bottom-big {
   margin-bottom: 8rem !important; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .u-margin-bottom-big {
       margin-bottom: 5rem !important; } }
 
 .u-margin-bottom-medium {
   margin-bottom: 4rem !important; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .u-margin-bottom-medium {
       margin-bottom: 3rem !important; } }
 
 .u-margin-bottom-small {
   margin-bottom: 1.5rem !important; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .u-margin-bottom-small {
       margin-bottom: 1rem !important; } }
 
 .u-margin-top-big {
   margin-top: 8rem !important; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .u-margin-top-big {
       margin-top: 5rem !important; } }
 
@@ -191,20 +238,24 @@ body {
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
   background-color: #f6f6f6;
   margin-bottom: 5rem;
-  font-size: 1.5rem; }
+  font-size: 1.5rem;
+  transition: all .2s; }
   .card:hover {
-    translateY: -.5rem; }
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.3);
+    animation-name: moveUpDown;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-out; }
   .card__picture {
     background-size: cover;
     background-position: top right;
-    height: 15rem;
+    height: 18rem;
     background-blend-mode: color;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
     background-image: linear-gradient(to right bottom, #406e8e, #cad7e0), url(images/test.jpg);
-    margin-bottom: 2rem; }
+    margin-bottom: 4rem; }
   .card__heading {
     font-size: 1.7rem;
     font-weight: 400;
@@ -212,7 +263,7 @@ body {
     text-transform: uppercase;
     color: #fff;
     position: absolute;
-    top: 8rem;
+    top: 13rem;
     right: 2rem;
     width: 75%; }
     .card__heading--form {
@@ -253,14 +304,16 @@ body {
   .card__value {
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 500;
     word-spacing: 3px;
-    color: #999; }
+    color: #555; }
   .card__form {
     color: #303030;
     height: auto; }
     .card__form:hover {
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.3);
+      animation-name: none;
       translateY: none; }
     .card__form__picture {
       height: 20rem;
@@ -271,6 +324,8 @@ body {
 .form {
   margin: 0 auto;
   padding: 0 3rem; }
+  .form p {
+    margin-bottom: 2rem; }
   .form__inputs {
     display: grid;
     grid-template-columns: repeat(auto-fit, 1fr); }
@@ -326,18 +381,13 @@ body {
     opacity: 0;
     visibility: hidden;
     transform: translateX(4rem); }
-  .form .helptext {
+  .form ul, .form .helptext {
     font-size: 1.2rem;
     color: #555;
     margin: 0 0 0 3.5rem;
     text-align: left;
     width: 80%;
     display: inline-block; }
-  .form ul {
-    list-style: none;
-    font-size: 1.2rem;
-    color: #555;
-    margin: 0; }
 
 .story {
   width: 100%;
@@ -353,7 +403,7 @@ body {
   grid-template-columns: auto 1fr;
   justify-content: center;
   align-items: center; }
-  @media (max-width: 37.5em) {
+  @media only screen and (max-width: 37.5em) {
     .story {
       grid-template-columns: 1fr; } }
   .story__shape {
@@ -417,7 +467,7 @@ body {
   background: linear-gradient(to right, #406e8e, #161925);
   margin: 0;
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2); }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .main-nav,
     .mobile-nav {
       grid-template-columns: 1fr;
@@ -431,7 +481,7 @@ body {
   .main-nav__logo,
   .mobile-nav__logo {
     height: 4rem; }
-    @media (max-width: 56.25em) {
+    @media only screen and (max-width: 56.25em) {
       .main-nav__logo,
       .mobile-nav__logo {
         height: 3rem; } }
@@ -455,7 +505,7 @@ body {
         border: none;
         font-weight: 400;
         transition: background-color .2s; }
-        @media (max-width: 56.25em) {
+        @media only screen and (max-width: 56.25em) {
           .main-nav__search form input,
           .mobile-nav__search form input {
             height: 4.2rem; } }
@@ -464,7 +514,7 @@ body {
         color: #161925;
         font-size: 5rem;
         font-weight: 300; }
-        @media (max-width: 56.25em) {
+        @media only screen and (max-width: 56.25em) {
           .main-nav__search form input::-moz-placeholder,
           .mobile-nav__search form input::-moz-placeholder {
             font-size: 3rem; } }
@@ -488,7 +538,7 @@ body {
     grid-auto-flow: column;
     grid-auto-column: auto;
     list-style: none; }
-    @media (max-width: 37.5em) {
+    @media only screen and (max-width: 37.5em) {
       .main-nav__nav,
       .mobile-nav__nav {
         display: none; } }
@@ -566,7 +616,7 @@ body {
     color: #fff; }
   .mobile-nav__item {
     display: none; }
-    @media (max-width: 37.5em) {
+    @media only screen and (max-width: 37.5em) {
       .mobile-nav__item {
         display: block; } }
 
@@ -629,8 +679,12 @@ body {
 .section--cards {
   grid-gap: 10rem;
   justify-content: space-around;
-  grid-template-columns: repeat(auto-fit, 25rem);
-  font-size: 1.5rem; }
+  grid-template-columns: repeat(auto-fit, 30rem);
+  font-size: 1.5rem;
+  padding: 0 10rem; }
+  @media only screen and (max-width: 56.25em) {
+    .section--cards {
+      padding: 0; } }
 
 .section--form {
   grid-gap: 5rem;
@@ -662,7 +716,7 @@ body {
   grid-template-columns: repeat(1fr, auto);
   color: #cad7e0;
   grid-template-areas: "hero    hero    hero    cta1" "hero    hero    hero    cta2" "hero    hero    hero    cta3"; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .top {
       grid-template-areas: "hero hero hero" "cta1 cta2 cta3"; } }
 
@@ -675,10 +729,10 @@ body {
   display: grid;
   justify-content: start;
   align-content: end; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .hero {
       min-height: 50vh; } }
-  @media (max-width: 37.5em) {
+  @media only screen and (max-width: 37.5em) {
     .hero {
       min-height: 20vh; } }
 
@@ -695,10 +749,10 @@ body {
   grid-gap: 0;
   justify-content: center;
   align-content: center; }
-  @media (max-width: 75em) {
+  @media only screen and (max-width: 75em) {
     .cta {
       font-size: 3.5rem; } }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .cta {
       background: linear-gradient(0deg, #161925, #406e8e); } }
   .cta__icon {
@@ -750,7 +804,7 @@ body {
   color: #cad7e0;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
   font-weight: 400; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .options {
       grid-template-columns: 1fr; } }
   .options__map {
@@ -762,14 +816,15 @@ body {
     grid-gap: 2rem;
     font-weight: 400;
     grid-template-rows: auto 1fr; }
-    @media (max-width: 56.25em) {
+    @media only screen and (max-width: 56.25em) {
       .options__cta {
         grid-template-columns: 1fr 1fr; } }
   .options__shape {
     width: 10rem;
     height: 10rem;
-    clip-path: circle(50% at 50% 50%);
-    display: inline -block;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
     margin: 0 auto; }
     .options__shape img {
       display: block;
@@ -789,13 +844,13 @@ body {
     grid-gap: 2rem;
     justify-content: center;
     align-items: center; }
-    @media (max-width: 56.25em) {
+    @media only screen and (max-width: 56.25em) {
       .options__buttons {
         font-size: 2rem; } }
   .options__button {
     margin: 0;
     font-weight: 400; }
-    @media (max-width: 37.5em) {
+    @media only screen and (max-width: 37.5em) {
       .options__button {
         font-size: 1.2rem; } }
 
@@ -818,7 +873,7 @@ body {
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
   padding: 2rem;
   margin-bottom: 5rem; }
-  @media (max-width: 56.25em) {
+  @media only screen and (max-width: 56.25em) {
     .reviews__form {
       grid-template-columns: 1fr; } }
   .reviews__form__textarea {
@@ -830,11 +885,26 @@ body {
     align-items: center;
     height: 4rem;
     margin-right: 4rem; }
-    @media (max-width: 56.25em) {
+    @media only screen and (max-width: 56.25em) {
       .reviews__form__button {
         margin: 0 auto; } }
   .reviews__form__star {
     margin-top: 2rem; }
+
+.message {
+  font-size: 2rem;
+  background-color: #eee;
+  padding: 5rem;
+  text-align: center;
+  width: 60%;
+  margin: 15rem auto;
+  box-shadow: 0 0 4rem rgba(0, 0, 0, 0.3);
+  border: 3px solid #406e8e;
+  border-radius: 4rem; }
+  .message--error {
+    box-shadow: 0 0 4rem rgba(255, 119, 48, 0.3);
+    border: 3px solid #ff7730;
+    background-color: rgba(255, 119, 48, 0.2); }
 
 .profile {
   background: linear-gradient(to right, #161925, #406e8e);
