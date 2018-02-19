@@ -27,7 +27,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='jgfv=@1@!3^k3u74@4#=j3%lbqpc=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['rental-ads.herokuapp.com']
 
 
 # Application definition
@@ -87,7 +86,7 @@ WSGI_APPLICATION = 'RentalService.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DEBUG = False
-ALLOWED_HOSTS =  ['ads-rental.herokuapp.com', '.yourdomain.com']
+ALLOWED_HOSTS =  ['gentle-bayou-59852.herokuapp.com', 'ads-rental.herokuapp.com', '.yourdomain.com']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
