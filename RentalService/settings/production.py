@@ -47,7 +47,8 @@ INSTALLED_APPS = [
 
     # local apps go here
     'account',
-    'rentals'
+    'rentals',
+    'profiles'
 
 ]
 
