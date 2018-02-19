@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
     # third party apps go here
     'taggit',
-    
+
 
 
     
@@ -149,7 +149,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 
 
