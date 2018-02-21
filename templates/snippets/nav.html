@@ -2,6 +2,7 @@
 {% url 'rentals:index' as rental_url %}
 {% url 'accounts:login' as login_url %}
 {% url 'accounts:signup' as signup_url %}
+{% url 'profiles:user_detail' as profile_url %}
 {% load staticfiles %}
 <nav class="main-nav">
         <div class="main-nav__logo-box">
@@ -33,6 +34,14 @@
                         </a>
                 </li>
         {% if user.is_authenticated %}
+                <li class="main-nav__item">
+                        <a  class="main-nav__link {% ifequal profile_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">
+                                <svg class="icon main-nav__link__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-user"></use>
+                                </svg>
+                                <span class="main-nav__link__text">Profile</span>
+                        </a>
+                </li>
                 <li class="main-nav__item">
                         <a  class="main-nav__link {% ifequal logout_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">
                                 <svg class="icon main-nav__link__icon">
@@ -68,6 +77,7 @@
                 <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal home_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'home' %}">Home</a></li>
                 <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal rental_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}">Rental</a></li>
                 {% if user.is_authenticated %}
+                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal profile_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">profile</a></li>
                         <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal logout_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">logout</a> </li>
                 {% else %}
                         <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal login_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">Login</a></li>

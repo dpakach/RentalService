@@ -19,8 +19,8 @@ from accounts import views as accounts_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', accounts_views.home, name='home'),
+    url(r'^$', accounts_views.Homeview.as_view(), name='home'),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^rentals/', include('rentals.urls')),
-    url(r'^u/', include('profiles.urls')),
+    url(r'^accounts/', include('profiles.urls')),
 ]

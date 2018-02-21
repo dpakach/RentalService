@@ -13,9 +13,22 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.views import login as user_login
 from django.core.urlresolvers import reverse
+from django.views.generic import TemplateView
+from rentals.models import Rental
 
-def home(request):
-    return render(request, 'home.html')
+class Homeview(TemplateView):
+    template_name='home.html'
+
+    def get_context_data(self, *args, **kwargs):
+        """
+        ths method returns the context data of the rental for the detail view
+        """
+        context = super(Homeview, self).get_context_data(*args, **kwargs)
+        if self.request.user.is_authenticated:
+            context['rentals_list'] = Rental.objects.filter(author=self.request.user)[:3]
+        return context
+
+
 
 def login(request, **kwargs):
     if request.user.is_authenticated():

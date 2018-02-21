@@ -13,7 +13,7 @@
                     <div class="profile__photo">
                         <div>
                                 {% if object.pic %}
-                                        <img src="{{object.pic.url}}" alt="peron on  a tour" class="story__img">
+                                        <img src="{{object.pic.url}}" alt="User Photo" class="story__img">
                                 {% else %}
                                         <p>Photo</p>
                                 {% endif %}
@@ -105,6 +105,7 @@
                         </ul>
                     </div>
                 
+                    <a href="{% url 'profiles:update' %}" class="btn btn--header u-margin-bottom-small">Update</a>
 
                 </div>
         
@@ -140,8 +141,8 @@
                         <div class="card__details">
                                 <ul>
                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.description}}</span></li>
-                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">4.5</span></li>
-                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">30</span></li>
+                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating}}</span></li>
+                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
                                 </ul>
 
                         </div>
