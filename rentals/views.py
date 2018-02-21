@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import generic, View
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from django.core.paginator import Paginator
 from .forms import CommentForm
@@ -19,7 +19,6 @@ class IndexView(generic.ListView):
     template_name = 'rentals/index.html'
     context_object_name = 'rentals_list'
     model = Rental
-    paginate_by = 5
 
     def get_queryset(self):
         """
@@ -83,13 +82,14 @@ class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = RentalCreateForm
     template_name = 'rentals/rental_form.html'
 
+
     def get_queryset(self):
         """
         this method return the rental object to update in the UpdateView
         """
-
         return Rental.objects.filter(pk = self.kwargs.get('pk', None))
     
+
 
 class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     """

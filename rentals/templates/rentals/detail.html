@@ -5,16 +5,23 @@
 
 {% block content %}
         <style>
-.hero{
-        {% if rental.photo %}
-                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .7), transparent), url({{rental.photo.url}});
-                        {% else %}
-                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .7), transparent), url("/static/images/signup.jpeg");
+            .hero{
+                {% if rental.photo %}
+                        background-image:linear-gradient(45deg, rgba(255, 255, 255, .4), transparent), url({{rental.photo.url}});
+                {% else %}
+                        background-image:linear-gradient(45deg, rgba(255, 255, 255, .4), transparent), url("/static/images/signup.jpeg");
 
-                        {% endif %}
-}
-        
-        
+                {% endif %}
+                transition: background-image 1s;
+                background-position: bottom;
+            }
+            .hero:hover{
+                {% if rental.photo %}
+                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .3), transparent), url({{rental.photo.url}});
+                {% else %}
+                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .3), transparent), url("/static/images/signup.jpeg");
+                {% endif %}
+            }
         </style>
 
         <section class="section section--detail section--detail--rental">
@@ -87,9 +94,10 @@
                                 {% endif %}
 
                                 <h4 class="options__username">{{rental.author}}</h4>
+                                <p>{{rental.created_date}}</p>
                             </div>
                             <div class="options__buttons">
-                                    <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}"> Contact </a>
+                                    <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
                                     <a class="btn btn--white options__button" href="#"> Interested </a>
                             </div>
                         </div>

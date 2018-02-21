@@ -15,63 +15,63 @@
         </div>
 
 
-                        <ul class="main-nav__nav">
-                                <li class="main-nav__item">
-                                        <a  class="main-nav__link {% ifequal home_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'home' %}">
-                                                <svg class="icon main-nav__link__icon">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-home"></use>
-                                                </svg>
-                                                <span class="main-nav__link__text">Home</span>
-                                        </a>
-                                </li>
-                                <li class="main-nav__item">
-                                        <a  class="main-nav__link {% ifequal rental_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}">
-                                                <svg class="icon main-nav__link__icon">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-office"></use>
-                                                </svg>
-                                                <span class="main-nav__link__text">Rental</span>
-                                        </a>
-                                </li>
-                        {% if user.is_authenticated %}
-                                <li class="main-nav__item">
-                                        <a  class="main-nav__link {% ifequal logout_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">
-                                                <svg class="icon main-nav__link__icon">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-log-out"></use>
-                                                </svg>
-                                                <span class="main-nav__link__text">Logout</span>
-                                        </a>
-                                </li>
-                        {% else %}
-                                <li class="main-nav__item">
-                                        <a  class="main-nav__link {% ifequal signup_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:signup' %}">
-                                                <svg class="icon main-nav__link__icon">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-user-plus"></use>
-                                                </svg>
-                                                <span class="main-nav__link__text">Signup</span>
-                                        </a>
-                                </li>
-                                <li class="main-nav__item">
-                                        <a  class="main-nav__link {% ifequal login_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">
-                                                <svg class="icon main-nav__link__icon">
-                                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-user"></use>
-                                                </svg>
-                                                <span class="main-nav__link__text">Login</span>
-                                        </a>
-                                </li>
-                        {% endif %}
-                        </ul>
+        <ul class="main-nav__nav">
+                <li class="main-nav__item">
+                        <a  class="main-nav__link {% ifequal home_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'home' %}">
+                                <svg class="icon main-nav__link__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-home"></use>
+                                </svg>
+                                <span class="main-nav__link__text">Home</span>
+                        </a>
+                </li>
+                <li class="main-nav__item">
+                        <a  class="main-nav__link {% ifequal rental_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}">
+                                <svg class="icon main-nav__link__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-office"></use>
+                                </svg>
+                                <span class="main-nav__link__text">Rental</span>
+                        </a>
+                </li>
+        {% if user.is_authenticated %}
+                <li class="main-nav__item">
+                        <a  class="main-nav__link {% ifequal logout_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">
+                                <svg class="icon main-nav__link__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-log-out"></use>
+                                </svg>
+                                <span class="main-nav__link__text">Logout</span>
+                        </a>
+                </li>
+        {% else %}
+                <li class="main-nav__item">
+                        <a  class="main-nav__link {% ifequal signup_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:signup' %}">
+                                <svg class="icon main-nav__link__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-user-plus"></use>
+                                </svg>
+                                <span class="main-nav__link__text">Signup</span>
+                        </a>
+                </li>
+                <li class="main-nav__item">
+                        <a  class="main-nav__link {% ifequal login_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">
+                                <svg class="icon main-nav__link__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#icon-user"></use>
+                                </svg>
+                                <span class="main-nav__link__text">Login</span>
+                        </a>
+                </li>
+        {% endif %}
+        </ul>
 </nav>
-<nav class="mobile__nav">
-        <ul class="main-nav__na">
+<nav class="mobile-nav">
+        <ul class="mobile-nav__nav">
                 <li class="mobile-nav__item"><a class="mobile-nav__link" href="#">&nbsp;</a></li>
                 <li class="mobile-nav__item"><a class="mobile-nav__link" href="#">&nbsp;</a></li>
-                <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal home_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'home' %}">Home</a></li>
-                <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal rental_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'rentals:index' %}">Rental</a></li>
+                <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal home_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'home' %}">Home</a></li>
+                <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal rental_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}">Rental</a></li>
                 {% if user.is_authenticated %}
-                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal logout_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">logout</a> </li>
+                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal logout_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">logout</a> </li>
                 {% else %}
-                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal login_url request.path %} mobile__link--active{%endifequal%}" href="{% url 'accounts:login' %}">Login</a></li>
-                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal signup_url  request.path %} mobile__link--active{%endifequal%}" href="{% url 'accounts:signup' %}">signup</a></li>
+                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal login_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">Login</a></li>
+                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal signup_url  request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:signup' %}">signup</a></li>
                 {% endif %}
         </ul>
 </nav>

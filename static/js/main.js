@@ -32,12 +32,12 @@ function autoComplete(latInput, lngInput){
 
 //if someone hit enter in location field dont submit the form
 
-$('#id_location').on('keydown', (e) => {
+$$('#id_location').on('keydown', (e) => {
         if(e.keycode == 13) e.preventDefault();
-})
+});
 
 
 
 function activatePlacesSearch(){
         autoComplete($('#id_lat'), $('#id_lng'));
-}
+};

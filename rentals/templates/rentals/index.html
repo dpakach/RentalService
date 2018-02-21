@@ -3,7 +3,8 @@
 {% block head_title %} Find Rentals | {{ block.super }}{% endblock %}
 
 {% block content %}
-        <h1 class="heading-primary heading-primary--main u-margin-bottom-medium u-center-text">Rentals <small><a href="{% url "rentals:create" %}" class="btn btn--text"><p class="heading-primary--sub">Add new</p></a></small></h1>
+        <h1 class="heading-primary heading-primary--main u-margin-bottom-medium u-center-text">Rentals</h1>
+        <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url "rentals:create" %}">Add new</a>
 
                 <section class="section section--cards">
 
@@ -30,8 +31,8 @@
                                         <div class="card__details">
                                                 <ul>
                                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.description}}</span></li>
-                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">4.5</span></li>
-                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">30</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
                                                 </ul>
 
                                         </div>
@@ -41,7 +42,7 @@
                                 </a>
                         {% endfor %}
                 {% else %}
-                        <p>No rentals Avilable</p>
+                        <p class="u-center-text">No rentals Available</p>
                 {% endif %}
         
 {% if is_paginated %}

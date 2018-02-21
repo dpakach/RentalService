@@ -6,4 +6,3 @@ from .models import Rental, Comment
 
 admin.site.register(Rental)
 admin.site.register(Comment)
-

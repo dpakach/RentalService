@@ -17,7 +17,7 @@ class RentalCreateForm(forms.ModelForm):
     class Meta():
         model = Rental
 
-        fields = ['title','description', 'rent', 'negotiable', 'photo', 'location', 'tags']
+        fields = ['title','description', 'rent', 'photo', 'location', 'tags']
 
 
 class CommentForm(forms.ModelForm):

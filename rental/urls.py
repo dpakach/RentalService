@@ -1,4 +1,4 @@
-"""RentalService URL Configuration
+"""rental URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -15,19 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from account import views as account_views
-from django.conf import settings
-from django.conf.urls.static import static
-
+from accounts import views as accounts_views
 
 urlpatterns = [
-    url(r'^$', account_views.home, name='home'),
-    url(r'^rentals/', include('rentals.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('account.urls')),
-    url(r'^u/', include('profiles.urls', namespace='profiles')),
+    url(r'^$', accounts_views.home, name='home'),
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'^rentals/', include('rentals.urls')),
+    url(r'^u/', include('profiles.urls')),
 ]
-
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

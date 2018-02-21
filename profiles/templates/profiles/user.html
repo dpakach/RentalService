@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load static %}
 {% block head_title %} User | {{object}}  | {{ block.super }}{% endblock %}
 
 {% block content %}
@@ -12,7 +13,7 @@
                     <div class="profile__photo">
                         <div>
                                 {% if object.pic %}
-                                        <img src={{object.pic.url}} alt="peron on  a tour" class="story__img">
+                                        <img src="{{object.pic.url}}" alt="peron on  a tour" class="story__img">
                                 {% else %}
                                         <p>Photo</p>
                                 {% endif %}
@@ -112,7 +113,7 @@
 
         {% if rentals %}
         <h3 class="heading-tertiary u-center-text u-margin-bottom-small">Rentals From this User</h3>
-        <form class="form u-margin-bottom-small" action="{% url 'profiles:detail' username=object.user %}" method="GET">
+        <form class="form u-margin-bottom-big" action="{% url 'profiles:detail' username=object.user %}" method="GET">
                         {% csrf_token %}
                         <input placeholder="Search..." name='uq' value={{request.GET.uq}}>
                 </form>
