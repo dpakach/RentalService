@@ -24,7 +24,7 @@ class IndexView(generic.ListView):
         """
         ths method returns the context data of the rental objects for the index view
         """
-        return Rental.objects.order_by('-created_date')
+        return Rental.objects.order_by('-rating')
 
 
     def get_context_data(self, *args, **kwargs):

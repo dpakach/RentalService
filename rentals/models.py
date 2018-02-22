@@ -80,6 +80,12 @@ class Rental(models.Model):
         if len(self.title) <= 25:
             return self.title[:25]
 
+    def get_description(self):
+        if len(self.description)> 50:
+            return self.description[:50] + ' ...'
+        else:
+            return self.description
+
     def get_rating(self):
         pass;
 

@@ -62,6 +62,9 @@
                 </div>
                 <div class="description">
                         <p>{{rental.description}}</p>
+                            {% ifequal request.user.username rental.author.username %}
+                                <a href="{% url 'rentals:update' pk=rental.pk %}" class="btn btn--rentaladd u-margin-bottom-small">Edit</a>
+                            {% endifequal %}
                 </div>
 
 
@@ -157,7 +160,7 @@
                         </div>
                         {% endfor %}
                         {% else %}
-                            <p>no comments</p>
+                            <p class="heading-tertiary u-center-text">no comments yet</p>
                         {% endif %}
 
                     </div>

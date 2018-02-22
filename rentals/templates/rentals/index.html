@@ -4,7 +4,7 @@
 
 {% block content %}
         <h1 class="heading-primary u-margin-bottom-medium u-center-text">Rentals</h1>
-        <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url "rentals:create" %}">Add new</a>
+        <a class="btn btn--rentaladd u-margin-bottom-big u-center-text" href="{% url "rentals:create" %}">Add new</a>
 
                 <section class="section section--cards">
 
@@ -30,7 +30,7 @@
                                         </h4>
                                         <div class="card__details">
                                                 <ul>
-                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.description}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
                                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating}}</span></li>
                                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
                                                 </ul>

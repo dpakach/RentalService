@@ -25,7 +25,7 @@ class Homeview(TemplateView):
         """
         context = super(Homeview, self).get_context_data(*args, **kwargs)
         if self.request.user.is_authenticated:
-            context['rentals_list'] = Rental.objects.filter(author=self.request.user)[:3]
+            context['rentals_list'] = Rental.objects.filter(author=self.request.user).order_by('-rating')[:3]
         return context
 
 

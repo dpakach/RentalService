@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h1 class="heading-primary heading-primary--main u-margin-bottom-medium u-center-text u-margin-top-big">User Details</h1>
+<h1 class="heading-primary u-margin-bottom-medium u-center-text">User Details</h1>
 
         <section class="section section--profile">
                 <div class="profile">
@@ -105,7 +105,9 @@
                         </ul>
                     </div>
                 
-                    <a href="{% url 'profiles:update' %}" class="btn btn--header u-margin-bottom-small">Update</a>
+                    {% ifequal request.user.username object.user.username %}
+                        <a href="{% url 'profiles:update' %}" class="btn btn--header u-margin-bottom-small">Update</a>
+                    {% endifequal %}
 
                 </div>
         
@@ -122,6 +124,7 @@
 
             {% for obj in rentals %}
 
+                <a href="{% url 'rentals:detail' pk=obj.pk %}">
         
                 <div class="card">
                         {% if obj.photo %}
@@ -134,13 +137,13 @@
                         </div>
                         <h4 class="card__heading">
                                 <span class="card__heading-span">
-                                        <a href="{% url 'rentals:detail' pk=obj.pk %}">{{ obj.title }}</a>
+                                        {{ obj.title }}
                                 </span>
 
                         </h4>
                         <div class="card__details">
                                 <ul>
-                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.description}}</span></li>
+                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating}}</span></li>
                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
                                 </ul>
@@ -148,7 +151,7 @@
                         </div>
 
                 
-                </div>
+                </div></a>
             {% endfor %}
         </section>
         {% else %}
