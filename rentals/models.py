@@ -86,10 +86,6 @@ class Rental(models.Model):
         else:
             return self.description
 
-    def get_rating(self):
-        pass;
-
-
     def get_absolute_url(self):
         """
         returns absolute url for each rental object

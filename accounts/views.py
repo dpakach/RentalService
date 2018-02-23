@@ -55,8 +55,9 @@ def signup(request):
             #     'token': account_activation_token.make_token(user),
             # })
             # user.email_user(subject, message)
+            user_login(request, user)
             # return redirect('accounts:account_activation_sent')
-            return redirect('accounts:home')
+            return redirect(reverse('profiles:update'))
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})

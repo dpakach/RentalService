@@ -30,9 +30,10 @@ class IndexView(generic.ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
         query = self.request.GET.get('q')
-        qs = Rental.objects.all()
+        qs = Rental.objects.all().order_by('-rating')
         if query:
-            qs = Rental.objects.search(query)
+            qs = Rental.objects.search(query).order_by('-rating')
+
         context['rentals_list'] = qs
         return context
 

@@ -78,13 +78,14 @@ body {
 .container {
   padding: 2rem;
   margin-top: 8.4rem;
-  position: relative; }
+  position: relative;
+  min-height: 55vh; }
   @media only screen and (max-width: 56.25em) {
     .container {
       margin-top: 20rem; } }
   @media only screen and (max-width: 37.5em) {
     .container {
-      margin-top: 34rem; } }
+      margin-top: 4rem; } }
 
 a {
   color: #406e8e;
@@ -625,13 +626,11 @@ body {
     fill: #161925; }
 
 .mobile-nav {
+  position: relative;
   z-index: 9998;
   grid-template-columns: 1fr;
   grid-gap: 3rem;
-  background: transparent;
-  position: fixed;
-  top: 0;
-  right: 0; }
+  background: transparent; }
   .mobile-nav__nav {
     display: block;
     width: 100%;
