@@ -51,3 +51,6 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         """
         user = self.request.user
         return user
+
+
+
