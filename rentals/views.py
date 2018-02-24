@@ -1,8 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator
 from .forms import CommentForm
@@ -83,7 +84,6 @@ class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = RentalCreateForm
     template_name = 'rentals/rental_form.html'
 
-
     def get_queryset(self):
         """
         this method return the rental object to update in the UpdateView
@@ -121,3 +121,10 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
         pk = self.kwargs['pk']
         return reverse('rentals:detail', kwargs={'pk':pk})
 
+
+@login_required
+def intrested_in_rental(request, pk=None):
+    intrested_rental = get_object_or_404(Rental, pk__iexact=pk)
+    if request.user.is_authenticated():
+        is_intrested = Rental.objects.toggle_intrested(intrested_rental.pk, request.user)
+    return redirect('rentals:detail', pk=intrested_rental.pk)

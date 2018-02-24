@@ -10,15 +10,12 @@
         <section class="section section--profile">
                 <div class="profile">
                 <div class="profile__head">
-                    <div class="profile__photo">
-                        <div>
-                                {% if object.pic %}
+                        {% if object.pic %}
+                                <div class="profile__photo">
                                         <img src="{{object.pic.url}}" alt="User Photo" class="story__img">
-                                {% else %}
-                                        <p>Photo</p>
-                                {% endif %}
-                        </div>
-                    </div>
+                                </div>
+                        {% else %}
+                        {% endif %}
                     <div class="profile__title">
                         <h2 class="heading-secondary heading-user heading-user--main">
                                 {{object.full_name}}
@@ -113,10 +110,12 @@
         
 </section>
 
+        <div class="profile__line"></div>
+        <div class="u-margin-bottom-big">&nbsp;</div>
 
         {% if rentals %}
-        <h3 class="heading-tertiary u-center-text u-margin-bottom-small">Rentals From this User</h3>
-        <form class="form u-margin-bottom-big" action="{% url 'profiles:detail' username=object.user %}" method="GET">
+        <h3 class="heading-tertiary u-center-text u-margin-bottom-small" id="profile-rental-section">Rentals From this User</h3>
+        <form class="form form--fullscreen u-margin-bottom-big" action="{% url 'profiles:detail' username=object.user %}" method="GET">
                         {% csrf_token %}
                         <input placeholder="Search..." name='uq' value={{request.GET.uq}}>
                 </form>
@@ -144,7 +143,7 @@
                         <div class="card__details">
                                 <ul>
                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
-                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating}}</span></li>
+                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
                                 </ul>
 
@@ -155,7 +154,51 @@
             {% endfor %}
         </section>
         {% else %}
-            <p class="heading-tertiary u-center-text u-margin-top-big">No rentals Available form this user</p>
+            <p class="heading-quadnary u-center-text u-margin-top-big">No rentals Available form this user</p>
         {% endif %}
 
+        <div class="profile__line"></div>
+        <div class="u-margin-bottom-big">&nbsp;</div>
+
+                {% if intrested_rentals %}
+                        <h3 class="heading-tertiary u-center-text u-margin-bottom-small" id="profile-intrested-section">Rentals You are intrested in</h3>
+                        <form class="form form--fullscreen  u-margin-bottom-big" action="{% url 'profiles:detail' username=object.user %}" method="GET">
+                                {% csrf_token %}
+                                <input placeholder="Search..." name='int_uq' value={{request.GET.uq}}>
+                        </form>
+                        <section class="section section--cards">
+
+                            {% for obj in intrested_rentals %}
+
+                                <a href="{% url 'rentals:detail' pk=obj.pk %}">
+                        
+                                <div class="card">
+                                        {% if obj.photo %}
+                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
+                                        {% else %}
+                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+
+                                        {% endif %}
+                                                &nbsp;
+                                        </div>
+                                        <h4 class="card__heading">
+                                                <span class="card__heading-span">
+                                                        {{ obj.title }}
+                                                </span>
+
+                                        </h4>
+                                        <div class="card__details">
+                                                <ul>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
+                                                </ul>
+
+                                        </div>
+
+                                
+                                </div></a>
+                            {% endfor %}
+                        </section>
+                {% endif %}
 {% endblock %}

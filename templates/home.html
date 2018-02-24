@@ -34,6 +34,9 @@
                 {% endif %}
         </header>
 
+
+        <div class="profile__line"></div>
+        <div class="u-margin-bottom-medium">&nbsp;</div>
         {% if not user.is_authenticated %}
                         <div id="section-steps">
                                         
@@ -94,7 +97,7 @@
 
 
         <h2 class="heading-primary u-margin-bottom-medium u-center-text">Your Rentals</h2>
-        <section class="section section--cards">
+        <section class="section section--cards u-margin-bottom-big">
 
                 {% if rentals_list %}
 
@@ -119,7 +122,7 @@
                                 <div class="card__details">
                                         <ul>
                                                 <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
-                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
                                                 <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
                                         </ul>
 
@@ -130,12 +133,59 @@
                         </a>
                 {% endfor %}
         </section>
-        <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url 'profiles:user_detail' %}">View All</a>
+        <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url 'profiles:user_detail' %}#profile-rental-section">View All</a>
+        {% else %}
+                <p class="u-center-text">No rentals Available</p>
+        {% endif %}
+
+        <div class="u-margin-bottom-big">&nbsp;</div>
+        <div class="profile__line"></div>
+        <div class="u-margin-bottom-big">&nbsp;</div>
+
+        <h2 class="heading-primary u-margin-bottom-medium u-center-text">Rentals Your are intrested in</h2>
+        <section class="section section--cards">
+
+                {% if intrested_rentals_list %}
+
+                    {% for obj in intrested_rentals_list %}
+
+                        <a href="{% url 'rentals:detail' pk=obj.pk %}">
+                                <div class="card">
+                                {% if obj.photo %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
+                                {% else %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+
+                                {% endif %}
+                                        &nbsp;
+                                </div>
+                                <h4 class="card__heading">
+                                        <span class="card__heading-span">
+                                                {{ obj.title }}
+                                        </span>
+
+                                </h4>
+                                <div class="card__details">
+                                        <ul>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
+                                        </ul>
+
+                                </div>
+
+                        
+                                </div>
+                        </a>
+                {% endfor %}
+        </section>
+        <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url 'profiles:user_detail' %}#profile-intrested-section">View All</a>
         {% else %}
                 <p class="u-center-text">No rentals Available</p>
         {% endif %}
 
         {% endif %}
+
 
         
 {% endblock %}

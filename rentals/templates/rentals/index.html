@@ -31,7 +31,7 @@
                                         <div class="card__details">
                                                 <ul>
                                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
-                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
                                                         <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
                                                 </ul>
 

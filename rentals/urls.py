@@ -6,6 +6,7 @@ from .views import (
     RentalCreateView,
     RentalUpdateView,
     CommentCreateView,
+    intrested_in_rental,
 ) 
 
 app_name = 'rentals'
@@ -16,4 +17,6 @@ urlpatterns = [
     url(r'^create/$', RentalCreateView.as_view(), name="create"),
     url(r'^(?P<pk>[0-9]+)/update/$', RentalUpdateView.as_view(), name="update"),
     url(r'^(?P<pk>[0-9]+)/comment/$', CommentCreateView.as_view(), name="comment"),
+    url(r'^(?P<pk>[0-9]+)/intrested/$', intrested_in_rental, name="intrested"),
+
 ]
