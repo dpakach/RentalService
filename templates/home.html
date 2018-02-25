@@ -1,20 +1,191 @@
 {% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
 
 {% block head_title %}Home | {{ block.super }}{% endblock %}
 
 {% block content %}
-        <h1>Home Page</h1>
-        {% if request.user.is_authenticated %}
-            <h2>Welcome, {{ user.get_username }} 
-                </br>
-                </br>
-                </br>
-                </br>
-                </br>
-                <a href="{% url 'profiles:detail'  username=request.user %}">View your profile</a>
-                </br>
-                <a href="{% url 'profiles:update' %}">Update your profile</a>
+        <style>
+                .header{
+                        background-image: linear-gradient(to right bottom,
+                                                            rgba(0, 0, 0,.6),
+                                                            rgba(0, 0, 0,.6)
+                                                        ),
+                                                url({% static "images/signup.jpeg" %});
+                }
+        
+        </style>
+
+        <header class="header u-margin-bottom-big">
+
+                <div class="header__text-box">
+                        <h1 class="heading-primary u-margin-bottom-big">
+                                <span class="heading-primary--header heading-primary--main"><p>Rental Service</p></span>
+                                <span class="heading-primary--header heading-primary--sub"><p>Renting made easy</p></span>
+                        </h1>
+                        <a href="{% url 'rentals:index' %}" class="btn btn--header">Start Renting</a>
+                </div>
+                {% if not user.is_authenticated %}
+                <div class="discover row">
+                        <a href="#section-steps" class="btn btn-discover" style="color: white;">
+                               Discover more
+                        </a>
+                </div>
+                {% endif %}
+        </header>
+
+
+        <div class="profile__line"></div>
+        <div class="u-margin-bottom-medium">&nbsp;</div>
+        {% if not user.is_authenticated %}
+                        <div id="section-steps">
+                                        
+                        <h2 class=" heading-primary u-center-text u-margin-top-big">Having a problem starting up</h2>
+                        </br>
+                        <h3 class=" heading-secondary u-center-text u-margin-bottom-big">It's really easy</h3>
+
+                        <div class="section section--steps">
+                                <div class="step">
+                                        <div class="step__icon-div">
+                                                <span class="step__number-box">
+                                                        <div class="step__number">1</div>
+                                                </span>
+                                        
+                                        </div>
+                                        <div class="profile__line profile__line--small">
+                                        </div>
+                                        <div class="step__text">
+                                                <h3 class="heading-tertiary u-margin-bottom-small">Create an account</h3>
+                                                <p>First of all create your account from the signup section. After that you are all set find the best place to rent or the tenent for your rental. </p>
+                                        
+                                        </div>
+                                </div>
+                                <div class="step">
+                                        <div class="step__icon-div">
+                                                <span class="step__number-box">
+                                                        <div class="step__number">2</div>
+                                                </span>
+                                        
+                                        </div>
+                                        <div class="profile__line profile__line--small">
+                                        </div>
+                                        <div class="step__text">
+                                                <h3 class="heading-tertiary u-margin-bottom-small">Browse for rental</h3>
+                                                <p>After your create your account you can browse and search the rentals from the rentals section. You can also search for  rentals from the navbar.</p>
+                                        
+                                        </div>
+                                </div>
+                                <div class="step">
+                                        <div class="step__icon-div">
+                                                <span class="step__number-box">
+                                                        <div class="step__number">3</div>
+                                                </span>
+                                        
+                                        </div>
+                                        <div class="profile__line profile__line--small">
+                                        </div>
+                                        <div class="step__text">
+                                                <h3 class="heading-tertiary u-margin-bottom-small">Update your profile</h3>
+                                                <p>As you browse the rentals you can mark yourself as intrested in the rentals and update your profile which makes the landlords easy to find and contact you.</p>
+                                        
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+                {% else %}
+
+
+        <h2 class="heading-primary u-margin-bottom-medium u-center-text">Your Rentals</h2>
+        <section class="section section--cards u-margin-bottom-big">
+
+                {% if rentals_list %}
+
+                    {% for obj in rentals_list %}
+
+                        <a href="{% url 'rentals:detail' pk=obj.pk %}">
+                                <div class="card">
+                                {% if obj.photo %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
+                                {% else %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+
+                                {% endif %}
+                                        &nbsp;
+                                </div>
+                                <h4 class="card__heading">
+                                        <span class="card__heading-span">
+                                                {{ obj.title }}
+                                        </span>
+
+                                </h4>
+                                <div class="card__details">
+                                        <ul>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
+                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
+                                        </ul>
+
+                                </div>
+
+                        
+                                </div>
+                        </a>
+                {% endfor %}
+        </section>
+        <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url 'profiles:user_detail' %}#profile-rental-section">View All</a>
+        {% else %}
+                <p class="u-center-text">No rentals Available</p>
         {% endif %}
+
+        <div class="u-margin-bottom-big">&nbsp;</div>
+        <div class="profile__line"></div>
+        <div class="u-margin-bottom-big">&nbsp;</div>
+
+        <h2 class="heading-primary u-margin-bottom-medium u-center-text">Rentals Your are intrested in</h2>
+        <section class="section section--cards">
+
+                {% if intrested_rentals_list %}
+
+                    {% for obj in intrested_rentals_list %}
+
+                        <a href="{% url 'rentals:detail' pk=obj.pk %}">
+                                <div class="card">
+                                {% if obj.photo %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
+                                {% else %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+
+                                {% endif %}
+                                        &nbsp;
+                                </div>
+                                <h4 class="card__heading">
+                                        <span class="card__heading-span">
+                                                {{ obj.title }}
+                                        </span>
+
+                                </h4>
+                                <div class="card__details">
+                                        <ul>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
+                                        </ul>
+
+                                </div>
+
+                        
+                                </div>
+                        </a>
+                {% endfor %}
+        </section>
+        <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url 'profiles:user_detail' %}#profile-intrested-section">View All</a>
+        {% else %}
+                <p class="u-center-text">No rentals Available</p>
+        {% endif %}
+
+        {% endif %}
+
 
         
 {% endblock %}

@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from django.shortcuts import get_object_or_404
 
 User = settings.AUTH_USER_MODEL
 
@@ -43,11 +43,26 @@ class RentalManager(models.Manager):
         """
         return RentalQuerySet(self.model, using=self._db)
 
+
     def search(self, query):
         """
         manage search functionality of the index view
         """
         return self.get_queryset().search(query)
+
+
+    def toggle_intrested(self, pk, user):
+        rental = get_object_or_404(Rental, pk__iexact=pk)
+        if user in rental.intrested.all():
+            rental.intrested.remove(user)
+            added=False
+        elif user.username == rental.author.username:
+            added=False
+        else:
+            rental.intrested.add(user)
+            added=True
+
+        return added
 
 
 class Rental(models.Model):
@@ -66,6 +81,7 @@ class Rental(models.Model):
     photo           = models.FileField(upload_to='photos/', blank=True, null=True)
     location        = models.CharField(max_length=256, blank=True, null=True)
     rating          = models.FloatField(default=0)
+    intrested       = models.ManyToManyField(User, related_name="intrested_rentals", blank=True)
 
     tags = TaggableManager()
 
@@ -80,9 +96,11 @@ class Rental(models.Model):
         if len(self.title) <= 25:
             return self.title[:25]
 
-    def get_rating(self):
-        pass;
-
+    def get_description(self):
+        if len(self.description)> 50:
+            return self.description[:50] + ' ...'
+        else:
+            return self.description
 
     def get_absolute_url(self):
         """
@@ -92,6 +110,11 @@ class Rental(models.Model):
         """
         return reverse('rentals:detail', kwargs={'pk':self.pk})
 
+    def is_intrested(self, user):
+        if user not in self.intrested.all():
+            return False
+        else:
+            return True
 
 
 class Comment(models.Model):
@@ -120,3 +143,6 @@ class Comment(models.Model):
         returns comment text
         """
         return self.text
+
+    def stars_range(self):
+        return list(range(self.stars))

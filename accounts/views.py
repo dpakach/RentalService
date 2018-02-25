@@ -13,9 +13,23 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.views import login as user_login
 from django.core.urlresolvers import reverse
+from django.views.generic import TemplateView
+from rentals.models import Rental
 
-def home(request):
-    return render(request, 'home.html')
+class Homeview(TemplateView):
+    template_name='home.html'
+
+    def get_context_data(self, *args, **kwargs):
+        """
+        ths method returns the context data of the rental for the detail view
+        """
+        context = super(Homeview, self).get_context_data(*args, **kwargs)
+        if self.request.user.is_authenticated:
+            context['rentals_list'] = Rental.objects.filter(author=self.request.user).order_by('-rating')[:3]
+            context['intrested_rentals_list'] = self.request.user.intrested_rentals.order_by('-rating')[:3]
+        return context
+
+
 
 def login(request, **kwargs):
     if request.user.is_authenticated():
@@ -42,8 +56,9 @@ def signup(request):
             #     'token': account_activation_token.make_token(user),
             # })
             # user.email_user(subject, message)
+            user_login(request, user)
             # return redirect('accounts:account_activation_sent')
-            return redirect('accounts:home')
+            return redirect(reverse('profiles:update'))
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})

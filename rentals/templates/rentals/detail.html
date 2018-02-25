@@ -57,11 +57,14 @@
                                                 <use xlink:href="{% static 'images/sprite.svg' %}#icon-thumbs-up"></use>
                                         </svg>
                                 </span>
-                                <p class="cta__value">{{rental.intrested}} intrested</p>
+                                <p class="cta__value">{{rental.intrested.count}} <span class="u-hide-me--phone">intrested</span></p>
                         </div>
                 </div>
                 <div class="description">
                         <p>{{rental.description}}</p>
+                            {% ifequal request.user.username rental.author.username %}
+                                <a href="{% url 'rentals:update' pk=rental.pk %}" class="btn btn--rentaladd u-margin-bottom-small">Edit</a>
+                            {% endifequal %}
                 </div>
 
 
@@ -80,6 +83,34 @@
                         </div>
                 {% endif %}
 
+                {% ifequal rental.author request.user %}
+                        <h3 class="heading-tertiary u-marign-bottom-medium">People intrested in your rentals</h3>
+                        <div class="tags" style="text-align:center;">
+                                {% if rental.intrested.all %}
+
+                                {% for user in rental.intrested.all %}
+                                        <a href="{% url "profiles:detail" username=user.username %}">
+                                                {% if user.user_profile.pic %}
+                                                        <div class="profile__photo"><img src="{{user.user_profile.pic.url}}"  class="story__img" alt=""></div>
+                                                {% else %}
+                                                        <div class="profile__photo"><img src="{% static 'images/logo-big-color.png' %}"  class="story__img" alt=""></div>
+                                                {% endif %}
+                                                <h4 class="heading-quadnary">
+                                                        {% if user.user_profile.full_name %}
+                                                            {{user.user_profile.full_name}}
+                                                        {% else %}
+                                                            ---
+                                                        {% endif %}
+                                                </h4>
+                                                <p>@{{user.username}}</p>
+                                        </a>
+                                {% endfor %}
+                                {% else %}
+                                        <p>No one is currently intrested in this rental</p>
+                                {% endif %}
+                        
+                        </div>
+                {% endifequal %}
 
                 <div class="options">
                         <div class="options__map">
@@ -90,16 +121,27 @@
                             <div class="options__user-info">
                                 <h3 class="heading-tertiary u-center-text">Added by</h3>
                                 {% if rental.author.user_profile.pic %}
-                                        <div class="options__shape"><img src="{{rental.author.user_profile.pic.url}}" alt=""></div>
+                                        <div class="profile__photo"><img src="{{rental.author.user_profile.pic.url}}"  class="story__img" alt=""></div>
                                 {% endif %}
 
-                                <h4 class="options__username">{{rental.author}}</h4>
+                                <h4 class="options__username">@{{rental.author.username}}</h4>
                                 <p>{{rental.created_date}}</p>
                             </div>
+                            {% ifequal request.user rental.author %}
+                            {% else %}
                             <div class="options__buttons">
                                     <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
-                                    <a class="btn btn--white options__button" href="#"> Interested </a>
+                                    <form action="{% url 'rentals:intrested' pk=rental.pk %}" method="POST"> 
+                                    
+                                            {% csrf_token %}
+                                            {% if request.user in rental.intrested.all %}
+                                                <button class="btn btn--active" type="submit"> Interested </button>
+                                            {% else %}
+                                                <button class="btn btn--white options__button" type="submit"> Interested </button>
+                                            {% endif %}
+                                    </form>
                             </div>
+                            {% endifequal %}
                         </div>
                 </div>
 
@@ -136,28 +178,35 @@
                         <div class="story">
                                 <div>
                                         <figure class="story__shape">
-                                                <img src="/static/images/signup.jpeg" alt="peron on  a tour" class="story__img">
+                                                {% if comment.author.user_profile.pic %}
+                                                    <img src="{{comment.author.user_profile.pic.url}}" alt="peron on  a tour" class="story__img">
+                                                {% endif %}
                                                 <figcaption class="story__caption">
                                                         {{comment.author}}
                                                 </figcaption>
 
                                         </figure>
                                 </div>
-                                        <div class="story__text">
-                                                <div class="story__text--heading">
-                                                        <h3 class="heading-tertiary">{{comment.created_date}}</h3>
-                                                    <div class="story__text--star">
-                                                           {{comment.stars}} <i class="feature-box__icon icon-basic-star"></i>
-                                                    </div>
-                                                </div>
-                                                <p>
-                                                {{comment.text}}
-                                                </p>
+
+                                <div class="story__text">
+                                        <div class="story__text--heading">
+                                                <h3 class="heading-quadnary">{{comment.created_date|timesince}} ago</h3>
+                                            <div class="story__text--star">
+                                                    {% for _ in comment.stars_range %}
+                                                        <svg class="cta__icon">
+                                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                                        </svg>
+                                                    {% endfor %}
+                                            </div>
                                         </div>
+                                        <p>
+                                        {{comment.text}}
+                                        </p>
+                                </div>
                         </div>
                         {% endfor %}
                         {% else %}
-                            <p>no comments</p>
+                            <p class="heading-tertiary u-center-text">no comments yet</p>
                         {% endif %}
 
                     </div>
