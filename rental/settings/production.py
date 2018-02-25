@@ -62,3 +62,14 @@ CSRF_COOKIE_SECURE              = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
 SECURE_HSTS_SECONDS             = 1000000
 SECURE_FRAME_DENY               = True
+
+
+
+1f9fd1c20cd6
+000c12590390f1cce5f19404b9923c54faec602dc2
+
+B2_BUCKET_NAME = os.environ.get('HB2_B2_BUCKET_NAME')
+B2_BUCKET_ID = os.environ.get('HB2_B2_BUCKET_ID')
+B2_ACCOUNT_ID = os.environ.get('HB2_B2_ACCOUNT_ID')
+B2_APPLICATION_KEY = os.environ.get('HB2_B2_APP_KEY')
+DEFAULT_FILE_STORAGE = 'django_b2storage.backblaze_b2.B2Storage' # To be able to use B2
