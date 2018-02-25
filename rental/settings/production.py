@@ -82,9 +82,6 @@ SECURE_FRAME_DENY               = True
 
 
 
-1f9fd1c20cd6
-000c12590390f1cce5f19404b9923c54faec602dc2
-
 B2_BUCKET_NAME = os.environ.get('HB2_B2_BUCKET_NAME')
 B2_BUCKET_ID = os.environ.get('HB2_B2_BUCKET_ID')
 B2_ACCOUNT_ID = os.environ.get('HB2_B2_ACCOUNT_ID')
