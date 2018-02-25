@@ -26,6 +26,23 @@ SECRET_KEY = '8$jwsqhgsvnvay21#ezp48$8-$+mam(a8$0&dp^qa2daiq$(5#'
 ALLOWED_HOSTS = ['rental-ads.herokuapp.com']
 
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # third party apps go here
+    'taggit',
+
+    # local apps go here
+    'accounts',
+    'rentals',
+    'profiles',
+]
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 DEBUG = True
