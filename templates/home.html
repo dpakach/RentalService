@@ -13,7 +13,6 @@
                                                         ),
                                                 url({% static "images/signup.jpeg" %});
                 }
-        
         </style>
 
         <header class="header u-margin-bottom-big">
@@ -108,7 +107,7 @@
                                 {% if obj.photo %}
                                 <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
                                 {% else %}
-                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/house-gen.png);">
 
                                 {% endif %}
                                         &nbsp;
@@ -143,9 +142,9 @@
         <div class="u-margin-bottom-big">&nbsp;</div>
 
         <h2 class="heading-primary u-margin-bottom-medium u-center-text">Rentals Your are intrested in</h2>
-        <section class="section section--cards">
+        {% if intrested_rentals_list %}
+                <section class="section section--cards">
 
-                {% if intrested_rentals_list %}
 
                     {% for obj in intrested_rentals_list %}
 
@@ -154,7 +153,7 @@
                                 {% if obj.photo %}
                                 <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
                                 {% else %}
-                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/house-gen.png);">
 
                                 {% endif %}
                                         &nbsp;
@@ -177,8 +176,8 @@
                         
                                 </div>
                         </a>
-                {% endfor %}
-        </section>
+                    {% endfor %}
+                </section>
         <a class="btn btn--rentaladd u-margin-bottom-medium u-center-text" href="{% url 'profiles:user_detail' %}#profile-intrested-section">View All</a>
         {% else %}
                 <p class="u-center-text">No rentals Available</p>
