@@ -52,7 +52,7 @@ class RentalManager(models.Manager):
 
 
     def toggle_intrested(self, pk, user):
-        rental = get_object_or_404(Rental, pk__iexact=pk)
+        rental = get_object_or_404(Rental, pk=pk)
         if user in rental.intrested.all():
             rental.intrested.remove(user)
             added=False
