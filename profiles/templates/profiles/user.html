@@ -15,6 +15,9 @@
                                         <img src="{{object.pic.url}}" alt="User Photo" class="story__img">
                                 </div>
                         {% else %}
+                                <div class="profile__photo">
+                                        <img src="{% static 'images/user-gen.png' %}" alt="User Photo" class="story__img">
+                                </div>
                         {% endif %}
                     <div class="profile__title">
                         <h2 class="heading-secondary heading-user heading-user--main">
@@ -129,7 +132,7 @@
                         {% if obj.photo %}
                         <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
                         {% else %}
-                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/house-gen.png);">
 
                         {% endif %}
                                 &nbsp;
@@ -176,7 +179,7 @@
                                         {% if obj.photo %}
                                         <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
                                         {% else %}
-                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/default.jpg);">
+                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/house-gen.png);">
 
                                         {% endif %}
                                                 &nbsp;

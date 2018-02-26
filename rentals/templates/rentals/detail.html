@@ -9,7 +9,7 @@
                 {% if rental.photo %}
                         background-image:linear-gradient(45deg, rgba(255, 255, 255, .4), transparent), url({{rental.photo.url}});
                 {% else %}
-                        background-image:linear-gradient(45deg, rgba(255, 255, 255, .4), transparent), url("/static/images/signup.jpeg");
+                        background-image:linear-gradient(45deg, rgba(255, 255, 255, .4), transparent), url("/static/images/house-gen.png");
 
                 {% endif %}
                 transition: background-image 1s;
@@ -19,7 +19,7 @@
                 {% if rental.photo %}
                         background-image:linear-gradient(45deg, rgba(0, 0, 0, .3), transparent), url({{rental.photo.url}});
                 {% else %}
-                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .3), transparent), url("/static/images/signup.jpeg");
+                        background-image:linear-gradient(45deg, rgba(0, 0, 0, .3), transparent), url("/static/images/house-gen.png");
                 {% endif %}
             }
         </style>
@@ -93,7 +93,7 @@
                                                 {% if user.user_profile.pic %}
                                                         <div class="profile__photo"><img src="{{user.user_profile.pic.url}}"  class="story__img" alt=""></div>
                                                 {% else %}
-                                                        <div class="profile__photo"><img src="{% static 'images/logo-big-color.png' %}"  class="story__img" alt=""></div>
+                                                        <div class="profile__photo"><img src="{% static 'images/user-gen.png' %}"  class="story__img" alt=""></div>
                                                 {% endif %}
                                                 <h4 class="heading-quadnary">
                                                         {% if user.user_profile.full_name %}
@@ -122,6 +122,8 @@
                                 <h3 class="heading-tertiary u-center-text">Added by</h3>
                                 {% if rental.author.user_profile.pic %}
                                         <div class="profile__photo"><img src="{{rental.author.user_profile.pic.url}}"  class="story__img" alt=""></div>
+                                {% else %}
+                                        <div class="profile__photo"><img src="{% static 'images/user-gen.png' %}"  class="story__img" alt=""></div>
                                 {% endif %}
 
                                 <h4 class="options__username">@{{rental.author.username}}</h4>
@@ -180,6 +182,8 @@
                                         <figure class="story__shape">
                                                 {% if comment.author.user_profile.pic %}
                                                     <img src="{{comment.author.user_profile.pic.url}}" alt="peron on  a tour" class="story__img">
+                                                {% else %}
+                                                        <img src="{% static 'images/user-gen.png' %}" alt="peron on  a tour" class="story__img">
                                                 {% endif %}
                                                 <figcaption class="story__caption">
                                                         {{comment.author}}
