@@ -9,10 +9,14 @@
                 <img class="main-nav__logo"src="/static/images/logo-small-white.png" alt="">
         </div>
         <div class="main-nav__search">
-                <form action="/rentals/" method="GET">
+                <form action="/rentals/" method="GET" id="navForm">
                         {% csrf_token %}
-                        <input class="main-nav__search__input" placeholder="Search..." name='q' value={{request.GET.q}}>
+                        <input id="navSearch" class="main-nav__search__input" placeholder="Search..." name='q' value={{request.GET.q}}>
                 </form>
+                <div class="main-nav__suggestions" id="suggestionsBox">
+                        <ul id="suggestionsUl">
+                        </ul>
+                </div>
         </div>
 
 

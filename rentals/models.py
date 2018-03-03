@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.shortcuts import get_object_or_404
+from itertools import chain
 
 User = settings.AUTH_USER_MODEL
 
@@ -30,6 +31,17 @@ class RentalQuerySet(models.query.QuerySet):
                 Q(tags__name__icontains=query)
             ).distinct()
 
+    def custom_search(self, query):
+        qs1 = self.filter(title__icontains=query)
+        qs2 = self.filter(
+                Q(author__username__icontains=query)|
+                Q(description__icontains=query)|
+                Q(location__icontains=query)|
+                Q(tags__name__icontains=query)
+            ).distinct()
+
+        return list(set(list(chain(qs1, qs2))))
+
 
 class RentalManager(models.Manager):
     """
@@ -49,6 +61,9 @@ class RentalManager(models.Manager):
         manage search functionality of the index view
         """
         return self.get_queryset().search(query)
+
+    def custom_search(self, query):
+        return self.get_queryset().custom_search(query)
 
 
     def toggle_intrested(self, pk, user):

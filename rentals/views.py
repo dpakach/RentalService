@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -128,3 +128,21 @@ def intrested_in_rental(request, pk=None):
     if request.user.is_authenticated():
         is_intrested = Rental.objects.toggle_intrested(intrested_rental.pk, request.user)
     return redirect('rentals:detail', pk=intrested_rental.pk)
+
+
+def search_api(request):
+    # query = request.GET.get('query')
+    # print('query')
+    # data_list = []
+    # if query:
+    #     qs = []
+    #     qs = Rental.objects.custom_search(query)
+    data_list= []
+    qs = Rental.objects.all()
+    for obj in qs:
+        data_list.append(obj.title)
+
+    data = {
+        'rentals': data_list[:5]
+    }
+    return JsonResponse(data)
