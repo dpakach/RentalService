@@ -25,7 +25,6 @@ SECRET_KEY = '8$jwsqhgsvnvay21#ezp48$8-$+mam(a8$0&dp^qa2daiq$(5#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ["localhost", 'localhost:8000']
-ALLOWED_HOSTS = ['rental-ads.herokuapp.com']
 
 
 # Database
