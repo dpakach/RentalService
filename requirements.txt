@@ -1,8 +1,7 @@
 dj-database-url==0.4.2
 Django==1.11.8
 django-appconf==1.0.2
-django-b2storage==1.0
-django-backblazeb2-storage==0.4
+django-b2storage==0.2.1
 django-classy-tags==0.8.0
 django-crispy-forms==1.6.1
 django-taggit==0.22.2
