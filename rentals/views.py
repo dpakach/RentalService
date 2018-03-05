@@ -20,6 +20,7 @@ class IndexView(generic.ListView):
     template_name = 'rentals/index.html'
     context_object_name = 'rentals_list'
     model = Rental
+    paginate_by = 5
 
     def get_queryset(self):
         """
@@ -34,6 +35,7 @@ class IndexView(generic.ListView):
         qs = Rental.objects.all().order_by('-rating')
         if query:
             qs = Rental.objects.search(query).order_by('-rating')
+            context['query'] = query
 
         context['rentals_list'] = qs
         return context

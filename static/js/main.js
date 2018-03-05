@@ -54,28 +54,11 @@ function activatePlacesSearch(){
 //
 
 
-
-// based on https://gist.github.com/paulirish/12fb951a8b893a454b32
-
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
-
-Node.prototype.on = window.on = function (name, fn) {
-  this.addEventListener(name, fn);
-};
-
-NodeList.prototype.__proto__ = Array.prototype; // eslint-disable-line
-
-NodeList.prototype.on = NodeList.prototype.addEventListener = function (name, fn) {
-  this.forEach((elem) => {
-    elem.on(name, fn);
-  });
-};
-
-
 search_bar = document.getElementById('navSearch');
 suggestions = document.getElementById('suggestionsUl');
-suggestions_box = document.getElementById('suggestionsBox');
+
+searchbox = document.getElementById('search');
+list = document.getElementById('suggestionsBox')
 navForm = document.getElementById('navForm');
 console.log(suggestions);
 const endpoint = '/rentals/ajax/search/?query=' + search_bar.value;
@@ -86,7 +69,6 @@ const prom = fetch(endpoint)
                 .then(blob => blob.json())
                 .then(data => find=data);
 console.log(prom); 
-testVar  = 'deepak';
 
 
 function findMatches(wordToMatch, find){
@@ -101,42 +83,38 @@ function displayMatches(){
         console.log(matchArray);
         let html = matchArray.map(rental => {
                 query = rental.split(" ").join('+')
-                return `
-                <a class="nav-suggest-li" href="/rentals/?q=${query}">${rental}</a></br>
-                        `;
+                return `<a class="suggestion" href="/rentals/?q=${query}">${rental}</a>`;
         }).join('');
         if(!html){
-            html = 'no results found!'
+            html = `<span class="suggestions__notfound">no results found!</span>`
         }
 
         suggestions.innerHTML = html;
         console.log(search_bar.value);
 }
-suggestions_box.style.display = 'none';
 search_bar.addEventListener('keyup', displayMatches);
 search_bar.onfocus = function(){
-        suggestions_box.style.display='block';
+        list.style.display='block';
 };
 
 search_bar.addEventListener('focusout', function(){
         setTimeout(function(){
-                suggestions_box.style.display='none';
+                list.style.display='none';
         }, 200);
 });
-console.log(document.querySelector('.container'));
 
-search_bar.addEventListener('keyup',cb); 
-function cb(e, $('#suggestions_box')){
+search_bar.addEventListener('keyup', (e) => {
+
+        console.log('in suggestions');
         //if they are not pressing up, down or enter who cares
         if(![38, 40, 13].includes (e.keyCode)){
             return;
         }
-        const activeClass = 'nav-suggest-li--active';
-        let current = suggestions_box.querySelector(`.${activeClass}`);
-        console.log(current);
-        console.log(suggestions_box.querySelector('.container'))
+        console.log(e.keycode);
+        const activeClass = 'suggestion--active';
+        let current = searchbox.querySelector(`.${activeClass}`);
+        console.log('hello');
         const items = document.querySelectorAll('nav-suggest-li');
-        console.log('items', items)
         if(!current){
                 current = items[0];
         }
@@ -158,6 +136,9 @@ function cb(e, $('#suggestions_box')){
             current.classList.remove(activeClass);
         }
         next.classList.add(activeClass);
+}); 
+
+function cb(e, searchbox){
 
 };
 
