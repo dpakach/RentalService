@@ -3,68 +3,73 @@
 {% block head_title %} Find Rentals | {{ block.super }}{% endblock %}
 
 {% block content %}
-        <h1 class="heading-primary u-margin-bottom-medium u-center-text">Rentals</h1>
+        <h1 class="heading-primary u-margin-bottom-small u-center-text">Rentals</h1>
         <a class="btn btn--rentaladd u-margin-bottom-big u-center-text" href="{% url "rentals:create" %}">Add new</a>
 
-                <section class="section section--cards">
+        {% if query %}
+                <p class="heading-quadnary u-center-text u-margin-bottom-medium">showing result for:  <span class="u-hl-text" style="font-size: 120%; padding: 1rem; font-weight: 700 text-transform: none;">{{query}}</span></p>
 
-                        {% if rentals_list %}
+        {% endif %}
+        <section class="section section--cards">
 
-                            {% for obj in rentals_list %}
+                {% if rentals_list %}
 
-                                <a href="{% url 'rentals:detail' pk=obj.pk %}">
-                                        <div class="card">
-                                        {% if obj.photo %}
-                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
-                                        {% else %}
-                                        <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/house-gen.png);">
+                    {% for obj in rentals_list %}
 
-                                        {% endif %}
-                                                &nbsp;
-                                        </div>
-                                        <h4 class="card__heading">
-                                                <span class="card__heading-span">
-                                                        {{ obj.title }}
-                                                </span>
+                        <a href="{% url 'rentals:detail' pk=obj.pk %}">
+                                <div class="card">
+                                {% if obj.photo %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({{ obj.photo.url }});">
+                                {% else %}
+                                <div class="card__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/house-gen.png);">
 
-                                        </h4>
-                                        <div class="card__details">
-                                                <ul>
-                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
-                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
-                                                        <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
-                                                </ul>
+                                {% endif %}
+                                        &nbsp;
+                                </div>
+                                <h4 class="card__heading">
+                                        <span class="card__heading-span">
+                                                {{ obj.title }}
+                                        </span>
 
-                                        </div>
+                                </h4>
+                                <div class="card__details">
+                                        <ul>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-info"></i></span><span class="card__value">{{obj.get_description}}</span></li>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-star"></i></span><span class="card__value">{{obj.rating|floatformat:1}}</span></li>
+                                                <li><span class="card__key"><i class="feature-box__icon icon-basic-message-multiple"></i></span><span class="card__value">{{obj.comments.count}}</span></li>
+                                        </ul>
 
-                                
-                                        </div>
-                                </a>
-                        {% endfor %}
-                {% else %}
-                        <p class="u-center-text">No rentals Available</p>
-                {% endif %}
+                                </div>
+
+                        
+                                </div>
+                        </a>
+                {% endfor %}
+        {% else %}
+                <p class="u-center-text">No rentals Available</p>
+        {% endif %}
+        </section>
         
-{% if is_paginated %}
-<ul class="pagination">
-  {% if page_obj.has_previous %}
-    <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;  </a></li>
-  {% else %}
-    <li class="disabled"><span>&laquo;</span></li>
-  {% endif %}
-  {% for i in paginator.page_range %}
-    {% if page_obj.number == i %}
-      <li class="active"><span>  {{ i }}   <span class="sr-only">( current ) </span></span></li>
-    {% else %}
-      <li><a href="?page={{ i }}">  {{ i }}  </a></li>
-    {% endif %}
-  {% endfor %}
-  {% if page_obj.has_next %}
-    <li><a href="?page={{ page_obj.next_page_number }}">  &raquo;</a></li>
-  {% else %}
-    <li class="disabled"><span>&raquo;</span></li>
-  {% endif %}
-</ul>
-{% endif %}        
+        {% if is_paginated %}
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;  </a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+              <li class="active"><span>  {{ i }}   <span class="sr-only">( current ) </span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">  {{ i }}  </a></li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">  &raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+        {% endif %}        
 
 {% endblock %}
