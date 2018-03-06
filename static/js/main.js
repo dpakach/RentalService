@@ -1,58 +1,55 @@
-//bling.js
+//*******************************************************
+// star from review section
+//*******************************************************
 //
-// const $ = document.querySelector.bind(document);
-// const $$ = document.querySelectorAll.bind(document);
-// 
-// Node.prototype.on = window.on = function (name, fn) {
-//   this.addEventListener(name, fn);
-// }
-// 
-// NodeList.prototype.__proto__ = Array.prototype;
-// 
-// NodeList.prototype.on = NodeList.prototype.addEventListener = function (name, fn) {
-//   this.forEach(function (elem, i) {
-//     elem.on(name, fn);
-//   });
-// }
-// 
-// 
+const stars = [];
+const starsinput = document.getElementById('id_stars');
 
-function autoComplete(latInput, lngInput){
-        var input = document.getElementById('id_location')
-        var autocomplete = new google.maps.places.Autocomplete(input);
+if(starsinput){
+        var i, j;
+        for(i=0; i<5; i++){
+                stars[i] = document.getElementById(`reviewformstar${i+1}`);
+        }
 
-        const dropdown = new google.map.places.Autocomplete(input);
+        starsinput.value = 1;
+        starsinput.style.display = 'none';
+        for(i=0; i<5; i++){
+                document.getElementById(`reviewformstar${i+1}`).addEventListener('click', function() {
 
-        dropdown.addListener('place_changed', () => {
-                const place = dropdown.getPlace();
-                latInput.value = place.geometry.location.lat();
-                lngInput.value = place.geometry.location.lng();;
-        });
+                        this.classList.add('cta__icon--full');
+                        let doo = true;
+                        for(j=0; j<=i-1; j++){
+                                if (doo){
+                                    stars[j].classList.add('cta__icon--full');
+                                }else{
+                                    stars[j].classList.remove('cta__icon--full');
+                                }
+                                if(stars[j] === this){
+                                        doo= false;
+                                        starsinput.value = j+1;
+                                }
+                        }
+                });
+        }
 }
 
-//if someone hit enter in location field dont submit the form
-
-//$$('#id_location').on('keydown', (e) => {
-//        if(e.keycode == 13) e.preventDefault();
-//});
-
-
-
+//*******************************************************
+// auto complete for locatioin field in retnal form
+//*******************************************************
+//
 function activatePlacesSearch(){
         lat_field = document.getElementById('id_lat');
         lng_field = document.getElementById('id_lat');
         autoComplete(lat_field, lng_field);
 };
 
-// type ahead in the search bar
-//
-//
-//
-//
-//
-//
-//
 
+
+
+
+//*******************************************************
+// type ahead in the search bar
+//*******************************************************
 
 search_bar = document.getElementById('navSearch');
 suggestions = document.getElementById('suggestionsUl');
