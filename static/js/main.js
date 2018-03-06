@@ -1,32 +1,55 @@
-import { $, $$ } from './modules/bling';
-import autocomplete from './modules/autocomplete.js';
+//*******************************************************
+// star from review section
+//*******************************************************
+//
+const stars = [];
+const starsinput = document.getElementById('id_stars');
 
+if(starsinput){
+        var i, j;
+        for(i=0; i<5; i++){
+                stars[i] = document.getElementById(`reviewformstar${i+1}`);
+        }
 
-autocomplete($('#id_latitude'), $('#id_longitude'));
+        starsinput.value = 1;
+        starsinput.style.display = 'none';
+        for(i=0; i<5; i++){
+                document.getElementById(`reviewformstar${i+1}`).addEventListener('click', function() {
 
-//if someone hit enter in location field dont submit the form
+                        this.classList.add('cta__icon--full');
+                        let doo = true;
+                        for(j=0; j<=i-1; j++){
+                                if (doo){
+                                    stars[j].classList.add('cta__icon--full');
+                                }else{
+                                    stars[j].classList.remove('cta__icon--full');
+                                }
+                                if(stars[j] === this){
+                                        doo= false;
+                                        starsinput.value = j+1;
+                                }
+                        }
+                });
+        }
+}
 
-//$$('#id_location').on('keydown', (e) => {
-//        if(e.keycode == 13) e.preventDefault();
-//});
-
-
-
+//*******************************************************
+// auto complete for locatioin field in retnal form
+//*******************************************************
+//
 function activatePlacesSearch(){
         lat_field = document.getElementById('id_lat');
         lng_field = document.getElementById('id_lat');
         autoComplete(lat_field, lng_field);
 };
 
-// type ahead in the search bar
-//
-//
-//
-//
-//
-//
-//
 
+
+
+
+//*******************************************************
+// type ahead in the search bar
+//*******************************************************
 
 search_bar = document.getElementById('navSearch');
 suggestions = document.getElementById('suggestionsUl');

@@ -144,7 +144,6 @@ class Comment(models.Model):
     author          = models.ForeignKey(User)
     text            = models.TextField(max_length=1024)
     stars           = models.IntegerField(
-                            default=1,
                             validators=[
                                 MaxValueValidator(5),
                                 MinValueValidator(1)
