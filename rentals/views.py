@@ -148,3 +148,15 @@ def search_api(request):
         'rentals': data_list[:5]
     }
     return JsonResponse(data)
+
+
+def loc_api(request, pk):
+    print(pk)
+    rental = get_object_or_404(Rental, pk__iexact=pk)
+    data = {
+        'location': rental.location,
+        'lat': rental.lat,
+        'lng': rental.lng,
+    }
+    print(data);
+    return JsonResponse(data)

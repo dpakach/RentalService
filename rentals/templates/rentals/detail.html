@@ -113,7 +113,7 @@
                 {% endifequal %}
 
                 <div class="options">
-                        <div class="options__map">
+                        <div class="options__map" id="mapDiv">
                                 <h1>Map</h1>  
                         </div>
 
@@ -130,25 +130,26 @@
                                 <p>{{rental.created_date}}</p>
                             </div>
                             {% ifequal request.user rental.author %}
+                                    <p>Dont worry you will get rid of this junk soon</p>
                             {% else %}
-                            <div class="options__buttons">
-                                    <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
-                                    <form action="{% url 'rentals:intrested' pk=rental.pk %}" method="POST"> 
-                                    
-                                            {% csrf_token %}
-                                            {% if request.user in rental.intrested.all %}
-                                                <button class="btn btn--active" type="submit"> Interested </button>
-                                            {% else %}
-                                                <button class="btn btn--white options__button" type="submit"> Interested </button>
-                                            {% endif %}
-                                    </form>
-                            </div>
+                                    <div class="options__buttons">
+                                            <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
+                                            <form action="{% url 'rentals:intrested' pk=rental.pk %}" method="POST"> 
+                                            
+                                                    {% csrf_token %}
+                                                    {% if request.user in rental.intrested.all %}
+                                                        <button class="btn btn--active" type="submit"> Interested </button>
+                                                    {% else %}
+                                                        <button class="btn btn--white options__button" type="submit"> Interested </button>
+                                                    {% endif %}
+                                            </form>
+                                    </div>
                             {% endifequal %}
                         </div>
                 </div>
 
 
-
+<img src="https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=800x150&key=${process.env.MAP_KEY}&markers=${lat},${lng}&scale=2`;
 
                 <div class="user">
                         <div class="user__photo">
@@ -197,7 +198,7 @@
                                                 <h3 class="heading-quadnary">{{comment.created_date|timesince}} ago</h3>
                                             <div class="story__text--star">
                                                     {% for _ in comment.stars_range %}
-                                                        <svg class="cta__icon">
+                                                        <svg class="cta__icon cta__icon--full">
                                                                 <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
                                                         </svg>
                                                     {% endfor %}

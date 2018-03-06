@@ -1,8 +1,7 @@
-import { $, $$ } from './modules/bling';
-import autocomplete from './modules/autocomplete.js';
+//import autocomplete from './modules/autocomplete.js';
 
 
-autocomplete($('#id_latitude'), $('#id_longitude'));
+//autocomplete($('#id_latitude'), $('#id_longitude'));
 
 //if someone hit enter in location field dont submit the form
 
@@ -15,7 +14,8 @@ autocomplete($('#id_latitude'), $('#id_longitude'));
 function activatePlacesSearch(){
         lat_field = document.getElementById('id_lat');
         lng_field = document.getElementById('id_lat');
-        autoComplete(lat_field, lng_field);
+        input = document.getElementById("id_location");
+        const dropdown = new google.maps.places.Autocomplete(input);
 };
 
 // type ahead in the search bar
@@ -34,15 +34,15 @@ suggestions = document.getElementById('suggestionsUl');
 searchbox = document.getElementById('search');
 list = document.getElementById('suggestionsBox')
 navForm = document.getElementById('navForm');
-console.log(suggestions);
+//console.log(suggestions);
 const endpoint = '/rentals/ajax/search/?query=' + search_bar.value;
-console.log(endpoint)
+//console.log(endpoint)
 let find = [];
 
 const prom = fetch(endpoint)
                 .then(blob => blob.json())
                 .then(data => find=data);
-console.log(prom); 
+//console.log(prom); 
 
 
 function findMatches(wordToMatch, find){
@@ -54,7 +54,7 @@ function findMatches(wordToMatch, find){
 
 function displayMatches(){
         const matchArray = findMatches(this.value, find);
-        console.log(matchArray);
+        //console.log(matchArray);
         let html = matchArray.map(rental => {
                 query = rental.split(" ").join('+')
                 return `<a class="suggestion" href="/rentals/?q=${query}">${rental}</a>`;
@@ -64,7 +64,7 @@ function displayMatches(){
         }
 
         suggestions.innerHTML = html;
-        console.log(search_bar.value);
+        //console.log(search_bar.value);
 }
 search_bar.addEventListener('keyup', displayMatches);
 search_bar.onfocus = function(){
@@ -79,15 +79,15 @@ search_bar.addEventListener('focusout', function(){
 
 search_bar.addEventListener('keyup', (e) => {
 
-        console.log('in suggestions');
+        //console.log('in suggestions');
         //if they are not pressing up, down or enter who cares
         if(![38, 40, 13].includes (e.keyCode)){
             return;
         }
-        console.log(e.keycode);
+        //console.log(e.keycode);
         const activeClass = 'suggestion--active';
         let current = searchbox.querySelector(`.${activeClass}`);
-        console.log('hello');
+        //console.log('hello');
         const items = document.querySelectorAll('nav-suggest-li');
         if(!current){
                 current = items[0];
@@ -116,3 +116,41 @@ function cb(e, searchbox){
 
 };
 
+
+
+
+
+
+
+// map stuff
+//
+const mapendpoint = '/rentals/ajax/9/loc/';
+
+function makeMap(mapDiv, mapOptions) {
+    if(!mapDiv) return;
+    console.log(mapOptions);
+    console.log(mapDiv);
+    //make our map
+    const map = new google.maps.Map(mapDiv, mapOptions);
+}
+
+function getMapData(mapendpoint, fn){
+        fetch(mapendpoint)
+                .then(blob => blob.json())
+                .then(data => {
+                        fn(data);
+                });
+}
+
+getMapData(mapendpoint, (data) => {
+        const mapOptions = {
+                center: {lat: data.lat, lng: data.lng},
+                //center: {lat: 43.2, -79.8},
+                zoom: 10
+        }
+        makeMap(document.getElementById('mapDiv'), mapOptions);
+});
+
+
+
+//staticMap = ([lng, lat]) => `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=800x150&key=${process.env.MAP_KEY}&markers=${lat},${lng}&scale=2`;

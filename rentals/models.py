@@ -97,6 +97,8 @@ class Rental(models.Model):
     location        = models.CharField(max_length=256, blank=True, null=True)
     rating          = models.FloatField(default=0)
     intrested       = models.ManyToManyField(User, related_name="intrested_rentals", blank=True)
+    lat             = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    lng             = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
 
     tags = TaggableManager()
 

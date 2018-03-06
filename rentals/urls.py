@@ -8,6 +8,7 @@ from .views import (
     CommentCreateView,
     intrested_in_rental,
     search_api,
+    loc_api,
 ) 
 
 app_name = 'rentals'
@@ -20,4 +21,5 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/comment/$', CommentCreateView.as_view(), name="comment"),
     url(r'^(?P<pk>[0-9]+)/intrested/$', intrested_in_rental, name="intrested"),
     url(r'^ajax/search/$', search_api, name="search"),
+    url(r'^ajax/(?P<pk>[0-9]+)/loc/$', loc_api, name="loc"),
 ]
