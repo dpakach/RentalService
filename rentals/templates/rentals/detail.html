@@ -13,7 +13,7 @@
 
                 {% endif %}
                 transition: background-image 1s;
-                background-position: bottom;
+                background-position: top right;
             }
             .hero:hover{
                 {% if rental.photo %}
@@ -162,11 +162,29 @@
                 <h2 class="heading-secondary">reviews</h2>
                 <div class="reviews">
                                 <form class="form reviews__form" action={% url "rentals:comment" pk=rental.pk %} method="POST">
-                                    <div class="review__form__inputs">
+                                    <div class="reviews__form__inputs">
                                         {% csrf_token %}
                                         {% for field in form %}
                                                     {{field}}
                                         {% endfor %}
+                                        <div class="reviews__form__star">
+                                            <svg class="cta__icon cta__icon--full" id="reviewformstar1">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar2">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar3">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar4">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar5">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                        
+                                        </div>
                                     </div>
                                         <button class="btn btn--primary reviews__form__button" type="submit">Submit</button>
                                 </form>
@@ -197,7 +215,7 @@
                                                 <h3 class="heading-quadnary">{{comment.created_date|timesince}} ago</h3>
                                             <div class="story__text--star">
                                                     {% for _ in comment.stars_range %}
-                                                        <svg class="cta__icon">
+                                                        <svg class="cta__icon cta__icon--full">
                                                                 <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
                                                         </svg>
                                                     {% endfor %}
