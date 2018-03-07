@@ -20,7 +20,7 @@ class IndexView(generic.ListView):
     template_name = 'rentals/index.html'
     context_object_name = 'rentals_list'
     model = Rental
-    paginate_by = 2
+    paginate_by = 12
 
     def get_queryset(self):
         """
@@ -37,7 +37,7 @@ class IndexView(generic.ListView):
         if query:
             qs = qs.search(query)
             context['query'] = query
-        paginator = Paginator(qs, 2)
+        paginator = Paginator(qs, 12)
         if page:
             qs = paginator.page(page)
 

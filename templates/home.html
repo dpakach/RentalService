@@ -22,7 +22,7 @@
                                 <span class="heading-primary--header heading-primary--main"><p>Rental Service</p></span>
                                 <span class="heading-primary--header heading-primary--sub"><p>Renting made easy</p></span>
                         </h1>
-                        <a href="{% url 'rentals:index' %}" class="btn btn--header">Start Renting</a>
+                        <a href="{% url 'rentals:index' %}?page=1" class="btn btn--header">Start Renting</a>
                 </div>
                 {% if not user.is_authenticated %}
                 <div class="discover row">
