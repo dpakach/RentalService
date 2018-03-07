@@ -130,7 +130,6 @@
                                 <p>{{rental.created_date}}</p>
                             </div>
                             {% ifequal request.user rental.author %}
-                                    <p>Dont worry you will get rid of this junk soon</p>
                             {% else %}
                                     <div class="options__buttons">
                                             <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
@@ -149,7 +148,9 @@
                 </div>
 
 
+                <!--
                 <img src="https://maps.googleapis.com/maps/api/staticmap?center=43.2,-79.8&zoom=14&size=800x150&key=AIzaSyBBPkHM44ThhYSchGzmuYBgHAmx2NhSqD4&scale=2" alt="map">
+                -->
 
                 <h2 class="heading-secondary">reviews</h2>
                 <div class="reviews">
