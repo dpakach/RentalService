@@ -137,9 +137,9 @@
                                     
                                             {% csrf_token %}
                                             {% if request.user in rental.intrested.all %}
-                                                <button class="btn btn--active" type="submit"> Interested </button>
+                                                <a class="btn btn--active" type="submit" href="#intrested"> Interested </a>
                                             {% else %}
-                                                <button class="btn btn--white options__button" type="submit"> Interested </button>
+                                                <a class="btn btn--white options__button" type="submit" href="#intrested"> Interested </a>
                                             {% endif %}
                                     </form>
                             </div>
@@ -147,6 +147,28 @@
                         </div>
                 </div>
 
+                {% ifequal rental.author request.user %}
+                {% else %}
+                <div class="popup popup--signup" id="intrested">
+                    <div class="popup__card">
+                        <div class="popup__card--head">
+                            {% if request.user in rental.intrested.all %}
+                                    Are you sure you want to mark yourself uninterested in this rental
+                            {% else %}
+                                    Are you sure you want to mark yourself interested in this rental
+                            {% endif %}
+                        </div>
+                        <div class="popup__card--body">
+
+                            <form action="{% url 'rentals:intrested' pk=rental.pk %}" method="POST"> 
+                                        {% csrf_token %}
+                                        <button class="btn btn--secondary u-margin-bottom-small" type="submit"> Confirm </button>
+                            </form>
+                            <a class="btn btn--secondary options__button" href="#">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                {% endifequal %}
 
 
 

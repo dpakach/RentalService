@@ -4,6 +4,18 @@
 {% url 'accounts:signup' as signup_url %}
 {% url 'profiles:user_detail' as profile_url %}
 {% load staticfiles %}
+<div class="popup popup--signup" id="logout">
+    <div class="popup__card">
+        <div class="popup__card--head">
+            Are you sure you want to logout?
+        </div>
+        <div class="popup__card--body">
+            <a href="{% url 'accounts:logout' %}" class="btn btn--rentaladd u-margin-bottom-small">Confirm</a>
+            <a class="btn btn--secondary options__button" href="#">Cancel</a>
+        </div>
+    </div>
+</div>
+
 <nav class="main-nav">
         <div class="main-nav__logo-box">
                 <img class="main-nav__logo"src="/static/images/logo-small-white.png" alt="">
@@ -50,7 +62,7 @@
                         </a>
                 </li>
                 <li class="main-nav__item">
-                        <a  class="main-nav__link {% ifequal logout_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">
+                        <a  class="main-nav__link {% ifequal logout_url request.path %}main-nav__link--active{%endifequal%}" href="#logout">
                                 <svg class="icon main-nav__link__icon">
                                         <use xlink:href="{% static 'images/sprite.svg' %}#icon-log-out"></use>
                                 </svg>
