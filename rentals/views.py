@@ -20,7 +20,7 @@ class IndexView(generic.ListView):
     template_name = 'rentals/index.html'
     context_object_name = 'rentals_list'
     model = Rental
-    paginate_by = 5
+    paginate_by = 2
 
     def get_queryset(self):
         """
@@ -32,13 +32,28 @@ class IndexView(generic.ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
         query = self.request.GET.get('q')
-        qs = Rental.objects.all().order_by('-rating')
+        page = self.request.GET.get('page')
+        qs = Rental.objects.order_by('-rating')
         if query:
-            qs = Rental.objects.search(query).order_by('-rating')
+            qs = qs.search(query)
             context['query'] = query
+        paginator = Paginator(qs, 2)
+        if page:
+            qs = paginator.page(page)
 
         context['rentals_list'] = qs
         return context
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(IndexView, self).get_context_data(*args, **kwargs)
+    #     query = self.request.GET.get('q')
+    #     qs = Rental.objects.all().order_by('-rating')
+    #     if query:
+    #         qs = Rental.objects.search(query).order_by('-rating')
+    #         context['query'] = query
+
+    #     context['rentals_list'] = qs
+    #     return context
 
 
 class DetailView(generic.DetailView):

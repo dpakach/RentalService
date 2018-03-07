@@ -51,6 +51,7 @@
         </section>
         
         {% if is_paginated %}
+        {% if not query %}
         <ul class="pagination">
           {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;  </a></li>
@@ -71,5 +72,6 @@
           {% endif %}
         </ul>
         {% endif %}        
+        {% endif %}
 
 {% endblock %}

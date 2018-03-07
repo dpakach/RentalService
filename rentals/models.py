@@ -114,10 +114,16 @@ class Rental(models.Model):
             return self.title[:25]
 
     def get_description(self):
-        if len(self.description)> 50:
-            return self.description[:50] + ' ...'
+        if len(self.description)> 40:
+            return self.description[:40] + ' ...'
         else:
             return self.description
+
+    def get_title(self):
+        if len(self.title)> 50:
+            return self.title[:50] + ' ...'
+        else:
+            return self.title
 
     def get_absolute_url(self):
         """
@@ -150,8 +156,7 @@ class Comment(models.Model):
                             validators=[
                                 MaxValueValidator(5),
                                 MinValueValidator(1)
-                            ]
-                    )
+                            ])
     created_date    = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
