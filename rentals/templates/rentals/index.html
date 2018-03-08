@@ -56,7 +56,7 @@
           {% if page_obj.has_previous %}
                   <div class="paginate__item"><a href="?page={{ page_obj.previous_page_number }}"><span class="paginate__number">&laquo;</span></a></div>
           {% else %}
-            <div class="paginate__item--disabled"><span>&laquo;</span></div>
+            <div class="paginate__item paginate__item--disabled"><span>&laquo;</span></div>
           {% endif %}
 
 
@@ -72,7 +72,7 @@
           {% if page_obj.has_next %}
                   <div class="paginate__item"><a href="?page={{ page_obj.next_page_number }}"><span class="paginate__number">&raquo;</span></a></div>
           {% else %}
-            <div  class="paginate__item--disabled paginate__item"><span>&raquo;</span></div>
+            <div  class="paginate__item paginate__item--disabled"><span>&raquo;</span></div>
           {% endif %}
         </div>
         {% endif %}        
