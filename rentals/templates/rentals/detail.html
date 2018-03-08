@@ -150,6 +150,7 @@
                 {% ifequal rental.author request.user %}
                 {% else %}
                 <div class="popup popup--signup" id="intrested">
+                  <div class="popup__content">
                     <div class="popup__card">
                         <div class="popup__card--head">
                             {% if request.user in rental.intrested.all %}
@@ -167,6 +168,7 @@
                             <a class="btn btn--secondary options__button" href="#">Cancel</a>
                         </div>
                     </div>
+                  </div>
                 </div>
                 {% endifequal %}
 
@@ -234,14 +236,15 @@
 
                                 <div class="story__text">
                                         <div class="story__text--heading">
-                                                <h3 class="heading-quadnary">{{comment.created_date|timesince}} ago</h3>
-                                            <div class="story__text--star">
-                                                    {% for _ in comment.stars_range %}
-                                                        <svg class="cta__icon cta__icon--full">
-                                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
-                                                        </svg>
-                                                    {% endfor %}
-                                            </div>
+                                                <h3 class="heading-quadnary">{{comment.author}}</h3>
+                                                <div class="story__text--star">
+                                                        {% for _ in comment.stars_range %}
+                                                                <svg class="cta__icon cta__icon--full">
+                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                                                </svg>
+                                                        {% endfor %}
+                                                </div>
+                                                <p>{{comment.created_date|timesince}} ago</p>
                                         </div>
                                         <p>
                                         {{comment.text}}

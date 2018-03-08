@@ -5,15 +5,17 @@
 {% url 'profiles:user_detail' as profile_url %}
 {% load staticfiles %}
 <div class="popup popup--signup" id="logout">
-    <div class="popup__card">
-        <div class="popup__card--head">
-            Are you sure you want to logout?
+    <div class="popup__content">
+            <div class="popup__card">
+                <div class="popup__card--head">
+                    Are you sure you want to logout?
+                </div>
+                <div class="popup__card--body">
+                    <a href="{% url 'accounts:logout' %}" class="btn btn--rentaladd u-margin-bottom-small">Confirm</a>
+                    <a class="btn btn--secondary options__button" href="#">Cancel</a>
+                </div>
+            </div>
         </div>
-        <div class="popup__card--body">
-            <a href="{% url 'accounts:logout' %}" class="btn btn--rentaladd u-margin-bottom-small">Confirm</a>
-            <a class="btn btn--secondary options__button" href="#">Cancel</a>
-        </div>
-    </div>
 </div>
 
 <nav class="main-nav">
