@@ -26,6 +26,26 @@ SECRET_KEY = '8$jwsqhgsvnvay21#ezp48$8-$+mam(a8$0&dp^qa2daiq$(5#'
 DEBUG = True
 ALLOWED_HOSTS = ["localhost", 'localhost:8000']
 
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # third party apps go here
+    'taggit',
+
+    # local apps go here
+    'accounts',
+    'rentals',
+    'profiles',
+    'errors',
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

@@ -25,7 +25,6 @@
         <div class="main-nav__search">
                 <div id="search">
                         <form action="/rentals/" method="GET" id="navForm">
-                                {% csrf_token %}
                                 <input id="navSearch" autocomplete="off" class="main-nav__search__input" placeholder="Search..." name='q' value={{request.GET.q}}>
                         </form>
                         <div class="main-nav__suggestions" id="suggestionsBox">
@@ -47,7 +46,7 @@
                         </a>
                 </li>
                 <li class="main-nav__item">
-                        <a  class="main-nav__link {% ifequal rental_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}">
+                        <a  class="main-nav__link {% ifequal rental_url request.path %}main-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}?page=1">
                                 <svg class="icon main-nav__link__icon">
                                         <use xlink:href="{% static 'images/sprite.svg' %}#icon-office"></use>
                                 </svg>

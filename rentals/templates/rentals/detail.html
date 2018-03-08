@@ -113,7 +113,7 @@
                 {% endifequal %}
 
                 <div class="options">
-                        <div class="options__map">
+                        <div class="options__map" id="mapDiv">
                                 <h1>Map</h1>  
                         </div>
 
@@ -133,7 +133,6 @@
                             {% else %}
                             <div class="options__buttons">
                                     <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
-                                    <form action="{% url 'rentals:intrested' pk=rental.pk %}" method="POST"> 
                                     
                                             {% csrf_token %}
                                             {% if request.user in rental.intrested.all %}
@@ -141,7 +140,6 @@
                                             {% else %}
                                                 <a class="btn btn--white options__button" type="submit" href="#intrested"> Interested </a>
                                             {% endif %}
-                                    </form>
                             </div>
                             {% endifequal %}
                         </div>
@@ -172,16 +170,9 @@
                 </div>
                 {% endifequal %}
 
-
-
-                <div class="user">
-                        <div class="user__photo">
-                        
-                        </div>
-                        <div class="user__info">
-                        </div>
-                </div>
-
+                <!--
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=43.2,-79.8&zoom=14&size=800x150&key=AIzaSyBBPkHM44ThhYSchGzmuYBgHAmx2NhSqD4&scale=2" alt="map">
+                -->
 
                 <h2 class="heading-secondary">reviews</h2>
                 <div class="reviews" id="reviews">
