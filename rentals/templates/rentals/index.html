@@ -54,9 +54,9 @@
         {% if is_paginated %}
         <div class="paginate">
           {% if page_obj.has_previous %}
-                  <div class="paginate__item"><a href="?page={{ page_obj.previous_page_number }}"><span class="paginate__number">&laquo;</span></a></div>
+                  <a href="?page={{ page_obj.previous_page_number }}"><div class="paginate__item"><span class="paginate__number">&laquo;</span></div></a>
           {% else %}
-            <div class="paginate__item paginate__item--disabled"><span>&laquo;</span></div>
+            <div class="paginate__item paginate__item--disabled"><span class="paginate__number">&laquo;</span></div>
           {% endif %}
 
 
@@ -64,15 +64,15 @@
             {% if page_obj.number == i %}
                     <div class="active paginate__item paginate__item--current"><span class="paginate__number">{{i}}</span></a></div>
             {% else %}
-              <div class="paginate__item"><a href="?page={{ i }}"><span class="paginate__number">{{i}}</span></a></div>
+              <a href="?page={{ i }}"><div class="paginate__item"><span class="paginate__number">{{i}}</span></div></a>
             {% endif %}
           {% endfor %}
 
 
           {% if page_obj.has_next %}
-                  <div class="paginate__item"><a href="?page={{ page_obj.next_page_number }}"><span class="paginate__number">&raquo;</span></a></div>
+                  <a href="?page={{ page_obj.next_page_number }}"><div class="paginate__item"><span class="paginate__number">&raquo;</span></div></a>
           {% else %}
-            <div  class="paginate__item paginate__item--disabled"><span>&raquo;</span></div>
+            <div  class="paginate__item paginate__item--disabled"><span class="paginate__number">&raquo;</span></div>
           {% endif %}
         </div>
         {% endif %}        
