@@ -14,6 +14,3 @@ function autoComplete(input, latInput, lngInput) {
 }
 
 export default autoComplete;
-
-
-

@@ -13,7 +13,7 @@
 
                 {% endif %}
                 transition: background-image 1s;
-                background-position: bottom;
+                background-position: top right;
             }
             .hero:hover{
                 {% if rental.photo %}
@@ -131,22 +131,44 @@
                             </div>
                             {% ifequal request.user rental.author %}
                             {% else %}
-                                    <div class="options__buttons">
-                                            <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
-                                            <form action="{% url 'rentals:intrested' pk=rental.pk %}" method="POST"> 
-                                            
-                                                    {% csrf_token %}
-                                                    {% if request.user in rental.intrested.all %}
-                                                        <button class="btn btn--active" type="submit"> Interested </button>
-                                                    {% else %}
-                                                        <button class="btn btn--white options__button" type="submit"> Interested </button>
-                                                    {% endif %}
-                                            </form>
-                                    </div>
+                            <div class="options__buttons">
+                                    <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
+                                    
+                                            {% csrf_token %}
+                                            {% if request.user in rental.intrested.all %}
+                                                <a class="btn btn--active" type="submit" href="#intrested"> Interested </a>
+                                            {% else %}
+                                                <a class="btn btn--white options__button" type="submit" href="#intrested"> Interested </a>
+                                            {% endif %}
+                            </div>
                             {% endifequal %}
                         </div>
                 </div>
 
+                {% ifequal rental.author request.user %}
+                {% else %}
+                <div class="popup popup--signup" id="intrested">
+                  <div class="popup__content">
+                    <div class="popup__card">
+                        <div class="popup__card--head">
+                            {% if request.user in rental.intrested.all %}
+                                    Are you sure you want to mark yourself uninterested in this rental
+                            {% else %}
+                                    Are you sure you want to mark yourself interested in this rental
+                            {% endif %}
+                        </div>
+                        <div class="popup__card--body">
+
+                            <form action="{% url 'rentals:intrested' pk=rental.pk %}" method="POST"> 
+                                        {% csrf_token %}
+                                        <button class="btn btn--secondary u-margin-bottom-small" type="submit"> Confirm </button>
+                            </form>
+                            <a class="btn btn--secondary options__button" href="#">Cancel</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                {% endifequal %}
 
                 <!--
                 <img src="https://maps.googleapis.com/maps/api/staticmap?center=43.2,-79.8&zoom=14&size=800x150&key=AIzaSyBBPkHM44ThhYSchGzmuYBgHAmx2NhSqD4&scale=2" alt="map">
@@ -155,11 +177,29 @@
                 <h2 class="heading-secondary">reviews</h2>
                 <div class="reviews">
                                 <form class="form reviews__form" action={% url "rentals:comment" pk=rental.pk %} method="POST">
-                                    <div class="review__form__inputs">
+                                    <div class="reviews__form__inputs">
                                         {% csrf_token %}
                                         {% for field in form %}
                                                     {{field}}
                                         {% endfor %}
+                                        <div class="reviews__form__star">
+                                            <svg class="cta__icon cta__icon--full" id="reviewformstar1">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar2">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar3">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar4">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                            <svg class="cta__icon " id="reviewformstar5">
+                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                            </svg>
+                                        
+                                        </div>
                                     </div>
                                         <button class="btn btn--primary reviews__form__button" type="submit">Submit</button>
                                 </form>
@@ -187,14 +227,15 @@
 
                                 <div class="story__text">
                                         <div class="story__text--heading">
-                                                <h3 class="heading-quadnary">{{comment.created_date|timesince}} ago</h3>
-                                            <div class="story__text--star">
-                                                    {% for _ in comment.stars_range %}
-                                                        <svg class="cta__icon cta__icon--full">
-                                                                <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
-                                                        </svg>
-                                                    {% endfor %}
-                                            </div>
+                                                <h3 class="heading-quadnary">{{comment.author}}</h3>
+                                                <div class="story__text--star">
+                                                        {% for _ in comment.stars_range %}
+                                                                <svg class="cta__icon cta__icon--full">
+                                                                    <use xlink:href="{% static 'images/sprite.svg' %}#icon-star"></use>
+                                                                </svg>
+                                                        {% endfor %}
+                                                </div>
+                                                <p>{{comment.created_date|timesince}} ago</p>
                                         </div>
                                         <p>
                                         {{comment.text}}
