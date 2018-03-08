@@ -30,7 +30,7 @@ class CommentForm(forms.ModelForm):
         fields = ['text', 'stars',]
 
         widgets = {
-            'text': Textarea(attrs={'class': 'reviews__form__textarea' }),
+            'text': Textarea(attrs={'class': 'reviews__form__textarea', 'placeholder': 'Write a review'}),
             'stars': forms.NumberInput(
                 attrs={'class': 'reviews__form__star' },
             )
