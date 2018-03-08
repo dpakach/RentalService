@@ -160,7 +160,7 @@ def search_api(request):
         data_list.append(obj.title)
 
     data = {
-        'rentals': data_list[:5]
+        'rentals': data_list
     }
     return JsonResponse(data)
 

@@ -55,10 +55,13 @@ function findMatches(wordToMatch, find){
 function displayMatches(){
         const matchArray = findMatches(this.value, find);
         //console.log(matchArray);
-        let html = matchArray.map(rental => {
-                query = rental.split(" ").join('+')
-                return `<a class="suggestion" href="/rentals/?q=${query}">${rental}</a>`;
-        }).join('');
+        let html = ""
+        for(var i = 0; i < 5; i++){
+                if(matchArray[i]){
+                        query = matchArray[i].split(" ").join('+')
+                        html +=  `<a class="suggestion" href="/rentals/?q=${query}">${matchArray[i]}</a>`;
+                }
+        }
         if(!html){
             html = `<span class="suggestions__notfound">no results found!</span>`
         }
