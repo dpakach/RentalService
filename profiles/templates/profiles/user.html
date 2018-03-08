@@ -119,7 +119,6 @@
         {% if rentals %}
         <h3 class="heading-tertiary u-center-text u-margin-bottom-small" id="profile-rental-section">Rentals From this User</h3>
         <form class="form form--fullscreen u-margin-bottom-big" action="{% url 'profiles:detail' username=object.user %}" method="GET">
-                        {% csrf_token %}
                         <input placeholder="Search..." name='uq' value={{request.GET.uq}}>
                 </form>
         <section class="section section--cards">
