@@ -184,8 +184,8 @@
 
 
                 <h2 class="heading-secondary">reviews</h2>
-                <div class="reviews">
-                                <form class="form reviews__form" action={% url "rentals:comment" pk=rental.pk %} method="POST">
+                <div class="reviews" id="reviews">
+                                <form class="form reviews__form" action="{% url "rentals:comment" pk=rental.pk %}" method="POST">
                                     <div class="reviews__form__inputs">
                                         {% csrf_token %}
                                             {% if form.non_field_errors %}

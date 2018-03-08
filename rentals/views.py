@@ -128,7 +128,7 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
         """
 
         pk = self.kwargs['pk']
-        return reverse('rentals:detail', kwargs={'pk':pk})
+        return reverse('rentals:detail', kwargs={'pk':pk}) + '#reviews'
 
 
 @login_required
