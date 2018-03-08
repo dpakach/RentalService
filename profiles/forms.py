@@ -12,5 +12,5 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['full_name', 'bio', 'birth_date', 'phone_number', 'pic', 'pic']
         widgets = {
-            'birth_date': forms.DateInput(attrs={'class': 'datepicker'})
+            'birth_date': forms.DateInput(attrs={'class': 'datepicker', 'type': 'date'})
         }

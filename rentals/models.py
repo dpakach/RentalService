@@ -131,6 +131,13 @@ class Rental(models.Model):
         else:
             return True
 
+    def can_review(self, user):
+        for comment in self.comments.all():
+            if user.username == comment.author.username:
+                return False
+        return  True
+
+
 
 class Comment(models.Model):
     """

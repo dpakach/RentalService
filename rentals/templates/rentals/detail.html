@@ -188,7 +188,17 @@
                                 <form class="form reviews__form" action={% url "rentals:comment" pk=rental.pk %} method="POST">
                                     <div class="reviews__form__inputs">
                                         {% csrf_token %}
+                                            {% if form.non_field_errors %}
+                                                    {% for error in form.non_field_errors %}
+                                                            {{error}}
+                                                    {% endfor %}
+                                            {% endif %}
                                         {% for field in form %}
+                                                {% if field.errors %}
+                                                        {% for error in field.errors %}
+                                                            <p class="form__error">{{error}}</p>
+                                                        {% endfor %}
+                                                {% endif %}
                                                     {{field}}
                                         {% endfor %}
                                         <div class="reviews__form__star">

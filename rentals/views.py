@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.forms import ValidationError
 
 from django.core.paginator import Paginator
 from .forms import CommentForm
@@ -110,6 +111,12 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 
         obj = form.save(commit=False)
         obj.rental = Rental.objects.get(pk = self.kwargs.get('pk'))
+        pk = self.kwargs['pk']
+        try:
+            if not obj.rental.can_review(self.request.user):
+                raise ValidationError('You can only review once!')
+        except ValidationError:
+            return redirect('rentals:detail', pk=pk)
         obj.rental.rating = (obj.rental.rating * obj.rental.comments.count() + obj.stars)/(obj.rental.comments.count() + 1)
         obj.rental.save()
         obj.author = self.request.user
