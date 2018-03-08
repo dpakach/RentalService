@@ -51,25 +51,29 @@
         </section>
         
         {% if is_paginated %}
-        <ul class="pagination">
+        <div class="paginate">
           {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;  </a></li>
+                  <div class="paginate__item"><a href="?page={{ page_obj.previous_page_number }}"><span class="paginate__number">&laquo;</span></a></div>
           {% else %}
-            <li class="disabled"><span>&laquo;</span></li>
+            <div class="paginate__item--disabled"><span>&laquo;</span></div>
           {% endif %}
+
+
           {% for i in paginator.page_range %}
             {% if page_obj.number == i %}
-              <li class="active"><span>  {{ i }}   <span class="sr-only">( current ) </span></span></li>
+                    <div class="active paginate__item paginate__item--current"><span class="paginate__number">{{i}}</span></a></div>
             {% else %}
-              <li><a href="?page={{ i }}">  {{ i }}  </a></li>
+              <div class="paginate__item"><a href="?page={{ i }}"><span class="paginate__number">{{i}}</span></a></div>
             {% endif %}
           {% endfor %}
+
+
           {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}">  &raquo;</a></li>
+                  <div class="paginate__item"><a href="?page={{ page_obj.next_page_number }}"><span class="paginate__number">&raquo;</span></a></div>
           {% else %}
-            <li class="disabled"><span>&raquo;</span></li>
+            <div  class="paginate__item--disabled paginate__item"><span>&raquo;</span></div>
           {% endif %}
-        </ul>
+        </div>
         {% endif %}        
 
 {% endblock %}
