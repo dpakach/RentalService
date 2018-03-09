@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block head_title %} Update Profile | {{ block.super }}{% endblock %}
 
@@ -8,7 +9,7 @@
 
                 <div class="card card__form card__form--signup">
 
-                        <div class="card__picture card__form__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url(/static/images/login.jpeg);">
+                        <div class="card__picture card__form__picture" style="background-image: linear-gradient(to right bottom, rgba(64, 110, 142, .7), rgba(22, 25, 37, .7)), url({% static 'images/form_images/profile.jpeg' %});">
                                 &nbsp;
                         </div>
                         <h4 class="card__heading card__heading--form">

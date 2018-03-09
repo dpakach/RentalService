@@ -4,7 +4,7 @@
 
 {% block content %}
         <h1 class="heading-primary u-margin-bottom-small u-center-text">Rentals</h1>
-        <a class="btn btn--rentaladd u-margin-bottom-big u-center-text" href="{% url "rentals:create" %}">Add new</a>
+        <a class="btn btn--rentaladd u-margin-bottom-big u-center-text" href="{% url "rentals:create" %}">Publish</a>
 
         {% if query %}
                 <p class="heading-quadnary u-center-text u-margin-bottom-medium">showing result for:  <span class="u-hl-text" style="font-size: 120%; padding: 1rem; font-weight: 700 text-transform: none;">{{query}}</span></p>
