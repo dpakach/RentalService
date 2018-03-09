@@ -4,7 +4,7 @@
 
 {% block head_title %}Home | {{ block.super }}{% endblock %}
 
-{% block content %}
+{% block header %}
         <style>
                 .header{
                         background-image: linear-gradient(to right bottom,
@@ -12,6 +12,9 @@
                                                             rgba(0, 0, 0,.6)
                                                         ),
                                                 url({% static "images/signup.jpeg" %});
+                        background-position: center;
+                        background-attachment: fixed;
+                        height: 95vh;
                 }
         </style>
 
@@ -33,7 +36,9 @@
                 {% endif %}
         </header>
 
+{% endblock header %}
 
+{% block content %}
         <div class="profile__line"></div>
         <div class="u-margin-bottom-medium">&nbsp;</div>
         {% if not user.is_authenticated %}
