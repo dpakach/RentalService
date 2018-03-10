@@ -24,6 +24,12 @@
             }
         </style>
 
+        {% if rental.occupied %}
+        <div class="message message--error" style="margin: 2rem auto;">
+                <p>This rental is already occupied</p>
+        </div>
+        {% endif %}
+
         <section class="section section--detail section--detail--rental">
                 <div class="top">
 
@@ -112,7 +118,7 @@
                         </div>
                 {% endifequal %}
 
-                <div class="options">
+                <div class="options" id="#options">
                         <div class="options__map" id="mapDiv">
                                 <h1>Map</h1>  
                         </div>
@@ -130,20 +136,51 @@
                                 <p>{{rental.created_date}}</p>
                             </div>
                             {% ifequal request.user rental.author %}
+                                            {% if rental.occupied %}
+                                                <a class="btn btn--active" type="submit" href="#occupied"> Occupied </a>
+                                            {% else %}
+                                                <a class="btn btn--white options__button"  href="#occupied"> Occupied</a>
+                                            {% endif %}
                             {% else %}
                             <div class="options__buttons">
                                     <a class="btn btn--white options__button" href="{% url "profiles:detail" username=rental.author.username %}">Contact </a>
                                     
-                                            {% csrf_token %}
                                             {% if request.user in rental.intrested.all %}
                                                 <a class="btn btn--active" type="submit" href="#intrested"> Interested </a>
                                             {% else %}
-                                                <a class="btn btn--white options__button" type="submit" href="#intrested"> Interested </a>
+                                                <a class="btn btn--white options__button" href="#intrested"> Interested </a>
                                             {% endif %}
                             </div>
                             {% endifequal %}
                         </div>
                 </div>
+
+
+                {% ifequal rental.author request.user %}
+                <div class="popup popup--signup" id="occupied">
+
+                  <div class="popup__content">
+                    <div class="popup__card">
+                        <div class="popup__card--head">
+                            {% if rental.occupied %}
+                                    Are you sure you want to mark this rental as Occupied
+                            {% else %}
+                                    Are you sure you want to mark this rental as not Occupied
+                            {% endif %}
+                        </div>
+                        <div class="popup__card--body">
+
+                            <form action="{% url 'rentals:occupied' pk=rental.pk %}" method="POST"> 
+                                        {% csrf_token %}
+                                        <button class="btn btn--secondary u-margin-bottom-small" type="submit"> Confirm </button>
+                            </form>
+                            <a class="btn btn--secondary options__button" href="#">Cancel</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                {% endifequal %}
+
 
                 {% ifequal rental.author request.user %}
                 {% else %}

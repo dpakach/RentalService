@@ -65,7 +65,6 @@ class RentalManager(models.Manager):
     def custom_search(self, query):
         return self.get_queryset().custom_search(query)
 
-
     def toggle_intrested(self, pk, user):
         rental = get_object_or_404(Rental, pk=pk)
         if user in rental.intrested.all():
@@ -76,8 +75,13 @@ class RentalManager(models.Manager):
         else:
             rental.intrested.add(user)
             added=True
-
+        print('func', rental)
         return added
+
+    def toggle_occupied(self, pk):
+        rental = Rental.objects.get(pk=pk)
+        rental.occupied = not rental.occupied
+        return rental.save()
 
 
 class Rental(models.Model):
@@ -99,6 +103,7 @@ class Rental(models.Model):
     intrested       = models.ManyToManyField(User, related_name="intrested_rentals", blank=True)
     lat             = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
     lng             = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    occupied        = models.BooleanField(default=False)
 
     tags = TaggableManager()
 
