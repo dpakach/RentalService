@@ -149,9 +149,18 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 @login_required
 def intrested_in_rental(request, pk=None):
     intrested_rental = get_object_or_404(Rental, pk__iexact=pk)
-    if request.user.is_authenticated():
+    if not intrested_rental.occupied:
         is_intrested = Rental.objects.toggle_intrested(intrested_rental.pk, request.user)
     return redirect('rentals:detail', pk=intrested_rental.pk)
+
+
+@login_required
+def occupied_rental(request, pk=None):
+    print('view: pk', pk)
+    rental = get_object_or_404(Rental, pk__iexact=pk)
+    print(rental)
+    Rental.objects.toggle_occupied(rental.pk)
+    return redirect('rentals:detail', pk=rental.pk)
 
 
 def search_api(request):
@@ -173,7 +182,7 @@ def search_api(request):
 
 
 def loc_api(request, pk):
-    print(pk)
+    print('lob', pk)
     rental = get_object_or_404(Rental, pk__iexact=pk)
     data = {
         'location': rental.location,
