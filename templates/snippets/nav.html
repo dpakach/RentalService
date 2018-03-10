@@ -95,10 +95,10 @@
                 <li class="mobile-nav__item"><a class="mobile-nav__link" href="#">&nbsp;</a></li>
                 <li class="mobile-nav__item"><a class="mobile-nav__link" href="#">&nbsp;</a></li>
                 <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal home_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'home' %}">Home</a></li>
-                <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal rental_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}">Rental</a></li>
+                <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal rental_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'rentals:index' %}?page=1">Rental</a></li>
                 {% if user.is_authenticated %}
                         <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal profile_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">profile</a></li>
-                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal logout_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:logout' %}">logout</a> </li>
+                        <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal logout_url request.path %} mobile-nav__link--active{%endifequal%}" href="#logout">logout</a> </li>
                 {% else %}
                         <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal login_url request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:login' %}">Login</a></li>
                         <li class="mobile-nav__item"><a class="mobile-nav__link {% ifequal signup_url  request.path %} mobile-nav__link--active{%endifequal%}" href="{% url 'accounts:signup' %}">signup</a></li>

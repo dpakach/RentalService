@@ -27,7 +27,7 @@
         <section class="section section--detail section--detail--rental">
                 <div class="top">
 
-                        <div class="hero" >
+                        <div class="hero"  style="transition: all 1s;">
                                 <h1 class="hero__text hero__text--main">
                                         <span class="span card__heading-span">{{rental.title}}</span>
                                 </h1>
@@ -84,7 +84,7 @@
                 {% endif %}
 
                 {% ifequal rental.author request.user %}
-                        <h3 class="heading-tertiary u-marign-bottom-medium">People intrested in your rentals</h3>
+                        <h3 class="heading-tertiary u-margin-bottom-small">People intrested in your rentals</h3>
                         <div class="tags" style="text-align:center;">
                                 {% if rental.intrested.all %}
 
@@ -174,7 +174,7 @@
                 <img src="https://maps.googleapis.com/maps/api/staticmap?center=43.2,-79.8&zoom=14&size=800x150&key=AIzaSyBBPkHM44ThhYSchGzmuYBgHAmx2NhSqD4&scale=2" alt="map">
                 -->
 
-                <h2 class="heading-secondary">reviews</h2>
+                <h2 class="heading-secondary u-margin-bottom-small">reviews</h2>
                 <div class="reviews" id="reviews">
                                 <form class="form reviews__form" action="{% url "rentals:comment" pk=rental.pk %}" method="POST">
                                     <div class="reviews__form__inputs">

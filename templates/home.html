@@ -100,10 +100,10 @@
                 {% else %}
 
 
-                <h2 class="heading-primary u-margin-bottom-medium u-center-text">Your Rentals</h2>
-                <section class="section section--cards u-margin-bottom-medium">
-
                 {% if rentals_list %}
+
+                        <h2 class="heading-primary u-margin-bottom-medium u-center-text">Your Rentals</h2>
+                        <section class="section section--cards u-margin-bottom-medium">
 
                 {% for obj in rentals_list %}
 
@@ -141,13 +141,9 @@
                 {% endif %}
                 </section>
 
-
-
                 {% if rentals_list %}
                     <a class="btn btn--rentaladd u-margin-bottom-big u-center-text" href="{% url 'profiles:user_detail' %}#profile-rental-section">View All</a>
                 {% endif %}
-
-
 
                 {% if intrested_rentals_list %}
                 <div class="profile__line"></div>
