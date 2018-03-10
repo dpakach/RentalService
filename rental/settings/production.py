@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'rentals',
     'profiles',
+    'errors',
 ]
 
 # Database
