@@ -38,6 +38,7 @@ def login(request, **kwargs):
     else:
         return user_login(request, **kwargs)
 
+
 def signup(request):
     if request.user.is_authenticated():
         return redirect(settings.LOGIN_REDIRECT_URL)
@@ -65,6 +66,7 @@ def signup(request):
 
 def account_activation_sent(request):
     return render(request, 'accounts/account_activation_sent.html')
+
 
 def activate(request, uidb64, token):
     try:

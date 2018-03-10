@@ -88,10 +88,10 @@ SECURE_FRAME_DENY               = True
 
 
 
-B2_BUCKET_NAME = os.environ.get('HB2_B2_BUCKET_NAME')
-B2_BUCKET_ID = os.environ.get('HB2_B2_BUCKET_ID')
-B2_ACCOUNT_ID = os.environ.get('HB2_B2_ACCOUNT_ID')
-B2_APPLICATION_KEY = os.environ.get('HB2_B2_APP_KEY')
+B2_BUCKET_NAME = os.environ.get('B2_BUCKET_NAME')
+B2_BUCKET_ID = os.environ.get('B2_BUCKET_ID')
+B2_ACCOUNT_ID = os.environ.get('B2_ACCOUNT_ID')
+B2_APPLICATION_KEY = os.environ.get('B2_APP_KEY')
 DEFAULT_FILE_STORAGE = 'django_b2storage.backblaze_b2.B2Storage' # To be able to use B2
 
 
