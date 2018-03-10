@@ -151,15 +151,17 @@ function cb(e, searchbox){
 
 // map stuff
 //
-const mapendpoint = '/rentals/ajax/9/loc/';
+rental_detail_url = window.location.href;
+pk = rental_detail_url.split('/')[4];
+console.log(pk);
+const mapendpoint = `/rentals/ajax/${rental_detail_url.split('/')[4]}/loc/`;
 
 function makeMap(mapDiv, mapOptions) {
     if(!mapDiv) return;
-    console.log(mapOptions);
-    console.log(mapDiv);
     //make our map
-    const map = new google.maps.Map(mapDiv, mapOptions);
+    map = new google.maps.Map(mapDiv, mapOptions);
 }
+
 
 function getMapData(mapendpoint, fn){
         fetch(mapendpoint)
@@ -169,15 +171,44 @@ function getMapData(mapendpoint, fn){
                 });
 }
 
-getMapData(mapendpoint, (data) => {
-        const mapOptions = {
-                center: {lat: data.lat, lng: data.lng},
-                //center: {lat: 43.2, -79.8},
-                zoom: 10
-        }
-        makeMap(document.getElementById('mapDiv'), mapOptions);
-});
+// getMapData(mapendpoint, (data) => {
+//         const mapOptions = {
+//                 center: {lat: parseFloat(data.lat), lng: parseFloat(data.lng)},
+//                 //center: {lat: 43.2, lng: -79.8},
+//                 zoom: 10
+//         }
+//         makeMap(document.getElementById('mapDiv'), mapOptions);
+// });
 
+function initMap(){
+        getMapData(mapendpoint, (data) => {
+                const mapOptions = {
+                        //center: {lat: data.lat, lng: data.lng},
+                        center: {lat: parseFloat(data.lat), lng: parseFloat(data.lng)},
+                        //center: {lat: parseFloat(28), lng: parseFloat(83)},
+                        //center: {lat: 28.2613, lng: 83.9721},
+                        zoom: 10
+                }
+                console.log(data);
+                let map;
+                makeMap(document.getElementById('mapDiv'), mapOptions);
+                const marker = new google.maps.Marker({
+                        position: mapOptions,
+                });
+                marker.setMap(map);
+        });
+//        //var uluru = {lat: -25.363, lng: 131.044};
+//        var uluru = {lat: 28.238, lng: 83.9956};
+//        //var ulru = {lat: {{rental.lat}}, lng: {{rental.lng}}};
+//        var map = new google.maps.Map(document.getElementById('mapDiv'), {
+//                zoom: 15,
+//                center: uluru
+//        });
+//        var marker = new google.maps.Marker({
+//                position: uluru,
+//                map: map
+//        });
+}
 
 
 //staticMap = ([lng, lat]) => `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=800x150&key=${process.env.MAP_KEY}&markers=${lat},${lng}&scale=2`;
