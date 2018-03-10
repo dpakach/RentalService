@@ -5,6 +5,7 @@ from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.forms import ValidationError
+from django.http import Http404
 
 from django.core.paginator import Paginator
 from .forms import CommentForm
@@ -93,7 +94,7 @@ class RentalCreateView(LoginRequiredMixin, generic.CreateView):
 
 
 
-class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
+class RentalUpdateView(LoginRequiredMixin,  generic.UpdateView):
     """
     UpdateView to update rentals
     This is a class based view for updating rental objects
@@ -107,6 +108,12 @@ class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
         this method return the rental object to update in the UpdateView
         """
         return Rental.objects.filter(pk = self.kwargs.get('pk', None))
+
+    def get_object(self, *args, **kwargs):
+        obj = super(RentalUpdateView, self).get_object(*args, **kwargs)
+        if not obj.author == self.request.user:
+            raise Http404
+        return obj
     
 
 
