@@ -7,6 +7,7 @@ from .views import (
     RentalUpdateView,
     CommentCreateView,
     intrested_in_rental,
+    occupied_rental,
     search_api,
     loc_api,
 ) 
@@ -20,6 +21,7 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/update/$', RentalUpdateView.as_view(), name="update"),
     url(r'^(?P<pk>[0-9]+)/comment/$', CommentCreateView.as_view(), name="comment"),
     url(r'^(?P<pk>[0-9]+)/intrested/$', intrested_in_rental, name="intrested"),
+    url(r'^(?P<pk>[0-9]+)/occupied/$', occupied_rental, name="occupied"),
     url(r'^ajax/search/$', search_api, name="search"),
     url(r'^ajax/(?P<pk>[0-9]+)/loc/$', loc_api, name="loc"),
 ]
