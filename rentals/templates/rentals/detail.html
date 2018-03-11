@@ -67,7 +67,7 @@
                         </div>
                 </div>
                 <div class="description">
-                        <p>{{rental.description}}</p>
+                        <p>{{rental.description | linebreaks}}</p>
                             {% ifequal request.user.username rental.author.username %}
                                 <a href="{% url 'rentals:update' pk=rental.pk %}" class="btn btn--rentaladd u-margin-bottom-small">Edit</a>
                             {% endifequal %}
