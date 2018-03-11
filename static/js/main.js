@@ -187,7 +187,7 @@ function initMap(){
                         center: {lat: parseFloat(data.lat), lng: parseFloat(data.lng)},
                         //center: {lat: parseFloat(28), lng: parseFloat(83)},
                         //center: {lat: 28.2613, lng: 83.9721},
-                        zoom: 10
+                        zoom: 15
                 }
                 console.log(data);
                 let map;
