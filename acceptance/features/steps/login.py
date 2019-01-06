@@ -16,7 +16,7 @@ def step_impl(context, username, password):
 
 @when(u'the user navigates to the login page')
 def step_impl(context):
-    context.browser.visit("http://localhost:8000/accounts/login")
+    context.browser.visit(context.server_url + "/accounts/login")
 
 @when(u'the user tries to log in with username "{username}" and password "{password}"')
 def step_impl(context, username, password):
@@ -33,7 +33,7 @@ def step_impl(context):
 
 @given(u'the user has logged out')
 def step_impl(context):
-    context.browser.visit('http://localhost:8000/accounts/logout')
+    context.browser.visit(context.server_url + '/accounts/logout')
 
 @then(u'the error message should be displayed in the login page')
 def step_impl(context):

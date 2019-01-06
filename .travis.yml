@@ -1,0 +1,30 @@
+dist: xenial
+language: python
+python:
+  - "3.6"
+addons:
+  sauce_connect: true
+  hosts:
+    - rental
+services:
+  - postgresql
+env:
+  global:
+    - SELENIUM_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@localhost:4445/wd/hub
+    - SERVER_URL=http://rental:8000
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements-test.txt
+before_script:
+  - psql -c "CREATE USER db_user WITH PASSWORD 'password';"
+  - psql -c "CREATE DATABASE rental;"
+  - psql -c "GRANT all ON DATABASE rental TO db_user;"
+  - python manage.py migrate
+  - python manage.py runserver&
+  - sleep 10
+script:
+  - cd $TRAVIS_BUILD_DIR/acceptance
+  - behave
+after_script:
+  - cat $TRAVIS_BUILD_DIR/server.log
+cache: pip
