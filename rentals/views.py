@@ -158,7 +158,7 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 def intrested_in_rental(request, pk=None):
     intrested_rental = get_object_or_404(Rental, pk__iexact=pk)
     if not intrested_rental.occupied:
-        is_intrested = Rental.objects.toggle_intrested(
+        Rental.objects.toggle_intrested(
             intrested_rental.pk, request.user
         )
     return redirect("rentals:detail", pk=intrested_rental.pk)
