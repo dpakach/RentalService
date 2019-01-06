@@ -93,12 +93,3 @@ SECURE_FRAME_DENY               = True
 # B2_BUCKET_ID = os.environ.get('B2_BUCKET_ID')
 # B2_BUCKET_NAME = os.environ.get('B2_BUCKET_NAME')
 # DEFAULT_FILE_STORAGE = 'django_b2storage.backblaze_b2.B2Storage' # To be able to use B2
-
-
-
-#For email verification
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ajaykarki619'
-EMAIL_HOST_PASSWORD = 'gmail_12371'
