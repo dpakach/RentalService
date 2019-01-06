@@ -16,8 +16,9 @@ from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from rentals.models import Rental
 
+
 class Homeview(TemplateView):
-    template_name='home.html'
+    template_name = "home.html"
 
     def get_context_data(self, *args, **kwargs):
         """
@@ -25,16 +26,19 @@ class Homeview(TemplateView):
         """
         context = super(Homeview, self).get_context_data(*args, **kwargs)
         if self.request.user.is_authenticated:
-            context['rentals_list'] = Rental.objects.filter(author=self.request.user).order_by('-rating')[:3]
-            context['intrested_rentals_list'] = self.request.user.intrested_rentals.order_by('-rating')[:3]
+            context["rentals_list"] = Rental.objects.filter(
+                author=self.request.user
+            ).order_by("-rating")[:3]
+            context[
+                "intrested_rentals_list"
+            ] = self.request.user.intrested_rentals.order_by("-rating")[:3]
         return context
-
 
 
 def login(request, **kwargs):
     if request.user.is_authenticated():
         # return redirect(settings.LOGIN_REDIRECT_URL)
-        return redirect('/accounts')
+        return redirect("/accounts")
     else:
         return user_login(request, **kwargs)
 
@@ -42,30 +46,33 @@ def login(request, **kwargs):
 def signup(request):
     if request.user.is_authenticated():
         return redirect(settings.LOGIN_REDIRECT_URL)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
-            subject = 'Activate Your Rental Account'
-            message = render_to_string('accounts/account_activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
+            subject = "Activate Your Rental Account"
+            message = render_to_string(
+                "accounts/account_activation_email.html",
+                {
+                    "user": user,
+                    "domain": current_site.domain,
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "token": account_activation_token.make_token(user),
+                },
+            )
             user.email_user(subject, message)
             user_login(request, user)
-            return redirect('accounts:account_activation_sent')
+            return redirect("accounts:account_activation_sent")
     else:
         form = SignUpForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+    return render(request, "accounts/signup.html", {"form": form})
 
 
 def account_activation_sent(request):
-    return render(request, 'accounts/account_activation_sent.html')
+    return render(request, "accounts/account_activation_sent.html")
 
 
 def activate(request, uidb64, token):
@@ -80,6 +87,6 @@ def activate(request, uidb64, token):
         user.email_confirmed = True
         user.save()
         user_login(request, user)
-        return redirect('profiles:update')
+        return redirect("profiles:update")
     else:
-        return render(request, 'accounts/account_activation_invalid.html')
+        return render(request, "accounts/account_activation_invalid.html")

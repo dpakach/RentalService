@@ -14,9 +14,9 @@ User = get_user_model()
 
 # Create your views here.
 
+
 class ProfileDetailView(DetailView):
-    template_name = 'profiles/user.html'
-    
+    template_name = "profiles/user.html"
 
     def get_object(self):
         username = self.kwargs.get("username")
@@ -28,19 +28,19 @@ class ProfileDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ProfileDetailView, self).get_context_data(*args, **kwargs)
         user = self.get_object().user
-        query = self.request.GET.get('uq')
+        query = self.request.GET.get("uq")
         rentals_exists = Rental.objects.filter(author=user)
         qs = Rental.objects.filter(author=user)
         if query:
             qs = qs.search(query)
         if rentals_exists and qs.exists():
-            context['rentals'] = qs
+            context["rentals"] = qs
         if self.request.user.is_authenticated and self.request.user.intrested_rentals:
-            qs = self.request.user.intrested_rentals.order_by('-rating')
-            query = self.request.GET.get('int_uq')
+            qs = self.request.user.intrested_rentals.order_by("-rating")
+            query = self.request.GET.get("int_uq")
             if query:
                 qs = qs.search(query)
-            context['intrested_rentals'] = qs
+            context["intrested_rentals"] = qs
         return context
 
 
@@ -58,6 +58,3 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         """
         user = self.request.user
         return user
-
-
-

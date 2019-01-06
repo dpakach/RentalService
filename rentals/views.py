@@ -14,13 +14,14 @@ from .models import Rental, Comment
 
 # Create your views here.
 
+
 class IndexView(generic.ListView):
     """
     indexView for showing the list of avilable rentals to the user
     """
 
-    template_name = 'rentals/index.html'
-    context_object_name = 'rentals_list'
+    template_name = "rentals/index.html"
+    context_object_name = "rentals_list"
     model = Rental
     paginate_by = 12
 
@@ -28,22 +29,21 @@ class IndexView(generic.ListView):
         """
         ths method returns the context data of the rental objects for the index view
         """
-        return Rental.objects.order_by('-rating')
-
+        return Rental.objects.order_by("-rating")
 
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
-        query = self.request.GET.get('q')
-        page = self.request.GET.get('page')
-        qs = Rental.objects.order_by('-rating')
+        query = self.request.GET.get("q")
+        page = self.request.GET.get("page")
+        qs = Rental.objects.order_by("-rating")
         if query:
             qs = qs.search(query)
-            context['query'] = query
+            context["query"] = query
         paginator = Paginator(qs, 12)
         if page:
             qs = paginator.page(page)
 
-        context['rentals_list'] = qs
+        context["rentals_list"] = qs
         return context
 
     # def get_context_data(self, *args, **kwargs):
@@ -66,14 +66,14 @@ class DetailView(generic.DetailView):
     """
 
     model = Rental
-    template_name = 'rentals/detail.html'
+    template_name = "rentals/detail.html"
 
     def get_context_data(self, *args, **kwargs):
         """
         ths method returns the context data of the rental for the detail view
         """
         context = super(DetailView, self).get_context_data(*args, **kwargs)
-        context['form'] = CommentForm
+        context["form"] = CommentForm
         return context
 
 
@@ -83,38 +83,36 @@ class RentalCreateView(LoginRequiredMixin, generic.CreateView):
     This is a class based view for cereating new rental objects
     """
 
-    form_class = RentalCreateForm 
-    template_name = 'rentals/rental_form.html'
+    form_class = RentalCreateForm
+    template_name = "rentals/rental_form.html"
 
     def form_valid(self, form):
         instance = form.save(commit=False)
-        #file_form.save()
+        # file_form.save()
         instance.author = self.request.user
         return super(RentalCreateView, self).form_valid(form)
 
 
-
-class RentalUpdateView(LoginRequiredMixin,  generic.UpdateView):
+class RentalUpdateView(LoginRequiredMixin, generic.UpdateView):
     """
     UpdateView to update rentals
     This is a class based view for updating rental objects
     """
 
     form_class = RentalCreateForm
-    template_name = 'rentals/rental_form.html'
+    template_name = "rentals/rental_form.html"
 
     def get_queryset(self):
         """
         this method return the rental object to update in the UpdateView
         """
-        return Rental.objects.filter(pk = self.kwargs.get('pk', None))
+        return Rental.objects.filter(pk=self.kwargs.get("pk", None))
 
     def get_object(self, *args, **kwargs):
         obj = super(RentalUpdateView, self).get_object(*args, **kwargs)
         if not obj.author == self.request.user:
             raise Http404
         return obj
-    
 
 
 class CommentCreateView(LoginRequiredMixin, generic.CreateView):
@@ -122,9 +120,10 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     CreateView to create a new comment for a rental 
     this view gives a form to create new comment and rating for a rental
     """
+
     model = Comment
     form_class = CommentForm
-    template_name = 'rentals/detail.html'
+    template_name = "rentals/detail.html"
 
     def form_valid(self, form):
         """
@@ -132,14 +131,16 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
         """
 
         obj = form.save(commit=False)
-        obj.rental = Rental.objects.get(pk = self.kwargs.get('pk'))
-        pk = self.kwargs['pk']
+        obj.rental = Rental.objects.get(pk=self.kwargs.get("pk"))
+        pk = self.kwargs["pk"]
         try:
             if not obj.rental.can_review(self.request.user):
-                raise ValidationError('You can only review once!')
+                raise ValidationError("You can only review once!")
         except ValidationError:
-            return redirect('rentals:detail', pk=pk)
-        obj.rental.rating = (obj.rental.rating * obj.rental.comments.count() + obj.stars)/(obj.rental.comments.count() + 1)
+            return redirect("rentals:detail", pk=pk)
+        obj.rental.rating = (
+            obj.rental.rating * obj.rental.comments.count() + obj.stars
+        ) / (obj.rental.comments.count() + 1)
         obj.rental.save()
         obj.author = self.request.user
         return super(CommentCreateView, self).form_valid(form)
@@ -149,25 +150,27 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
         this method returns the url to renturn to if the form is submitted and valid
         """
 
-        pk = self.kwargs['pk']
-        return reverse('rentals:detail', kwargs={'pk':pk}) + '#reviews'
+        pk = self.kwargs["pk"]
+        return reverse("rentals:detail", kwargs={"pk": pk}) + "#reviews"
 
 
 @login_required
 def intrested_in_rental(request, pk=None):
     intrested_rental = get_object_or_404(Rental, pk__iexact=pk)
     if not intrested_rental.occupied:
-        is_intrested = Rental.objects.toggle_intrested(intrested_rental.pk, request.user)
-    return redirect('rentals:detail', pk=intrested_rental.pk)
+        is_intrested = Rental.objects.toggle_intrested(
+            intrested_rental.pk, request.user
+        )
+    return redirect("rentals:detail", pk=intrested_rental.pk)
 
 
 @login_required
 def occupied_rental(request, pk=None):
-    print('view: pk', pk)
+    print("view: pk", pk)
     rental = get_object_or_404(Rental, pk__iexact=pk)
     print(rental)
     Rental.objects.toggle_occupied(rental.pk)
-    return redirect('rentals:detail', pk=rental.pk)
+    return redirect("rentals:detail", pk=rental.pk)
 
 
 def search_api(request):
@@ -177,24 +180,18 @@ def search_api(request):
     # if query:
     #     qs = []
     #     qs = Rental.objects.custom_search(query)
-    data_list= []
+    data_list = []
     qs = Rental.objects.all()
     for obj in qs:
         data_list.append(obj.title)
 
-    data = {
-        'rentals': data_list
-    }
+    data = {"rentals": data_list}
     return JsonResponse(data)
 
 
 def loc_api(request, pk):
-    print('lob', pk)
+    print("lob", pk)
     rental = get_object_or_404(Rental, pk__iexact=pk)
-    data = {
-        'location': rental.location,
-        'lat': rental.lat,
-        'lng': rental.lng,
-    }
-    print(data);
+    data = {"location": rental.location, "lat": rental.lat, "lng": rental.lng}
+    print(data)
     return JsonResponse(data)

@@ -13,11 +13,20 @@ class RentalCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RentalCreateForm, self).__init__(*args, **kwargs)
-    
-    class Meta():
+
+    class Meta:
         model = Rental
 
-        fields = ['title','description', 'rent', 'photo', 'location', 'lat', 'lng', 'tags']
+        fields = [
+            "title",
+            "description",
+            "rent",
+            "photo",
+            "location",
+            "lat",
+            "lng",
+            "tags",
+        ]
 
 
 class CommentForm(forms.ModelForm):
@@ -25,14 +34,16 @@ class CommentForm(forms.ModelForm):
     form to add new comment
     """
 
-    class Meta():
+    class Meta:
         model = Comment
-        fields = ['text', 'stars',]
+        fields = ["text", "stars"]
 
         widgets = {
-            'text': Textarea(attrs={'class': 'reviews__form__textarea', 'placeholder': 'Write a review'}),
-            'stars': forms.NumberInput(
-                attrs={'class': 'reviews__form__star' },
-            )
+            "text": Textarea(
+                attrs={
+                    "class": "reviews__form__textarea",
+                    "placeholder": "Write a review",
+                }
+            ),
+            "stars": forms.NumberInput(attrs={"class": "reviews__form__star"}),
         }
-
