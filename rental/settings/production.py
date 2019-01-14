@@ -20,45 +20,44 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8$jwsqhgsvnvay21#ezp48$8-$+mam(a8$0&dp^qa2daiq$(5#'
+SECRET_KEY = "8$jwsqhgsvnvay21#ezp48$8-$+mam(a8$0&dp^qa2daiq$(5#"
 
 
-ALLOWED_HOSTS = ['rental-ads.herokuapp.com']
+ALLOWED_HOSTS = ["rental-ads.herokuapp.com"]
 
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     # third party apps go here
-    'taggit',
-
+    "taggit",
     # local apps go here
-    'accounts',
-    'rentals',
-    'profiles',
-    'errors',
+    "accounts",
+    "rentals",
+    "profiles",
+    "errors",
 ]
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 DEBUG = False
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
 
 # add this
 import dj_database_url
+
 db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['CONN_MAX_AGE'] = 500
+DATABASES["default"].update(db_from_env)
+DATABASES["default"]["CONN_MAX_AGE"] = 500
 
 # DATABASES = {
 #     'default': {
@@ -72,20 +71,18 @@ DATABASES['default']['CONN_MAX_AGE'] = 500
 # }
 
 
+STATICFILES_STORAGE = "whitenoise.django.GzipManifestStaticFilesStorage"
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-
-CORS_REPLACE_HTTPS_REFERER      = True
-HOST_SCHEME                     = "https://"
-SECURE_PROXY_SSL_HEADER         = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT             = True
-SESSION_COOKIE_SECURE           = True
-CSRF_COOKIE_SECURE              = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
-SECURE_HSTS_SECONDS             = 1000000
-SECURE_FRAME_DENY               = True
-
+CORS_REPLACE_HTTPS_REFERER = True
+HOST_SCHEME = "https://"
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_SECONDS = 1000000
+SECURE_FRAME_DENY = True
 
 
 # B2_ACCOUNT_ID = os.environ.get('B2_ACCOUNT_ID')

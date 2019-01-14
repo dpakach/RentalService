@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('profiles', '0002_profile_intrested_count'),
-    ]
+    dependencies = [("profiles", "0002_profile_intrested_count")]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='reviews_count',
+            model_name="profile",
+            name="reviews_count",
             field=models.IntegerField(default=0),
-        ),
+        )
     ]

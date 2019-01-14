@@ -12,23 +12,51 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL)]
 
     operations = [
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('full_name', models.CharField(blank=True, max_length=128, null=True)),
-                ('bio', models.TextField(blank=True, max_length=1024, null=True)),
-                ('birth_date', models.DateField(blank=True, null=True)),
-                ('profession', models.CharField(blank=True, max_length=128, null=True)),
-                ('pic', models.FileField(blank=True, null=True, upload_to='photos/user/')),
-                ('phone_number', models.CharField(blank=True, max_length=17, validators=[django.core.validators.RegexValidator(message='Phone number must be in format +9999999999', regex='^\\+?1?\\d{9,15}$')])),
-                ('email_confirmed', models.BooleanField(default=False)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='user_profile', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("full_name", models.CharField(blank=True, max_length=128, null=True)),
+                ("bio", models.TextField(blank=True, max_length=1024, null=True)),
+                ("birth_date", models.DateField(blank=True, null=True)),
+                ("profession", models.CharField(blank=True, max_length=128, null=True)),
+                (
+                    "pic",
+                    models.FileField(blank=True, null=True, upload_to="photos/user/"),
+                ),
+                (
+                    "phone_number",
+                    models.CharField(
+                        blank=True,
+                        max_length=17,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                message="Phone number must be in format +9999999999",
+                                regex="^\\+?1?\\d{9,15}$",
+                            )
+                        ],
+                    ),
+                ),
+                ("email_confirmed", models.BooleanField(default=False)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user_profile",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
-        ),
+        )
     ]

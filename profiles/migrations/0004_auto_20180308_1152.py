@@ -7,17 +7,9 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('profiles', '0003_profile_reviews_count'),
-    ]
+    dependencies = [("profiles", "0003_profile_reviews_count")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='profile',
-            name='intrested_count',
-        ),
-        migrations.RemoveField(
-            model_name='profile',
-            name='reviews_count',
-        ),
+        migrations.RemoveField(model_name="profile", name="intrested_count"),
+        migrations.RemoveField(model_name="profile", name="reviews_count"),
     ]

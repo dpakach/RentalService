@@ -14,31 +14,33 @@ from taggit.managers import TaggableManager
 
 # Create your models here.
 
+
 class RentalQuerySet(models.query.QuerySet):
     """
     QuerySet class for Rental model
     this class is used for costom QuerySet while querying database
     """
+
     def search(self, query):
         """
         this function queries the database for search functionality in index view
         """
         return self.filter(
-                Q(title__icontains=query)|
-                Q(author__username__icontains=query)|
-                Q(description__icontains=query)|
-                Q(location__icontains=query)|
-                Q(tags__name__icontains=query)
-            ).distinct()
+            Q(title__icontains=query)
+            | Q(author__username__icontains=query)
+            | Q(description__icontains=query)
+            | Q(location__icontains=query)
+            | Q(tags__name__icontains=query)
+        ).distinct()
 
     def custom_search(self, query):
         qs1 = self.filter(title__icontains=query)
         qs2 = self.filter(
-                Q(author__username__icontains=query)|
-                Q(description__icontains=query)|
-                Q(location__icontains=query)|
-                Q(tags__name__icontains=query)
-            ).distinct()
+            Q(author__username__icontains=query)
+            | Q(description__icontains=query)
+            | Q(location__icontains=query)
+            | Q(tags__name__icontains=query)
+        ).distinct()
 
         return list(set(list(chain(qs1, qs2))))
 
@@ -55,7 +57,6 @@ class RentalManager(models.Manager):
         """
         return RentalQuerySet(self.model, using=self._db)
 
-
     def search(self, query):
         """
         manage search functionality of the index view
@@ -69,13 +70,13 @@ class RentalManager(models.Manager):
         rental = get_object_or_404(Rental, pk=pk)
         if user in rental.intrested.all():
             rental.intrested.remove(user)
-            added=False
+            added = False
         elif user.username == rental.author.username:
-            added=False
+            added = False
         else:
             rental.intrested.add(user)
-            added=True
-        print('func', rental)
+            added = True
+        print("func", rental)
         return added
 
     def toggle_occupied(self, pk):
@@ -92,23 +93,24 @@ class Rental(models.Model):
 
     """
 
-    author          = models.ForeignKey(User)
-    title           = models.CharField(max_length=128)
-    description     = models.TextField(max_length=4096, blank=True, null=True)
-    created_date    = models.DateTimeField(default=timezone.now)
-    rent            = models.BigIntegerField(default=0)
-    photo           = models.FileField(upload_to='photos/', blank=True, null=True)
-    location        = models.CharField(max_length=256, blank=True, null=True)
-    rating          = models.FloatField(default=0)
-    intrested       = models.ManyToManyField(User, related_name="intrested_rentals", blank=True)
-    lat             = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
-    lng             = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
-    occupied        = models.BooleanField(default=False)
+    author = models.ForeignKey(User)
+    title = models.CharField(max_length=128)
+    description = models.TextField(max_length=4096, blank=True, null=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    rent = models.BigIntegerField(default=0)
+    photo = models.FileField(upload_to="photos/", blank=True, null=True)
+    location = models.CharField(max_length=256, blank=True, null=True)
+    rating = models.FloatField(default=0)
+    intrested = models.ManyToManyField(
+        User, related_name="intrested_rentals", blank=True
+    )
+    lat = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    lng = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    occupied = models.BooleanField(default=False)
 
     tags = TaggableManager()
 
     objects = RentalManager()
-
 
     def __str__(self):
         """
@@ -119,14 +121,14 @@ class Rental(models.Model):
             return self.title[:25]
 
     def get_description(self):
-        if len(self.description)> 40:
-            return self.description[:40] + ' ...'
+        if len(self.description) > 40:
+            return self.description[:40] + " ..."
         else:
             return self.description
 
     def get_title(self):
-        if len(self.title)> 50:
-            return self.title[:50] + ' ...'
+        if len(self.title) > 50:
+            return self.title[:50] + " ..."
         else:
             return self.title
 
@@ -136,7 +138,7 @@ class Rental(models.Model):
         for eg /rentals/pk/
         where pk is primary key
         """
-        return reverse('rentals:detail', kwargs={'pk':self.pk})
+        return reverse("rentals:detail", kwargs={"pk": self.pk})
 
     def is_intrested(self, user):
         if user not in self.intrested.all():
@@ -148,8 +150,7 @@ class Rental(models.Model):
         for comment in self.comments.all():
             if user.username == comment.author.username:
                 return False
-        return  True
-
+        return True
 
 
 class Comment(models.Model):
@@ -159,16 +160,11 @@ class Comment(models.Model):
     connected to a rental through a ForeignKey
     """
 
-
-    rental          = models.ForeignKey('Rental', related_name='comments')
-    author          = models.ForeignKey(User)
-    text            = models.TextField(max_length=1024)
-    stars           = models.IntegerField(
-                            validators=[
-                                MaxValueValidator(5),
-                                MinValueValidator(1)
-                            ])
-    created_date    = models.DateTimeField(default=timezone.now)
+    rental = models.ForeignKey("Rental", related_name="comments")
+    author = models.ForeignKey(User)
+    text = models.TextField(max_length=1024)
+    stars = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
+    created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         """

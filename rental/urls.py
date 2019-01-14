@@ -20,18 +20,18 @@ from django.contrib import admin
 from accounts import views as accounts_views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', accounts_views.Homeview.as_view(), name='home'),
-    url(r'^accounts/', include('accounts.urls')),
-    url(r'^rentals/', include('rentals.urls')),
-    url(r'^accounts/', include('profiles.urls')),
+    url(r"^admin/", admin.site.urls),
+    url(r"^$", accounts_views.Homeview.as_view(), name="home"),
+    url(r"^accounts/", include("accounts.urls")),
+    url(r"^rentals/", include("rentals.urls")),
+    url(r"^accounts/", include("profiles.urls")),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-handler404 = 'errors.views.not_found'
-handler500 = 'errors.views.server_error'
-handler403 = 'errors.views.permission_denied'
-handler400 = 'errors.views.bad_request'
+handler404 = "errors.views.not_found"
+handler500 = "errors.views.server_error"
+handler403 = "errors.views.permission_denied"
+handler400 = "errors.views.bad_request"

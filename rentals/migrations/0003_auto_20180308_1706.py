@@ -8,14 +8,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('rentals', '0002_auto_20180306_0823'),
-    ]
+    dependencies = [("rentals", "0002_auto_20180306_0823")]
 
     operations = [
         migrations.AlterField(
-            model_name='comment',
-            name='stars',
-            field=models.IntegerField(validators=[django.core.validators.MaxValueValidator(5), django.core.validators.MinValueValidator(1)]),
-        ),
+            model_name="comment",
+            name="stars",
+            field=models.IntegerField(
+                validators=[
+                    django.core.validators.MaxValueValidator(5),
+                    django.core.validators.MinValueValidator(1),
+                ]
+            ),
+        )
     ]
